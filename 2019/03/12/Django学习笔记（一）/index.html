@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="Django学习笔记（一）Django文件urls.py网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py与数据库操作相关，存入或读取数据时用到这个，当然用不到数据">
+  <meta name="description" content="Django文件urls.py网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。">
 <meta name="keywords" content="Django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django学习笔记（一）">
 <meta property="og:url" content="https://browallia.github.io/2019/03/12/Django学习笔记（一）/index.html">
 <meta property="og:site_name" content="Viva La Vida">
-<meta property="og:description" content="Django学习笔记（一）Django文件urls.py网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py与数据库操作相关，存入或读取数据时用到这个，当然用不到数据">
+<meta property="og:description" content="Django文件urls.py网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-11T17:59:00.980Z">
+<meta property="og:updated_time" content="2019-03-11T18:29:51.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django学习笔记（一）">
-<meta name="twitter:description" content="Django学习笔记（一）Django文件urls.py网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py与数据库操作相关，存入或读取数据时用到这个，当然用不到数据">
+<meta name="twitter:description" content="Django文件urls.py网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。">
 
 
 
@@ -380,7 +380,7 @@
                 
               
 
-              <time title="创建时间：2019-03-12 00:50:32 / 修改时间：01:59:00" itemprop="dateCreated datePublished" datetime="2019-03-12T00:50:32+08:00">2019-03-12</time>
+              <time title="创建时间：2019-03-12 00:50:32 / 修改时间：02:29:51" itemprop="dateCreated datePublished" datetime="2019-03-12T00:50:32+08:00">2019-03-12</time>
             
 
             
@@ -444,7 +444,8 @@
       
 
       
-        <h1 id="Django学习笔记（一）"><a href="#Django学习笔记（一）" class="headerlink" title="Django学习笔记（一）"></a>Django学习笔记（一）</h1><h2 id="Django文件"><a href="#Django文件" class="headerlink" title="Django文件"></a>Django文件</h2><h3 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h3><p>网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。</p>
+        <a id="more"></a>
+<h2 id="Django文件"><a href="#Django文件" class="headerlink" title="Django文件"></a>Django文件</h2><h3 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h3><p>网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。</p>
 <h3 id="views-py"><a href="#views-py" class="headerlink" title="views,py"></a>views,py</h3><p>处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。</p>
 <h3 id="models-py"><a href="#models-py" class="headerlink" title="models.py"></a>models.py</h3><p>与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。</p>
 <h3 id="forms-py"><a href="#forms-py" class="headerlink" title="forms.py"></a>forms.py</h3><p>表单，用户在浏览器上输入数据提交，对数据的验证工作以及输入框的生成等工作，当然你也可以不使用。</p>
@@ -677,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django学习笔记（一）"><span class="nav-number">1.</span> <span class="nav-text">Django学习笔记（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django文件"><span class="nav-number">1.1.</span> <span class="nav-text">Django文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#urls-py"><span class="nav-number">1.1.1.</span> <span class="nav-text">urls.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#views-py"><span class="nav-number">1.1.2.</span> <span class="nav-text">views,py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#models-py"><span class="nav-number">1.1.3.</span> <span class="nav-text">models.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forms-py"><span class="nav-number">1.1.4.</span> <span class="nav-text">forms.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#admin-py"><span class="nav-number">1.1.5.</span> <span class="nav-text">admin.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#settings-py"><span class="nav-number">1.1.6.</span> <span class="nav-text">settings.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django安装"><span class="nav-number">1.2.</span> <span class="nav-text">Django安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django"><span class="nav-number">1.2.1.</span> <span class="nav-text">Django</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境依赖安装（搭建多个开发环境）"><span class="nav-number">1.2.2.</span> <span class="nav-text">虚拟环境依赖安装（搭建多个开发环境）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟环境使用方法"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">虚拟环境使用方法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django文件"><span class="nav-number">1.</span> <span class="nav-text">Django文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#urls-py"><span class="nav-number">1.1.</span> <span class="nav-text">urls.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#views-py"><span class="nav-number">1.2.</span> <span class="nav-text">views,py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#models-py"><span class="nav-number">1.3.</span> <span class="nav-text">models.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forms-py"><span class="nav-number">1.4.</span> <span class="nav-text">forms.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#admin-py"><span class="nav-number">1.5.</span> <span class="nav-text">admin.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#settings-py"><span class="nav-number">1.6.</span> <span class="nav-text">settings.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django安装"><span class="nav-number">2.</span> <span class="nav-text">Django安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django"><span class="nav-number">2.1.</span> <span class="nav-text">Django</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境依赖安装（搭建多个开发环境）"><span class="nav-number">2.2.</span> <span class="nav-text">虚拟环境依赖安装（搭建多个开发环境）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟环境使用方法"><span class="nav-number">2.2.1.</span> <span class="nav-text">虚拟环境使用方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
