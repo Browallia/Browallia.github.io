@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Viva La Vida">
 <meta property="og:description" content="Django基本命令创建project1$django-admin startproject myproject 进入myproject目录 使用开发服务器1$ python manage.py runserver 会报错 1You&amp;apos;re accessing the development server over HTTPS, but it only supports HTTP. dj">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-11T18:29:31.549Z">
+<meta property="og:updated_time" content="2019-03-12T11:19:52.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django学习笔记（二）">
 <meta name="twitter:description" content="Django基本命令创建project1$django-admin startproject myproject 进入myproject目录 使用开发服务器1$ python manage.py runserver 会报错 1You&amp;apos;re accessing the development server over HTTPS, but it only supports HTTP. dj">
@@ -380,7 +380,7 @@
                 
               
 
-              <time title="创建时间：2019-03-12 01:50:32 / 修改时间：02:29:31" itemprop="dateCreated datePublished" datetime="2019-03-12T01:50:32+08:00">2019-03-12</time>
+              <time title="创建时间：2019-03-12 01:50:32 / 修改时间：19:19:52" itemprop="dateCreated datePublished" datetime="2019-03-12T01:50:32+08:00">2019-03-12</time>
             
 
             
@@ -466,21 +466,42 @@
 <h3 id="Django项目环境终端"><a href="#Django项目环境终端" class="headerlink" title="Django项目环境终端"></a>Django项目环境终端</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
 <h3 id="数据库命令行"><a href="#数据库命令行" class="headerlink" title="数据库命令行"></a>数据库命令行</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$python manage.py dbshell</span><br></pre></td></tr></table></figure>
 <p>Django 会自动进入在settings.py中设置的数据库，如果是 MySQL 或 postgreSQL,会要求输入数据库用户密码。</p>
-<p>在这个终端可以执行数据库的SQL语句。如果您对SQL比较熟悉，可能喜欢这种方式。</p>
+<p>在这个终端可以执行数据库的SQL语句。如果对SQL比较熟悉，可能喜欢这种方式。</p>
 <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>在/views.py中输入代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"Hello, world. You're at the learn index."</span>)</span><br></pre></td></tr></table></figure>
 <p>如果想看见效果，我们需要将一个 URL 映射到它</p>
 <p>为了创建 URLconf，请在 learn目录里新建一个 <code>urls.py</code> 文件。</p>
 <p>在urls.py中输入代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">''</span>, views.index, name=<span class="string">'index'</span>),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">path函数有四个参数</span></span><br><span class="line"><span class="string">两个必须参数：route 和 view，两个可选参数：kwargs 和 name。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@route:</span></span><br><span class="line"><span class="string">route 是一个匹配 URL 的准则（类似正则表达式）。当 Django 响应一个请求时，它会从 urlpatterns 的第一项开始，按顺序依次匹配列表中的项，直到找到匹配的项。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">这些准则不会匹配 GET 和 POST 参数或域名。例如，URLconf 在处理请求 https://www.example.com/myapp/ 时，它会尝试匹配 myapp/ 。处理请求 https://www.example.com/myapp/?page=3 时，也只会尝试匹配 myapp/。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@view:</span></span><br><span class="line"><span class="string">当 Django 找到了一个匹配的准则，就会调用这个特定的视图函数，并传入一个 HttpRequest 对象作为第一个参数，被“捕获”的参数以关键字参数的形式传入。稍后，我们会给出一个例子。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@kwargs:</span></span><br><span class="line"><span class="string">任意个关键字参数可以作为一个字典传递给目标视图函数。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@name:</span></span><br><span class="line"><span class="string">为你的 URL 取名能使你在 Django 的任意地方唯一地引用它，尤其是在模板中。这个有用的特性允许你只改一个文件就能全局地修改某个 URL 模式。</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-<p>下一步是要在根 URLconf 文件中指定我们创建的 <code>vx.urls</code> 模块。在 <code>vx/urls.py</code> 文件的 <code>urlpatterns</code> 列表里插入一个 <code>include()</code>， 如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'vx/'</span>, include(<span class="string">'vx.urls'</span>)),</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>函数 <code>include()</code>允许引用其它 URLconfs。每当 Django 遇到 :func：~django.urls.include 时，它会截断与此项匹配的 URL 的部分，并将剩余的字符串发送到 URLconf 以供进一步处理。</p>
-<p>我们设计 <code>include()</code>的理念是使其可以即插即用。因为应用有它自己的URLconf( <code>vx/urls.py</code> )，他们能够被放在 “/vx/“ ， “/fun_vx/“ ，”/content/polls/“，或者其他任何路径下，这个应用都能够正常工作。</p>
+<p>下一步是要在根 URLconf 文件中指定我们创建的 <code>learn.urls</code> 模块。在 <code>vx/urls.py</code> 文件的 <code>urlpatterns</code> 列表里插入一个 <code>include()</code>， 如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'learn/'</span>, include(<span class="string">'learn.urls'</span>)),</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>函数 <code>include()</code>允许引用其它 URLconfs。每当 Django 遇到 <code>:func：~django.urls.include</code>时，它会截断与此项匹配的 URL 的部分，并将剩余的字符串发送到 URLconf 以供进一步处理。</p>
+<p>我们设计 <code>include()</code>的理念是使其可以即插即用。因为应用有它自己的URLconf( <code>vx/urls.py</code> )，他们能够被放在<code>&quot;/vx/&quot; ， &quot;/fun_vx/&quot; ，&quot;/content/vx/&quot;</code>，或者其他任何路径下，这个应用都能够正常工作。</p>
 <p>当包括其它 URL 模式时你应该总是使用 <code>include()</code> ， <code>admin.site.urls</code> 是唯一例外。</p>
 <p>运行</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$python manage.py runserver_plus --cert server.crt</span><br></pre></td></tr></table></figure>
-<p>访问…/learn即可看见简单的文字视图</p>
+<p>访问<code>.../learn</code>即可看见简单的文字视图</p>
+<h2 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h2><p><code>vx/settings.py</code>是Django项目设置的python模块。</p>
+<p>通常，这个配置文件使用 SQLite 作为默认数据库。如果你不熟悉数据库，或者只是想尝试下 Django，这是最简单的选择。Python 内置 SQLite，所以你无需安装额外东西来使用它。当你开始一个真正的项目时，你可能更倾向使用一个更具扩展性的数据库，例如 PostgreSQL，避免中途切换数据库这个令人头疼的问题。</p>
+<p>如果你想使用其他数据库，你需要安装合适的 <a href="https://docs.djangoproject.com/zh-hans/2.1/topics/install/#database-installation" target="_blank" rel="noopener">database bindings</a> ，然后改变设置文件中 <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/settings/#std:setting-DATABASES" target="_blank" rel="noopener"><code>DATABASES</code></a> <code>&#39;default&#39;</code> 项目中的一些键值：</p>
+<ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/ref/settings/#std:setting-DATABASE-ENGINE" target="_blank" rel="noopener"><code>ENGINE</code></a> – 可选值有 <code>&#39;django.db.backends.sqlite3&#39;</code>，<code>&#39;django.db.backends.postgresql&#39;</code>，<code>&#39;django.db.backends.mysql&#39;</code>，或 <code>&#39;django.db.backends.oracle&#39;</code>。其它 <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/databases/#third-party-notes" target="_blank" rel="noopener">可用后端</a>。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/ref/settings/#std:setting-NAME" target="_blank" rel="noopener"><code>NAME</code></a> - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑上的一个文件，在这种情况下， <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/settings/#std:setting-NAME" target="_blank" rel="noopener"><code>NAME</code></a> 应该是此文件的绝对路径，包括文件名。默认值 <code>os.path.join(BASE_DIR, &#39;db.sqlite3&#39;)</code> 将会把数据库文件储存在项目的根目录。</li>
+</ul>
+<p>在编辑/settings之前，将TIME_ZONE设置为自己所在时区</p>
+<p>通常， <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/settings/#std:setting-INSTALLED_APPS" target="_blank" rel="noopener"><code>INSTALLED_APPS</code></a> 默认包括了以下 Django 的自带应用：</p>
+<ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/admin/#module-django.contrib.admin" target="_blank" rel="noopener"><code>django.contrib.admin</code></a> – 管理员站点， 你很快就会使用它。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/topics/auth/#module-django.contrib.auth" target="_blank" rel="noopener"><code>django.contrib.auth</code></a> – 认证授权系统。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/contenttypes/#module-django.contrib.contenttypes" target="_blank" rel="noopener"><code>django.contrib.contenttypes</code></a> – 内容类型框架。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/topics/http/sessions/#module-django.contrib.sessions" target="_blank" rel="noopener"><code>django.contrib.sessions</code></a> – 会话框架。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/messages/#module-django.contrib.messages" target="_blank" rel="noopener"><code>django.contrib.messages</code></a> – 消息框架。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/staticfiles/#module-django.contrib.staticfiles" target="_blank" rel="noopener"><code>django.contrib.staticfiles</code></a> – 管理静态文件的框架。</li>
+</ul>
+<p>这些应用被默认启用是为了给常规项目提供方便。</p>
+<p>默认开启的某些应用需要至少一个数据表，所以，在使用他们之前需要在数据库中创建一些表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$python manage.py migrate</span><br></pre></td></tr></table></figure>
+<h2 id="创造模型"><a href="#创造模型" class="headerlink" title="创造模型"></a>创造模型</h2><p>在 Django 里写一个数据库驱动的 Web 应用的第一步是定义模型 - 也就是数据库结构设计和附加的其它元数据。</p>
 
       
     </div>
@@ -689,7 +710,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django基本命令"><span class="nav-number">1.</span> <span class="nav-text">Django基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建project"><span class="nav-number">1.1.</span> <span class="nav-text">创建project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发服务器"><span class="nav-number">1.2.</span> <span class="nav-text">使用开发服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建APP"><span class="nav-number">1.3.</span> <span class="nav-text">创建APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库表或更改数据库表或字段"><span class="nav-number">1.4.</span> <span class="nav-text">创建数据库表或更改数据库表或字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空数据库"><span class="nav-number">1.5.</span> <span class="nav-text">清空数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建超级管理员"><span class="nav-number">1.6.</span> <span class="nav-text">创建超级管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django项目环境终端"><span class="nav-number">1.7.</span> <span class="nav-text">Django项目环境终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库命令行"><span class="nav-number">1.8.</span> <span class="nav-text">数据库命令行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图"><span class="nav-number">2.</span> <span class="nav-text">视图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django基本命令"><span class="nav-number">1.</span> <span class="nav-text">Django基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建project"><span class="nav-number">1.1.</span> <span class="nav-text">创建project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开发服务器"><span class="nav-number">1.2.</span> <span class="nav-text">使用开发服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建APP"><span class="nav-number">1.3.</span> <span class="nav-text">创建APP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库表或更改数据库表或字段"><span class="nav-number">1.4.</span> <span class="nav-text">创建数据库表或更改数据库表或字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空数据库"><span class="nav-number">1.5.</span> <span class="nav-text">清空数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建超级管理员"><span class="nav-number">1.6.</span> <span class="nav-text">创建超级管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django项目环境终端"><span class="nav-number">1.7.</span> <span class="nav-text">Django项目环境终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库命令行"><span class="nav-number">1.8.</span> <span class="nav-text">数据库命令行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图"><span class="nav-number">2.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库配置"><span class="nav-number">3.</span> <span class="nav-text">数据库配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创造模型"><span class="nav-number">4.</span> <span class="nav-text">创造模型</span></a></li></ol></div>
             
 
           </div>
@@ -740,7 +761,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共1.8k字</span>
+  <span class="post-count">博客全站共2.3k字</span>
 </div>
         
 <div class="busuanzi-count">
