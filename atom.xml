@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2019-04-08T11:48:09.492Z</updated>
+  <updated>2019-04-08T11:56:19.163Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -17,11 +17,29 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>python爬虫框架Scrapy(二)</title>
+    <link href="https://browallia.github.io/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/"/>
+    <id>https://browallia.github.io/2019/04/08/python爬虫框架Scrapy-二/</id>
+    <published>2019-04-08T11:55:54.000Z</published>
+    <updated>2019-04-08T11:56:19.163Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="python爬虫" scheme="https://browallia.github.io/categories/python%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="scrapy" scheme="https://browallia.github.io/tags/scrapy/"/>
+    
+  </entry>
+  
+  <entry>
     <title>python爬虫框架Scrapy(一)</title>
     <link href="https://browallia.github.io/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/"/>
     <id>https://browallia.github.io/2019/04/07/python爬虫框架Scrapy-一/</id>
     <published>2019-04-07T12:11:18.000Z</published>
-    <updated>2019-04-08T11:48:09.492Z</updated>
+    <updated>2019-04-08T11:57:19.005Z</updated>
     
     <summary type="html">
     
@@ -29,7 +47,7 @@
       
         
         
-          &lt;h1 id=&quot;Scrapy框架简介-一&quot;&gt;&lt;a href=&quot;#Scrapy框架简介-一&quot; class=&quot;headerlink&quot; title=&quot;Scrapy框架简介(一)&quot;&gt;&lt;/a&gt;Scrapy框架简介(一)&lt;/h1&gt;&lt;p&gt;&lt;img
+          &lt;h1 id=&quot;Scrapy框架简介&quot;&gt;&lt;a href=&quot;#Scrapy框架简介&quot; class=&quot;headerlink&quot; title=&quot;Scrapy框架简介&quot;&gt;&lt;/a&gt;Scrapy框架简介&lt;/h1&gt;&lt;p&gt;&lt;img
         
       
     
