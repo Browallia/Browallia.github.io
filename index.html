@@ -334,6 +334,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://browallia.github.io/2019/04/22/Linux下的信号量机制与编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BROWALLIA">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Viva La Vida">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/22/Linux下的信号量机制与编程/" itemprop="url">
+                  Linux下的信号量机制与编程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-22 19:02:17 / 修改时间：20:40:14" itemprop="dateCreated datePublished" datetime="2019-04-22T19:02:17+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/操作系统/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+信号量当我们在多用户系统，多进程系统，或是两者混合的系统中使用线程操作编写程序时，我们经常会发现我们有段临界代码，在此处我们需要保证一个进程（或是一个线程的执行）需要排他的访问一个资源。
+为了解决这个问题，引用了信号量机制，我们可以使用互斥或信号量来控制一个多线程程序对于临界区的访问。
+信号量是一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/22/Linux下的信号量机制与编程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://browallia.github.io/2019/04/08/python爬虫框架Scrapy-二/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -380,12 +547,24 @@
                 
               
 
-              <time title="创建时间：2019-04-08 19:55:54 / 修改时间：19:56:19" itemprop="dateCreated datePublished" datetime="2019-04-08T19:55:54+08:00">2019-04-08</time>
+              <time title="创建时间：2019-04-08 19:55:54" itemprop="dateCreated datePublished" datetime="2019-04-08T19:55:54+08:00">2019-04-08</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 20:40:29" itemprop="dateModified" datetime="2019-04-22T20:40:29+08:00">2019-04-22</time>
               
             
           </span>
@@ -439,7 +618,10 @@
         
           
           
-          
+爬虫编写
+item读取数据
+12345678910tr_list = response.xpath("//table[@class='tablelist']/tr")[1:-1]       for tr in tr_list:           item = &#123;&#125;     
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/04/08/python爬虫框架Scrapy-二/#more" rel="contents">
@@ -1521,7 +1703,7 @@ views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染tem
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1540,7 +1722,9 @@ views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染tem
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1561,7 +1745,9 @@ views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染tem
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1648,7 +1834,7 @@ views,py处理用户发出的请求，从urls.py中对应过来, 通过渲染tem
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共3.3k字</span>
+  <span class="post-count">博客全站共4.8k字</span>
 </div>
         
 <div class="busuanzi-count">

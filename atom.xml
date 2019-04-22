@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2019-04-08T11:56:19.163Z</updated>
+  <updated>2019-04-22T12:40:14.485Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -17,13 +17,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Linux下的信号量机制与编程</title>
+    <link href="https://browallia.github.io/2019/04/22/Linux%E4%B8%8B%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A8%8B/"/>
+    <id>https://browallia.github.io/2019/04/22/Linux下的信号量机制与编程/</id>
+    <published>2019-04-22T11:02:17.000Z</published>
+    <updated>2019-04-22T12:40:14.485Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;信号量&quot;&gt;&lt;a href=&quot;#信号量&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="操作系统" scheme="https://browallia.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="Linux编程" scheme="https://browallia.github.io/tags/Linux%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>python爬虫框架Scrapy(二)</title>
     <link href="https://browallia.github.io/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/"/>
     <id>https://browallia.github.io/2019/04/08/python爬虫框架Scrapy-二/</id>
     <published>2019-04-08T11:55:54.000Z</published>
-    <updated>2019-04-08T11:56:19.163Z</updated>
+    <updated>2019-04-22T12:40:29.098Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;爬虫编写&quot;&gt;&lt;a href=&quot;#爬虫编写&quot; class=&quot;headerlink&quot; title=&quot;爬虫编写&quot;&gt;&lt;/a&gt;爬虫编写&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;item读取数据&lt;/p&gt;
+&lt;figure
+        
+      
     
     </summary>
     
