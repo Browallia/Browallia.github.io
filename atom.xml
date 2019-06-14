@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2019-06-14T09:00:28.631Z</updated>
+  <updated>2019-06-14T09:13:36.396Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -21,17 +21,11 @@
     <link href="https://browallia.github.io/2019/06/14/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E8%AE%BE%E8%AE%A1/"/>
     <id>https://browallia.github.io/2019/06/14/软件安全设计/</id>
     <published>2019-06-14T08:57:19.000Z</published>
-    <updated>2019-06-14T09:00:28.631Z</updated>
+    <updated>2019-06-14T09:13:36.396Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;软件安全设计&quot;&gt;&lt;a href=&quot;#软件安全设计&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -55,7 +49,7 @@
       
         
         
-          &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;POSIX信号量的操作&quot;&gt;&lt;a href=&quot;#POSIX信号量的操作&quot; class=&quot;headerlink&quot;
+          &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;POSIX信号量的操作&quot;&gt;&lt;a href=&quot;#POSIX信号量的操作&quot; class=&quot;headerlink&quot;
         
       
     
@@ -77,7 +71,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -97,7 +91,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -117,7 +111,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -141,7 +135,7 @@
       
         
         
-          &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;初试API&quot;&gt;&lt;a href=&quot;#初试API&quot; class=&quot;headerlink&quot;
+          &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;初试API&quot;&gt;&lt;a href=&quot;#初试API&quot; class=&quot;headerlink&quot;
         
       
     
@@ -163,7 +157,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -183,7 +177,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -203,7 +197,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;用numpy实现简单的三层BP神经网络&quot;&gt;&lt;a href=&quot;#用numpy实现简单的三层BP神经网络&quot; class=&quot;headerlink&quot; title=&quot;用numpy实现简单的三层BP神经网络&quot;&gt;&lt;/a&gt;用numpy实现简单的三层BP神经网络&lt;/h1&gt;
+      &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;用numpy实现简单的三层BP神经网络&quot;&gt;&lt;a href=&quot;#用numpy实现简单的三层BP神经网络&quot; class=&quot;headerlink&quot; title=&quot;用numpy实现简单的三层BP神经网络&quot;&gt;&lt;/a&gt;用numpy实现简单的三层BP神经网络&lt;/h1&gt;
     
     </summary>
     
@@ -229,7 +223,7 @@
       
         
         
-          &lt;!-- build time:Fri Jun 14 2019 17:01:08 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
+          &lt;!-- build time:Fri Jun 14 2019 17:14:11 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
         
       
     
