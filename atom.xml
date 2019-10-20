@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2019-10-15T11:45:01.826Z</updated>
+  <updated>2019-10-20T13:32:43.178Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -17,6 +17,26 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CS231n-note-2</title>
+    <link href="https://browallia.github.io/2019/10/15/CS231n-note-2/"/>
+    <id>https://browallia.github.io/2019/10/15/CS231n-note-2/</id>
+    <published>2019-10-15T11:55:48.000Z</published>
+    <updated>2019-10-20T13:32:43.178Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
+    
+    </summary>
+    
+      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CS231n note-1</title>
     <link href="https://browallia.github.io/2019/07/25/CS231n-note-1/"/>
     <id>https://browallia.github.io/2019/07/25/CS231n-note-1/</id>
@@ -25,7 +45,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -45,7 +65,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -65,7 +85,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -85,7 +105,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -105,7 +125,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -125,7 +145,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -145,7 +165,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -165,7 +185,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -185,7 +205,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -205,7 +225,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -231,7 +251,7 @@
       
         
         
-          &lt;!-- build time:Tue Oct 15 2019 19:47:18 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
+          &lt;!-- build time:Sun Oct 20 2019 21:33:15 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
         
       
     
