@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[CS231n-note-3]]></title>
     <url>%2F2019%2F10%2F21%2FCS231n-note-3%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[卷积神经网络卷积核($w$)通常遍历输入向量的所有通道，Input为32 X 32 X 3。卷积核在输入的向量上滑动，进行点积运算$w^Tx+b$卷积核滑动在图像空间滑动，计算出每个位置的点积(滑动的方式可以改变)激活映射PS7X7X3 input(spatially)assume 3X3X3 filter可以得到一个5X5X1的output有多少个卷积核则Output的深度为多少。步长(stride)控制滑动的步长可以得到不同的output。如果stride=3则无法fitinput的纬度，则不采用。Output size：$(N-F) / stride + 1$可以增加像素(PS：补0)来改变输出的维度,保持输出维度和输入维度相同。]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
