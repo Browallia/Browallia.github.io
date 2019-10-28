@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2019-10-28T12:45:05.131Z</updated>
+  <updated>2019-10-28T13:31:58.979Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -17,15 +17,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CS231n-note-4</title>
+    <link href="https://browallia.github.io/2019/10/28/CS231n-note-4/"/>
+    <id>https://browallia.github.io/2019/10/28/CS231n-note-4/</id>
+    <published>2019-10-28T12:46:32.000Z</published>
+    <updated>2019-10-28T13:31:58.979Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;&lt;h1 id=&quot;深度学习软件&quot;&gt;&lt;a href=&quot;#深度学习软件&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CS231n-note-3</title>
     <link href="https://browallia.github.io/2019/10/21/CS231n-note-3/"/>
     <id>https://browallia.github.io/2019/10/21/CS231n-note-3/</id>
     <published>2019-10-21T13:13:32.000Z</published>
-    <updated>2019-10-28T12:45:05.131Z</updated>
+    <updated>2019-10-28T13:31:09.719Z</updated>
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -47,7 +73,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -67,7 +93,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -87,7 +113,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -107,7 +133,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -127,7 +153,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -147,7 +173,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -167,7 +193,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -187,7 +213,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -207,7 +233,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -227,7 +253,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -247,7 +273,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -273,7 +299,7 @@
       
         
         
-          &lt;!-- build time:Mon Oct 28 2019 20:45:29 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
+          &lt;!-- build time:Mon Oct 28 2019 21:32:42 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
         
       
     
