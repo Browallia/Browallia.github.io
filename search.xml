@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[CS231n-note-4]]></title>
     <url>%2F2019%2F10%2F28%2FCS231n-note-4%2F</url>
-    <content type="text"><![CDATA[深度学习软件PyTorch(TODO)组成(三层)Tensor运行在GPU上的命令式数组(Imperative ndarray)Variable计算图中的节点，存储数据和梯度Module一个神经网络的层CNN架构AlexNet：8layersZFNet：在AlexNet基础上台哦正饿了超参数VGG：19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)GoogleNet:23layersResNet:]]></content>
+    <content type="text"><![CDATA[深度学习软件PyTorch(TODO)组成(三层)Tensor运行在GPU上的命令式数组(Imperative ndarray)Variable计算图中的节点，存储数据和梯度Module一个神经网络的层CNN架构AlexNet：8layersZFNet：在AlexNet基础上台哦正饿了超参数VGG：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)GoogleNet:22layers，高效的“Inception”层，无全连接层Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。利用1X1卷积核进行深度的压缩对模型进行改进。ResNet: 152layersResNet的整体结构RNNVanilla RNNh_t = f_w(h_{t-1},x_t)\\ h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\ y_t = W_{hy}h_tLoss是每一个时步下的loss之和W的梯度是每个节点的W梯度值和Vanilla RNN梯度流在计算h0梯度时会发生梯度爆炸或者梯度消失当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。123grad_norm = np.sum(grad * grad)if grad_norm &gt; threshold grad *= (threshold / grad_norm)当梯度消失时可以采用更深的RNN网络，比如LSTM。LSTM(长短期记忆网络)ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。LSTM状态变化图利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。图像标注]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
