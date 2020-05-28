@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2020-05-12T12:58:58.325Z</updated>
+  <updated>2020-05-28T07:11:22.146Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -17,6 +17,46 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>PolarMask-note</title>
+    <link href="https://browallia.github.io/2020/05/28/PolarMask-note/"/>
+    <id>https://browallia.github.io/2020/05/28/PolarMask-note/</id>
+    <published>2020-05-28T07:01:07.000Z</published>
+    <updated>2020-05-28T07:11:22.146Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
+    
+    </summary>
+    
+      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="实例分割" scheme="https://browallia.github.io/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Retinanet&amp;focal-loss</title>
+    <link href="https://browallia.github.io/2020/05/12/Retinanet-focal-loss/"/>
+    <id>https://browallia.github.io/2020/05/12/Retinanet-focal-loss/</id>
+    <published>2020-05-12T13:31:57.000Z</published>
+    <updated>2020-05-12T14:31:27.507Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
+    
+    </summary>
+    
+      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>FPN-note</title>
     <link href="https://browallia.github.io/2020/05/06/FPN-note/"/>
     <id>https://browallia.github.io/2020/05/06/FPN-note/</id>
@@ -25,7 +65,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -45,7 +85,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -65,7 +105,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -85,7 +125,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -105,7 +145,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -125,7 +165,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -145,7 +185,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -165,7 +205,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -185,7 +225,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -207,7 +247,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -227,7 +267,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -247,7 +287,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -267,7 +307,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -287,7 +327,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -307,7 +347,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -327,7 +367,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -347,7 +387,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -367,7 +407,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
+      &lt;!-- build time:Thu May 28 2020 15:11:57 GMT+0800 (GMT+08:00) --&gt;
     
     </summary>
     
@@ -375,48 +415,6 @@
     
     
       <category term="Django" scheme="https://browallia.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Django学习笔记（一）</title>
-    <link href="https://browallia.github.io/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>https://browallia.github.io/2019/03/12/Django学习笔记（一）/</id>
-    <published>2019-03-11T16:50:32.000Z</published>
-    <updated>2019-03-11T18:29:51.346Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="Web学习" scheme="https://browallia.github.io/categories/Web%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="Django" scheme="https://browallia.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>用numpy实现简单的三层BP神经网络</title>
-    <link href="https://browallia.github.io/2018/10/13/%E7%94%A8numpy%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%89%E5%B1%82bp%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
-    <id>https://browallia.github.io/2018/10/13/用numpy实现简单的三层bp神经网络/</id>
-    <published>2018-10-12T16:50:32.000Z</published>
-    <updated>2019-06-16T11:08:26.767Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Tue May 12 2020 21:00:42 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://browallia.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="神经网络" scheme="https://browallia.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
-    
-      <category term="机器学习" scheme="https://browallia.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
