@@ -142,104 +142,6 @@ max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特�
       </tags>
   </entry>
   <entry>
-    <title>CS231n-note-4</title>
-    <url>/2019/10/28/CS231n-note-4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="深度学习软件"><a href="#深度学习软件" class="headerlink" title="深度学习软件"></a>深度学习软件</h1><h2 id="PyTorch-TODO"><a href="#PyTorch-TODO" class="headerlink" title="PyTorch(TODO)"></a>PyTorch(TODO)</h2><h3 id="组成-三层"><a href="#组成-三层" class="headerlink" title="组成(三层)"></a>组成(三层)</h3><h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>运行在GPU上的命令式数组(Imperative ndarray)</p>
-<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p>计算图中的节点，存储数据和梯度</p>
-<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><p>一个神经网络的层</p>
-<h1 id="CNN架构"><a href="#CNN架构" class="headerlink" title="CNN架构"></a>CNN架构</h1><p><strong>AlexNet</strong>：8layers</p>
-<p><strong>ZFNet</strong>：在AlexNet基础上调整了超参数</p>
-<p><strong>VGG</strong>：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)</p>
-<p><strong>GoogleNet</strong>:</p>
-<p>22layers，高效的“Inception”层，无全连接层</p>
-<p>Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。</p>
-<p><img src="/2019/10/28/CS231n-note-4/1.png" alt="1572427047546" style="zoom: 50%;"></p>
-<p>利用1X1卷积核进行深度的压缩对模型进行改进。 </p>
-<p><img src="/2019/10/28/CS231n-note-4/2.png" alt="1572427217649" style="zoom:50%;"></p>
-<p><strong>ResNet</strong>: 152layers</p>
-<p><img src="/2019/10/28/CS231n-note-4/3.png" alt="1572428187168" style="zoom:50%;"></p>
-<p>ResNet的整体结构</p>
-<p><img src="/2019/10/28/CS231n-note-4/4.png" style="zoom:50%;"></p>
-<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p><img src="/2019/10/28/CS231n-note-4/5.png" alt="1572832029309" style="zoom:67%;"></p>
-<p><strong>Vanilla RNN</strong></p>
-<script type="math/tex; mode=display">
-h_t = f_w(h_{t-1},x_t)\\
-h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
-y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
-<p>W的梯度是每个节点的W梯度值和  </p>
-<p><strong>Vanilla RNN梯度流</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/7.png" alt="1572869122126" style="zoom:50%;"></p>
-<p>在计算h0梯度时会发生梯度爆炸或者梯度消失   </p>
-<p>当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grad_norm = np.sum(grad * grad)</span><br><span class="line"><span class="keyword">if</span> grad_norm &gt; threshold</span><br><span class="line">	grad *= (threshold / grad_norm)</span><br></pre></td></tr></table></figure>
-<p>当梯度消失时可以采用更深的RNN网络，比如LSTM。</p>
-<p><strong>LSTM(长短期记忆网络)</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/blog\source\_posts\CS231n-note-4\8.png" alt="1572870827165" style="zoom: 50%;"></p>
-<p> ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。</p>
-<p>LSTM状态变化图</p>
-<p><img src="/2019/10/28/CS231n-note-4/9.png" alt="1572882658486" style="zoom:50%;"></p>
-<p>利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。</p>
-<p><strong>图像标注</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/6.png" alt></p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CS231n-note-5</title>
-    <url>/2019/11/05/CS231n-note-5/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="图像识别和分割"><a href="#图像识别和分割" class="headerlink" title="图像识别和分割"></a>图像识别和分割</h1><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><h3 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h3><p>只将像素进行分割并贴上对应的分类标签。</p>
-<h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea-1"></a><strong>Idea-1</strong></h4><p>sliding windows，利用滑动窗口来对个像素进行分类，计算量太大</p>
-<h4 id="idea-2"><a href="#idea-2" class="headerlink" title="idea-2"></a><strong>idea-2</strong></h4><p>全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。</p>
-<h4 id="idea-3"><a href="#idea-3" class="headerlink" title="idea-3"></a><strong>idea-3</strong></h4><p>不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以用池化或者跨卷积来降低清晰度，但是可以让网络建立的很深。</p>
-<h5 id="upsampling"><a href="#upsampling" class="headerlink" title="upsampling"></a>upsampling</h5><h6 id="去池化-Unpooling"><a href="#去池化-Unpooling" class="headerlink" title="去池化(Unpooling)"></a>去池化(Unpooling)</h6><p><img src="/2019/11/05/CS231n-note-5/1.png" alt="1572945307155" style="zoom:50%;"></p>
-<h6 id="Max-Unpooling"><a href="#Max-Unpooling" class="headerlink" title="Max Unpooling"></a>Max Unpooling</h6><p><img src="/2019/11/05/CS231n-note-5/2.png" alt="1572945525749" style="zoom:50%;"></p>
-<p>将池化层和去池化层相对应，其最大元素的相应位置将会被记录。</p>
-<h6 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h6><p>正常卷积和跨卷积(可以进行downsampling)并且可以学习参数进行下采样</p>
-<p>转置卷积</p>
-<p>在进行转置卷积时，将每个元素(标量)乘以过滤器(卷积核)，然后将加权后的卷积核叠加于新的输出。</p>
-<p><img src="/2019/11/05/CS231n-note-5/3.png" alt="1572946348192" style="zoom:50%;"></p>
-<p>sample：</p>
-<p><img src="/2019/11/05/CS231n-note-5/4.png" alt="1572946547455" style="zoom:50%;"></p>
-<p>卷积矩阵化</p>
-<p><img src="/2019/11/05/CS231n-note-5/5.png" alt="1572955265649" style="zoom:50%;"></p>
-<p>$4<em>4input &lt;—&gt; 4</em>4output$</p>
-<p><img src="/2019/11/05/CS231n-note-5/6.png" alt="1572955416177" style="zoom:50%;"></p>
-<p>$4<em>4input &lt;—&gt;2</em>2output$</p>
-<h2 id="分类和定位"><a href="#分类和定位" class="headerlink" title="分类和定位"></a>分类和定位</h2><p><img src="/2019/11/05/CS231n-note-5/7.png" alt="1572956657061" style="zoom:50%;"></p>
-<p>定位一般使用回归损失函数。</p>
-<h2 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h2><p>固定几类对象，再输入图片之后将识别图中对象框起来并预测该对象的从属类别。</p>
-<p>输入图片的包含对象数量是不确定的。</p>
-<h3 id="候选区域方法-Region-Proposals"><a href="#候选区域方法-Region-Proposals" class="headerlink" title="候选区域方法(Region Proposals)"></a><strong>候选区域方法(Region Proposals)</strong></h3><p>将输入的图像划分为若干(很多)区域，在应用卷积神经网络对其进行分类。</p>
-<p>R-CNN    效率低</p>
-<p>Fast R-CNN 不用事先确定候选区而是通过一个卷积神经网络生成特征映射，在特征映射上通过固定函数像素划分确定候选区</p>
-<p>Faster R-CNN在确定备选区时自己进行区域选择网络的训练</p>
-<h3 id="Detection-without-Proposals"><a href="#Detection-without-Proposals" class="headerlink" title="Detection without Proposals"></a><strong>Detection without Proposals</strong></h3><h4 id="YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><a href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection" class="headerlink" title="YOLO(You Only Look Once)/SSD(Single Shot Detection)"></a>YOLO(You Only Look Once)/SSD(Single Shot Detection)</h4><p>利用回归，将输入图片划分为网格。 然后预测每个基本的方框的类别权重以及距离对象的信息。</p>
-<p><img src="/2019/11/05/CS231n-note-5/8.png" alt="1572970026182" style="zoom:50%;"></p>
-<h3 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h3><p><img src="/2019/11/05/CS231n-note-5/9.png" alt="1572972443690" style="zoom:50%;"></p>
-<p> 两个分支，一个分支进行分类，一个分支进行类似语义分割确定对象的区域。  </p>
-<h3 id="DeepDream-amp-Feature-Inversion"><a href="#DeepDream-amp-Feature-Inversion" class="headerlink" title="DeepDream&amp;Feature Inversion"></a>DeepDream&amp;Feature Inversion</h3><p>DeepDream：放大存在的特征</p>
-<p>Feature Inversion：特征反演</p>
-<h3 id="纹理拼接-amp-风格迁移"><a href="#纹理拼接-amp-风格迁移" class="headerlink" title="纹理拼接&amp;风格迁移"></a>纹理拼接&amp;风格迁移</h3><p>Gram Matrix</p>
-<p><img src="/2019/11/05/CS231n-note-5/10.png" alt="1573008687755" style="zoom:50%;"></p>
-<p><img src="/2019/11/05/CS231n-note-5/11.png" alt="1573008897926" style="zoom:50%;"></p>
-<p>传统风格迁移会消耗大量的资源</p>
-<p><strong>Fast Style Transfer</strong></p>
-<h1 id="可视化和理解卷积神经网络"><a href="#可视化和理解卷积神经网络" class="headerlink" title="可视化和理解卷积神经网络"></a>可视化和理解卷积神经网络</h1>]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CS231n-note-3</title>
     <url>/2019/10/21/CS231n-note-3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -371,6 +273,104 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       <tags>
         <tag>计算机视觉</tag>
         <tag>卷积神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS231n-note-4</title>
+    <url>/2019/10/28/CS231n-note-4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="深度学习软件"><a href="#深度学习软件" class="headerlink" title="深度学习软件"></a>深度学习软件</h1><h2 id="PyTorch-TODO"><a href="#PyTorch-TODO" class="headerlink" title="PyTorch(TODO)"></a>PyTorch(TODO)</h2><h3 id="组成-三层"><a href="#组成-三层" class="headerlink" title="组成(三层)"></a>组成(三层)</h3><h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>运行在GPU上的命令式数组(Imperative ndarray)</p>
+<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p>计算图中的节点，存储数据和梯度</p>
+<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><p>一个神经网络的层</p>
+<h1 id="CNN架构"><a href="#CNN架构" class="headerlink" title="CNN架构"></a>CNN架构</h1><p><strong>AlexNet</strong>：8layers</p>
+<p><strong>ZFNet</strong>：在AlexNet基础上调整了超参数</p>
+<p><strong>VGG</strong>：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)</p>
+<p><strong>GoogleNet</strong>:</p>
+<p>22layers，高效的“Inception”层，无全连接层</p>
+<p>Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。</p>
+<p><img src="/2019/10/28/CS231n-note-4/1.png" alt="1572427047546" style="zoom: 50%;"></p>
+<p>利用1X1卷积核进行深度的压缩对模型进行改进。 </p>
+<p><img src="/2019/10/28/CS231n-note-4/2.png" alt="1572427217649" style="zoom:50%;"></p>
+<p><strong>ResNet</strong>: 152layers</p>
+<p><img src="/2019/10/28/CS231n-note-4/3.png" alt="1572428187168" style="zoom:50%;"></p>
+<p>ResNet的整体结构</p>
+<p><img src="/2019/10/28/CS231n-note-4/4.png" style="zoom:50%;"></p>
+<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p><img src="/2019/10/28/CS231n-note-4/5.png" alt="1572832029309" style="zoom:67%;"></p>
+<p><strong>Vanilla RNN</strong></p>
+<script type="math/tex; mode=display">
+h_t = f_w(h_{t-1},x_t)\\
+h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
+y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
+<p>W的梯度是每个节点的W梯度值和  </p>
+<p><strong>Vanilla RNN梯度流</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/7.png" alt="1572869122126" style="zoom:50%;"></p>
+<p>在计算h0梯度时会发生梯度爆炸或者梯度消失   </p>
+<p>当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grad_norm = np.sum(grad * grad)</span><br><span class="line"><span class="keyword">if</span> grad_norm &gt; threshold</span><br><span class="line">	grad *= (threshold / grad_norm)</span><br></pre></td></tr></table></figure>
+<p>当梯度消失时可以采用更深的RNN网络，比如LSTM。</p>
+<p><strong>LSTM(长短期记忆网络)</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/blog\source\_posts\CS231n-note-4\8.png" alt="1572870827165" style="zoom: 50%;"></p>
+<p> ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。</p>
+<p>LSTM状态变化图</p>
+<p><img src="/2019/10/28/CS231n-note-4/9.png" alt="1572882658486" style="zoom:50%;"></p>
+<p>利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。</p>
+<p><strong>图像标注</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/6.png" alt></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS231n-note-5</title>
+    <url>/2019/11/05/CS231n-note-5/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="图像识别和分割"><a href="#图像识别和分割" class="headerlink" title="图像识别和分割"></a>图像识别和分割</h1><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><h3 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h3><p>只将像素进行分割并贴上对应的分类标签。</p>
+<h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea-1"></a><strong>Idea-1</strong></h4><p>sliding windows，利用滑动窗口来对个像素进行分类，计算量太大</p>
+<h4 id="idea-2"><a href="#idea-2" class="headerlink" title="idea-2"></a><strong>idea-2</strong></h4><p>全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。</p>
+<h4 id="idea-3"><a href="#idea-3" class="headerlink" title="idea-3"></a><strong>idea-3</strong></h4><p>不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以用池化或者跨卷积来降低清晰度，但是可以让网络建立的很深。</p>
+<h5 id="upsampling"><a href="#upsampling" class="headerlink" title="upsampling"></a>upsampling</h5><h6 id="去池化-Unpooling"><a href="#去池化-Unpooling" class="headerlink" title="去池化(Unpooling)"></a>去池化(Unpooling)</h6><p><img src="/2019/11/05/CS231n-note-5/1.png" alt="1572945307155" style="zoom:50%;"></p>
+<h6 id="Max-Unpooling"><a href="#Max-Unpooling" class="headerlink" title="Max Unpooling"></a>Max Unpooling</h6><p><img src="/2019/11/05/CS231n-note-5/2.png" alt="1572945525749" style="zoom:50%;"></p>
+<p>将池化层和去池化层相对应，其最大元素的相应位置将会被记录。</p>
+<h6 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h6><p>正常卷积和跨卷积(可以进行downsampling)并且可以学习参数进行下采样</p>
+<p>转置卷积</p>
+<p>在进行转置卷积时，将每个元素(标量)乘以过滤器(卷积核)，然后将加权后的卷积核叠加于新的输出。</p>
+<p><img src="/2019/11/05/CS231n-note-5/3.png" alt="1572946348192" style="zoom:50%;"></p>
+<p>sample：</p>
+<p><img src="/2019/11/05/CS231n-note-5/4.png" alt="1572946547455" style="zoom:50%;"></p>
+<p>卷积矩阵化</p>
+<p><img src="/2019/11/05/CS231n-note-5/5.png" alt="1572955265649" style="zoom:50%;"></p>
+<p>$4<em>4input &lt;—&gt; 4</em>4output$</p>
+<p><img src="/2019/11/05/CS231n-note-5/6.png" alt="1572955416177" style="zoom:50%;"></p>
+<p>$4<em>4input &lt;—&gt;2</em>2output$</p>
+<h2 id="分类和定位"><a href="#分类和定位" class="headerlink" title="分类和定位"></a>分类和定位</h2><p><img src="/2019/11/05/CS231n-note-5/7.png" alt="1572956657061" style="zoom:50%;"></p>
+<p>定位一般使用回归损失函数。</p>
+<h2 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h2><p>固定几类对象，再输入图片之后将识别图中对象框起来并预测该对象的从属类别。</p>
+<p>输入图片的包含对象数量是不确定的。</p>
+<h3 id="候选区域方法-Region-Proposals"><a href="#候选区域方法-Region-Proposals" class="headerlink" title="候选区域方法(Region Proposals)"></a><strong>候选区域方法(Region Proposals)</strong></h3><p>将输入的图像划分为若干(很多)区域，在应用卷积神经网络对其进行分类。</p>
+<p>R-CNN    效率低</p>
+<p>Fast R-CNN 不用事先确定候选区而是通过一个卷积神经网络生成特征映射，在特征映射上通过固定函数像素划分确定候选区</p>
+<p>Faster R-CNN在确定备选区时自己进行区域选择网络的训练</p>
+<h3 id="Detection-without-Proposals"><a href="#Detection-without-Proposals" class="headerlink" title="Detection without Proposals"></a><strong>Detection without Proposals</strong></h3><h4 id="YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><a href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection" class="headerlink" title="YOLO(You Only Look Once)/SSD(Single Shot Detection)"></a>YOLO(You Only Look Once)/SSD(Single Shot Detection)</h4><p>利用回归，将输入图片划分为网格。 然后预测每个基本的方框的类别权重以及距离对象的信息。</p>
+<p><img src="/2019/11/05/CS231n-note-5/8.png" alt="1572970026182" style="zoom:50%;"></p>
+<h3 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h3><p><img src="/2019/11/05/CS231n-note-5/9.png" alt="1572972443690" style="zoom:50%;"></p>
+<p> 两个分支，一个分支进行分类，一个分支进行类似语义分割确定对象的区域。  </p>
+<h3 id="DeepDream-amp-Feature-Inversion"><a href="#DeepDream-amp-Feature-Inversion" class="headerlink" title="DeepDream&amp;Feature Inversion"></a>DeepDream&amp;Feature Inversion</h3><p>DeepDream：放大存在的特征</p>
+<p>Feature Inversion：特征反演</p>
+<h3 id="纹理拼接-amp-风格迁移"><a href="#纹理拼接-amp-风格迁移" class="headerlink" title="纹理拼接&amp;风格迁移"></a>纹理拼接&amp;风格迁移</h3><p>Gram Matrix</p>
+<p><img src="/2019/11/05/CS231n-note-5/10.png" alt="1573008687755" style="zoom:50%;"></p>
+<p><img src="/2019/11/05/CS231n-note-5/11.png" alt="1573008897926" style="zoom:50%;"></p>
+<p>传统风格迁移会消耗大量的资源</p>
+<p><strong>Fast Style Transfer</strong></p>
+<h1 id="可视化和理解卷积神经网络"><a href="#可视化和理解卷积神经网络" class="headerlink" title="可视化和理解卷积神经网络"></a>可视化和理解卷积神经网络</h1>]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -806,6 +806,35 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       </tags>
   </entry>
   <entry>
+    <title>PSPNet-note</title>
+    <url>/2020/04/15/PSPNet-note/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h3 id="Pyramid-Scene-Parseing-Network-Note"><a href="#Pyramid-Scene-Parseing-Network-Note" class="headerlink" title="Pyramid Scene Parseing Network  Note"></a>Pyramid Scene Parseing Network  Note</h3><p>​    PSPNet 采用金字塔池化模块搭建的场景分析网络 ， <strong>基于语义分割的场景解析，其目的是赋予图像中每个像素一个类别标签</strong>。 </p>
+<h4 id="1-PSPNet介绍"><a href="#1-PSPNet介绍" class="headerlink" title="1 PSPNet介绍"></a>1 PSPNet介绍</h4><p>由于传统的FCN存在缺陷：</p>
+<p><img src="/2020/04/15/PSPNet-note/1.png" alt></p>
+<ol>
+<li>不匹配上下文关系， <strong>FCN将水中的“boat”预测为“car”</strong> 。</li>
+<li>类别混淆，将摩天大楼一部分识别成了其他。</li>
+<li><p>不显著的类别难以预测，可能会忽略小的东西。</p>
+<p>基于对FCN的透彻分析，作者提出了能够获取全局场景的深度网络PSPNet，可以融合局部特征和全局特征，有较好的效果。</p>
+</li>
+</ol>
+<h5 id="1-1-Pyramid-Pooling-Module（金字塔池化模块）"><a href="#1-1-Pyramid-Pooling-Module（金字塔池化模块）" class="headerlink" title="1.1  Pyramid Pooling Module（金字塔池化模块）"></a>1.1  <strong>Pyramid Pooling Module</strong>（金字塔池化模块）</h5><p>​     金字塔池化模块Pyramid Pooling Module由一组不同尺度的池化块组成 </p>
+<p><img src="/2020/04/15/PSPNet-note/2.png" alt></p>
+<p>​    该模块融合了4种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个bin输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有N个级别，则在每个级别后使用1X1的卷积将对于级别通道降为原本的1/N。再通过双线性插值获得未池化前的大小，最终concat到一起。<br>​    在POOL过程中，论文一共采用了$1X1,2X2,3X3,6X6$ 4个等级的池化尺寸(即<strong>输出尺寸</strong>)进行池化。</p>
+<h5 id="1-2-基于ResNet的预训练辅助损失函数"><a href="#1-2-基于ResNet的预训练辅助损失函数" class="headerlink" title="1.2 基于ResNet的预训练辅助损失函数"></a>1.2 基于ResNet的预训练辅助损失函数</h5><p><img src="/2020/04/15/PSPNet-note/3.png" alt></p>
+<pre><code> 在ResNet101的基础上做了改进，除了使用后面的softmax分类做loss，额外的在第四阶段添加了一个辅助的loss， 叫做**auxiliary loss**， 两个loss一起传播，使用不同的权重，共同优化参数。后续的实验证明这样做有利于快速收敛。 
+</code></pre><h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p>金字塔池化以及PSPNet网络架构</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_PyramidPoolingModule</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, in_dim, reduction_dim, setting</span>):</span></span><br><span class="line">        super(_PyramidPoolingModule, self).__init__()</span><br><span class="line">        self.features = []</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> setting:</span><br><span class="line">            self.features.append(nn.Sequential(</span><br><span class="line">                nn.AdaptiveAvgPool2d(s),</span><br><span class="line">                nn.Conv2d(in_dim, reduction_dim, kernel_size=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(reduction_dim, momentum=<span class="number">.95</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">            ))</span><br><span class="line">        self.features = nn.ModuleList(self.features)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        out = [x]</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.features:</span><br><span class="line">            out.append(F.upsample(f(x), x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>))</span><br><span class="line">        out = torch.cat(out, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSPNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, use_aux=True</span>):</span></span><br><span class="line">        super(PSPNet, self).__init__()</span><br><span class="line">        self.use_aux = use_aux</span><br><span class="line">        resnet = models.resnet101()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            resnet.load_state_dict(torch.load(res101_path))</span><br><span class="line">        self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)</span><br><span class="line">        self.layer1, self.layer2, self.layer3, self.layer4 = resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer3.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer4.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.ppm = _PyramidPoolingModule(<span class="number">2048</span>, <span class="number">512</span>, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>))</span><br><span class="line">        self.final = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">4096</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>, momentum=<span class="number">.95</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.1</span>),</span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_aux:</span><br><span class="line">            self.aux_logits = nn.Conv2d(<span class="number">1024</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">            initialize_weights(self.aux_logits)</span><br><span class="line"></span><br><span class="line">        initialize_weights(self.ppm, self.final)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        x = self.layer0(x)</span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            aux = self.aux_logits(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line">        x = self.ppm(x)</span><br><span class="line">        x = self.final(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>), F.upsample(aux, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>语义分割</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>POSIX信号量</title>
     <url>/2019/04/22/POSIX%E4%BF%A1%E5%8F%B7%E9%87%8F/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -847,35 +876,6 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       </categories>
       <tags>
         <tag>Linux编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PSPNet-note</title>
-    <url>/2020/04/15/PSPNet-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h3 id="Pyramid-Scene-Parseing-Network-Note"><a href="#Pyramid-Scene-Parseing-Network-Note" class="headerlink" title="Pyramid Scene Parseing Network  Note"></a>Pyramid Scene Parseing Network  Note</h3><p>​    PSPNet 采用金字塔池化模块搭建的场景分析网络 ， <strong>基于语义分割的场景解析，其目的是赋予图像中每个像素一个类别标签</strong>。 </p>
-<h4 id="1-PSPNet介绍"><a href="#1-PSPNet介绍" class="headerlink" title="1 PSPNet介绍"></a>1 PSPNet介绍</h4><p>由于传统的FCN存在缺陷：</p>
-<p><img src="/2020/04/15/PSPNet-note/1.png" alt></p>
-<ol>
-<li>不匹配上下文关系， <strong>FCN将水中的“boat”预测为“car”</strong> 。</li>
-<li>类别混淆，将摩天大楼一部分识别成了其他。</li>
-<li><p>不显著的类别难以预测，可能会忽略小的东西。</p>
-<p>基于对FCN的透彻分析，作者提出了能够获取全局场景的深度网络PSPNet，可以融合局部特征和全局特征，有较好的效果。</p>
-</li>
-</ol>
-<h5 id="1-1-Pyramid-Pooling-Module（金字塔池化模块）"><a href="#1-1-Pyramid-Pooling-Module（金字塔池化模块）" class="headerlink" title="1.1  Pyramid Pooling Module（金字塔池化模块）"></a>1.1  <strong>Pyramid Pooling Module</strong>（金字塔池化模块）</h5><p>​     金字塔池化模块Pyramid Pooling Module由一组不同尺度的池化块组成 </p>
-<p><img src="/2020/04/15/PSPNet-note/2.png" alt></p>
-<p>​    该模块融合了4种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个bin输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有N个级别，则在每个级别后使用1X1的卷积将对于级别通道降为原本的1/N。再通过双线性插值获得未池化前的大小，最终concat到一起。<br>​    在POOL过程中，论文一共采用了$1X1,2X2,3X3,6X6$ 4个等级的池化尺寸(即<strong>输出尺寸</strong>)进行池化。</p>
-<h5 id="1-2-基于ResNet的预训练辅助损失函数"><a href="#1-2-基于ResNet的预训练辅助损失函数" class="headerlink" title="1.2 基于ResNet的预训练辅助损失函数"></a>1.2 基于ResNet的预训练辅助损失函数</h5><p><img src="/2020/04/15/PSPNet-note/3.png" alt></p>
-<pre><code> 在ResNet101的基础上做了改进，除了使用后面的softmax分类做loss，额外的在第四阶段添加了一个辅助的loss， 叫做**auxiliary loss**， 两个loss一起传播，使用不同的权重，共同优化参数。后续的实验证明这样做有利于快速收敛。 
-</code></pre><h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p>金字塔池化以及PSPNet网络架构</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_PyramidPoolingModule</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, in_dim, reduction_dim, setting</span>):</span></span><br><span class="line">        super(_PyramidPoolingModule, self).__init__()</span><br><span class="line">        self.features = []</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> setting:</span><br><span class="line">            self.features.append(nn.Sequential(</span><br><span class="line">                nn.AdaptiveAvgPool2d(s),</span><br><span class="line">                nn.Conv2d(in_dim, reduction_dim, kernel_size=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(reduction_dim, momentum=<span class="number">.95</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">            ))</span><br><span class="line">        self.features = nn.ModuleList(self.features)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        out = [x]</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.features:</span><br><span class="line">            out.append(F.upsample(f(x), x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>))</span><br><span class="line">        out = torch.cat(out, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSPNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, use_aux=True</span>):</span></span><br><span class="line">        super(PSPNet, self).__init__()</span><br><span class="line">        self.use_aux = use_aux</span><br><span class="line">        resnet = models.resnet101()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            resnet.load_state_dict(torch.load(res101_path))</span><br><span class="line">        self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)</span><br><span class="line">        self.layer1, self.layer2, self.layer3, self.layer4 = resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer3.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer4.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.ppm = _PyramidPoolingModule(<span class="number">2048</span>, <span class="number">512</span>, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>))</span><br><span class="line">        self.final = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">4096</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>, momentum=<span class="number">.95</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.1</span>),</span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_aux:</span><br><span class="line">            self.aux_logits = nn.Conv2d(<span class="number">1024</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">            initialize_weights(self.aux_logits)</span><br><span class="line"></span><br><span class="line">        initialize_weights(self.ppm, self.final)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        x = self.layer0(x)</span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            aux = self.aux_logits(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line">        x = self.ppm(x)</span><br><span class="line">        x = self.final(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>), F.upsample(aux, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>语义分割</tag>
       </tags>
   </entry>
   <entry>
