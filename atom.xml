@@ -3,10 +3,10 @@
   <title>Viva La Vida</title>
   
   
-  <link href="/atom.xml" rel="self"/>
+  <link href="https://browallia.github.io/atom.xml" rel="self"/>
   
   <link href="https://browallia.github.io/"/>
-  <updated>2020-06-30T01:19:37.416Z</updated>
+  <updated>2020-10-17T03:01:13.379Z</updated>
   <id>https://browallia.github.io/</id>
   
   <author>
@@ -14,26 +14,25 @@
     
   </author>
   
-  <generator uri="http://hexo.io/">Hexo</generator>
+  <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>2D-TAN-note</title>
     <link href="https://browallia.github.io/2020/06/30/2D-TAN-note/"/>
     <id>https://browallia.github.io/2020/06/30/2D-TAN-note/</id>
     <published>2020-06-30T01:19:37.000Z</published>
-    <updated>2020-06-30T01:19:37.416Z</updated>
+    <updated>2020-10-17T03:01:13.379Z</updated>
     
-    <summary type="html">
     
       
       
         
         
-          &lt;!-- build time:Wed Jul 08 2020 21:43:15 GMT+0800 (GMT+08:00) --&gt;&lt;!-- rebuild by neat
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
         
       
     
-    </summary>
+    
     
     
   </entry>
@@ -43,18 +42,23 @@
     <link href="https://browallia.github.io/2020/06/03/DETR-note/"/>
     <id>https://browallia.github.io/2020/06/03/DETR-note/</id>
     <published>2020-06-03T13:30:48.000Z</published>
-    <updated>2020-07-08T13:42:03.047Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.387Z</updated>
     
     
-      <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
     
   </entry>
   
@@ -63,18 +67,23 @@
     <link href="https://browallia.github.io/2020/05/28/PolarMask-note/"/>
     <id>https://browallia.github.io/2020/05/28/PolarMask-note/</id>
     <published>2020-05-28T07:01:07.000Z</published>
-    <updated>2020-05-28T07:11:22.146Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.397Z</updated>
     
     
-      <category term="实例分割" scheme="https://browallia.github.io/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="实例分割" scheme="https://browallia.github.io/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/"/>
     
   </entry>
   
@@ -83,18 +92,23 @@
     <link href="https://browallia.github.io/2020/05/12/Retinanet-focal-loss/"/>
     <id>https://browallia.github.io/2020/05/12/Retinanet-focal-loss/</id>
     <published>2020-05-12T13:31:57.000Z</published>
-    <updated>2020-05-12T14:31:27.507Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.400Z</updated>
     
     
-      <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
     
   </entry>
   
@@ -103,18 +117,23 @@
     <link href="https://browallia.github.io/2020/05/06/FPN-note/"/>
     <id>https://browallia.github.io/2020/05/06/FPN-note/</id>
     <published>2020-05-06T05:01:39.000Z</published>
-    <updated>2020-05-12T12:58:58.325Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.391Z</updated>
     
     
-      <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
     
   </entry>
   
@@ -123,18 +142,23 @@
     <link href="https://browallia.github.io/2020/04/15/PSPNet-note/"/>
     <id>https://browallia.github.io/2020/04/15/PSPNet-note/</id>
     <published>2020-04-15T07:04:57.000Z</published>
-    <updated>2020-04-16T13:06:36.211Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.397Z</updated>
     
     
-      <category term="语义分割" scheme="https://browallia.github.io/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="语义分割" scheme="https://browallia.github.io/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"/>
     
   </entry>
   
@@ -143,78 +167,98 @@
     <link href="https://browallia.github.io/2020/04/13/FCN-note/"/>
     <id>https://browallia.github.io/2020/04/13/FCN-note/</id>
     <published>2020-04-13T02:15:26.000Z</published>
-    <updated>2020-04-14T13:21:13.608Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.390Z</updated>
     
     
-      <category term="语义分割" scheme="https://browallia.github.io/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="语义分割" scheme="https://browallia.github.io/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/"/>
     
   </entry>
   
   <entry>
     <title>Faster_RCNN 笔记</title>
     <link href="https://browallia.github.io/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/"/>
-    <id>https://browallia.github.io/2020/04/11/Faster-RCNN-笔记/</id>
+    <id>https://browallia.github.io/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/</id>
     <published>2020-04-11T05:56:20.000Z</published>
-    <updated>2020-05-08T14:07:23.514Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.393Z</updated>
     
     
-      <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="目标检测" scheme="https://browallia.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
     
   </entry>
   
   <entry>
     <title>C++期末复习</title>
     <link href="https://browallia.github.io/2019/12/26/C++%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
-    <id>https://browallia.github.io/2019/12/26/C++期末复习/</id>
+    <id>https://browallia.github.io/2019/12/26/C++%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/</id>
     <published>2019-12-26T13:12:23.000Z</published>
-    <updated>2020-03-06T13:21:41.802Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="期末复习" scheme="https://browallia.github.io/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.405Z</updated>
     
     
-      <category term="C++" scheme="https://browallia.github.io/tags/C/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="期末复习" scheme="https://browallia.github.io/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    
+    
+    <category term="C++" scheme="https://browallia.github.io/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>OCR手写识别_NoTe1</title>
     <link href="https://browallia.github.io/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/"/>
-    <id>https://browallia.github.io/2019/11/07/OCR手写识别-NoTe1/</id>
+    <id>https://browallia.github.io/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</id>
     <published>2019-11-07T02:44:53.000Z</published>
-    <updated>2019-11-07T02:46:15.254Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.394Z</updated>
     
     
-      <category term="OCR手写识别" scheme="https://browallia.github.io/tags/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="OCR手写识别" scheme="https://browallia.github.io/tags/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB/"/>
     
   </entry>
   
@@ -223,18 +267,23 @@
     <link href="https://browallia.github.io/2019/11/05/CS231n-note-5/"/>
     <id>https://browallia.github.io/2019/11/05/CS231n-note-5/</id>
     <published>2019-11-05T08:26:54.000Z</published>
-    <updated>2019-11-07T02:45:22.236Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.385Z</updated>
     
     
-      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
   </entry>
   
@@ -243,18 +292,23 @@
     <link href="https://browallia.github.io/2019/10/28/CS231n-note-4/"/>
     <id>https://browallia.github.io/2019/10/28/CS231n-note-4/</id>
     <published>2019-10-28T12:46:32.000Z</published>
-    <updated>2019-11-29T02:57:42.702Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.384Z</updated>
     
     
-      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
   </entry>
   
@@ -263,20 +317,25 @@
     <link href="https://browallia.github.io/2019/10/21/CS231n-note-3/"/>
     <id>https://browallia.github.io/2019/10/21/CS231n-note-3/</id>
     <published>2019-10-21T13:13:32.000Z</published>
-    <updated>2019-10-30T03:00:03.387Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.382Z</updated>
     
     
-      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
     
-      <category term="卷积神经网络" scheme="https://browallia.github.io/tags/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    <category term="卷积神经网络" scheme="https://browallia.github.io/tags/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
@@ -285,18 +344,23 @@
     <link href="https://browallia.github.io/2019/10/15/CS231n-note-2/"/>
     <id>https://browallia.github.io/2019/10/15/CS231n-note-2/</id>
     <published>2019-10-15T11:55:48.000Z</published>
-    <updated>2019-12-02T12:29:25.430Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:15 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.380Z</updated>
     
     
-      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
   </entry>
   
@@ -305,118 +369,148 @@
     <link href="https://browallia.github.io/2019/07/25/CS231n-note-1/"/>
     <id>https://browallia.github.io/2019/07/25/CS231n-note-1/</id>
     <published>2019-07-25T09:09:36.000Z</published>
-    <updated>2019-10-15T11:45:01.826Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:15 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <updated>2020-10-17T03:01:13.377Z</updated>
     
     
-      <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://browallia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="计算机视觉" scheme="https://browallia.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
   </entry>
   
   <entry>
     <title>软件安全设计</title>
     <link href="https://browallia.github.io/2019/06/14/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E8%AE%BE%E8%AE%A1/"/>
-    <id>https://browallia.github.io/2019/06/14/软件安全设计/</id>
+    <id>https://browallia.github.io/2019/06/14/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E8%AE%BE%E8%AE%A1/</id>
     <published>2019-06-14T08:57:19.000Z</published>
-    <updated>2019-06-20T04:30:33.545Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="大二" scheme="https://browallia.github.io/categories/%E5%A4%A7%E4%BA%8C/"/>
+    <updated>2020-10-17T03:01:13.406Z</updated>
     
     
-      <category term="软件安全" scheme="https://browallia.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="大二" scheme="https://browallia.github.io/categories/%E5%A4%A7%E4%BA%8C/"/>
+    
+    
+    <category term="软件安全" scheme="https://browallia.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
     
   </entry>
   
   <entry>
     <title>POSIX信号量</title>
     <link href="https://browallia.github.io/2019/04/22/POSIX%E4%BF%A1%E5%8F%B7%E9%87%8F/"/>
-    <id>https://browallia.github.io/2019/04/22/POSIX信号量/</id>
+    <id>https://browallia.github.io/2019/04/22/POSIX%E4%BF%A1%E5%8F%B7%E9%87%8F/</id>
     <published>2019-04-22T14:10:49.000Z</published>
-    <updated>2019-06-16T11:08:50.816Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="操作系统" scheme="https://browallia.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    <updated>2020-10-17T03:01:13.395Z</updated>
     
     
-      <category term="Linux编程" scheme="https://browallia.github.io/tags/Linux%E7%BC%96%E7%A8%8B/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="https://browallia.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="Linux编程" scheme="https://browallia.github.io/tags/Linux%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Linux下的信号量机制与编程</title>
     <link href="https://browallia.github.io/2019/04/22/Linux%E4%B8%8B%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A8%8B/"/>
-    <id>https://browallia.github.io/2019/04/22/Linux下的信号量机制与编程/</id>
+    <id>https://browallia.github.io/2019/04/22/Linux%E4%B8%8B%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A8%8B/</id>
     <published>2019-04-22T11:02:17.000Z</published>
-    <updated>2019-04-22T14:09:53.835Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="操作系统" scheme="https://browallia.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    <updated>2020-10-17T03:01:13.392Z</updated>
     
     
-      <category term="Linux编程" scheme="https://browallia.github.io/tags/Linux%E7%BC%96%E7%A8%8B/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="https://browallia.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="Linux编程" scheme="https://browallia.github.io/tags/Linux%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>python爬虫框架Scrapy(二)</title>
     <link href="https://browallia.github.io/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/"/>
-    <id>https://browallia.github.io/2019/04/08/python爬虫框架Scrapy-二/</id>
+    <id>https://browallia.github.io/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</id>
     <published>2019-04-08T11:55:54.000Z</published>
-    <updated>2019-04-22T12:40:29.098Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="python爬虫" scheme="https://browallia.github.io/categories/python%E7%88%AC%E8%99%AB/"/>
+    <updated>2020-10-17T03:01:13.401Z</updated>
     
     
-      <category term="scrapy" scheme="https://browallia.github.io/tags/scrapy/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="python爬虫" scheme="https://browallia.github.io/categories/python%E7%88%AC%E8%99%AB/"/>
+    
+    
+    <category term="scrapy" scheme="https://browallia.github.io/tags/scrapy/"/>
     
   </entry>
   
   <entry>
     <title>python爬虫框架Scrapy(一)</title>
     <link href="https://browallia.github.io/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/"/>
-    <id>https://browallia.github.io/2019/04/07/python爬虫框架Scrapy-一/</id>
+    <id>https://browallia.github.io/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/</id>
     <published>2019-04-07T12:11:18.000Z</published>
-    <updated>2019-04-08T12:25:29.436Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Wed Jul 08 2020 21:43:16 GMT+0800 (GMT+08:00) --&gt;
-    
-    </summary>
-    
-      <category term="python爬虫" scheme="https://browallia.github.io/categories/python%E7%88%AC%E8%99%AB/"/>
+    <updated>2020-10-17T03:01:13.398Z</updated>
     
     
-      <category term="scrapy" scheme="https://browallia.github.io/tags/scrapy/"/>
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="python爬虫" scheme="https://browallia.github.io/categories/python%E7%88%AC%E8%99%AB/"/>
+    
+    
+    <category term="scrapy" scheme="https://browallia.github.io/tags/scrapy/"/>
     
   </entry>
   

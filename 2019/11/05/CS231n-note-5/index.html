@@ -1,13 +1,303 @@
-<!-- build time:Wed Jul 08 2020 21:43:19 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next muse use-motion" lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1"><link rel="icon" type="image/png" sizes="32x32" href="/images/time.png?v=6.4.1"><link rel="icon" type="image/png" sizes="16x16" href="/images/time.png?v=6.4.1"><link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",version:"6.4.1",sidebar:{position:"left",display:"always",offset:12,b2t:!1,scrollpercent:!0,onmobile:!1},fancybox:!1,fastclick:!1,lazyload:!1,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><meta name="keywords" content="计算机视觉"><meta property="og:type" content="article"><meta property="og:title" content="CS231n-note-5"><meta property="og:url" content="https://browallia.github.io/2019/11/05/CS231n-note-5/index.html"><meta property="og:site_name" content="Viva La Vida"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/1.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/2.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/3.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/4.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/5.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/6.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/7.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/8.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/9.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/10.png"><meta property="og:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/11.png"><meta property="og:updated_time" content="2019-11-07T02:45:22.236Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CS231n-note-5"><meta name="twitter:image" content="https://browallia.github.io/2019/11/05/CS231n-note-5/1.png"><link rel="alternate" href="/atom.xml" title="Viva La Vida" type="application/atom+xml"><link rel="canonical" href="https://browallia.github.io/2019/11/05/CS231n-note-5/"><script type="text/javascript" id="page.configurations">CONFIG.page={sidebar:""}</script><title>CS231n-note-5 | Viva La Vida</title><noscript><style type="text/css">.sidebar-inner,.use-motion .brand,.use-motion .collection-title,.use-motion .comments,.use-motion .menu-item,.use-motion .motion-element,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .logo,.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><a href="https://github.com/Browallia" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Viva La Vida</span> <span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"><button aria-label="切换导航栏"><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>POI</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://browallia.github.io/2019/11/05/CS231n-note-5/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="BROWALLIA"><meta itemprop="description" content=""><meta itemprop="image" content="/images/header.gif"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Viva La Vida"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">CS231n-note-5</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2019-11-05 16:26:54" itemprop="dateCreated datePublished" datetime="2019-11-05T16:26:54+08:00">2019-11-05</time> <span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2019-11-07 10:45:22" itemprop="dateModified" datetime="2019-11-07T10:45:22+08:00">2019-11-07</time> </span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span> </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-eye"></i> 热度： <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> </span><span class="post-meta-divider">|</span> <span title="post.wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： 607</span></div></header><div class="post-body" itemprop="articleBody"><a id="more"></a><h1 id="图像识别和分割"><a href="#图像识别和分割" class="headerlink" title="图像识别和分割"></a>图像识别和分割</h1><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><h3 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h3><p>只将像素进行分割并贴上对应的分类标签。</p><h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea-1"></a><strong>Idea-1</strong></h4><p>sliding windows，利用滑动窗口来对个像素进行分类，计算量太大</p><h4 id="idea-2"><a href="#idea-2" class="headerlink" title="idea-2"></a><strong>idea-2</strong></h4><p>全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。</p><h4 id="idea-3"><a href="#idea-3" class="headerlink" title="idea-3"></a><strong>idea-3</strong></h4><p>不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以用池化或者跨卷积来降低清晰度，但是可以让网络建立的很深。</p><h5 id="upsampling"><a href="#upsampling" class="headerlink" title="upsampling"></a>upsampling</h5><h6 id="去池化-Unpooling"><a href="#去池化-Unpooling" class="headerlink" title="去池化(Unpooling)"></a>去池化(Unpooling)</h6><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/1.png" alt="1572945307155" style="zoom:50%"></p><h6 id="Max-Unpooling"><a href="#Max-Unpooling" class="headerlink" title="Max Unpooling"></a>Max Unpooling</h6><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/2.png" alt="1572945525749" style="zoom:50%"></p><p>将池化层和去池化层相对应，其最大元素的相应位置将会被记录。</p><h6 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h6><p>正常卷积和跨卷积(可以进行downsampling)并且可以学习参数进行下采样</p><p>转置卷积</p><p>在进行转置卷积时，将每个元素(标量)乘以过滤器(卷积核)，然后将加权后的卷积核叠加于新的输出。</p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/3.png" alt="1572946348192" style="zoom:50%"></p><p>sample：</p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/4.png" alt="1572946547455" style="zoom:50%"></p><p>卷积矩阵化</p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/5.png" alt="1572955265649" style="zoom:50%"></p><p>$4<em>4input &lt;—&gt; 4</em>4output$</p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/6.png" alt="1572955416177" style="zoom:50%"></p><p>$4<em>4input &lt;—&gt;2</em>2output$</p><h2 id="分类和定位"><a href="#分类和定位" class="headerlink" title="分类和定位"></a>分类和定位</h2><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/7.png" alt="1572956657061" style="zoom:50%"></p><p>定位一般使用回归损失函数。</p><h2 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h2><p>固定几类对象，再输入图片之后将识别图中对象框起来并预测该对象的从属类别。</p><p>输入图片的包含对象数量是不确定的。</p><h3 id="候选区域方法-Region-Proposals"><a href="#候选区域方法-Region-Proposals" class="headerlink" title="候选区域方法(Region Proposals)"></a><strong>候选区域方法(Region Proposals)</strong></h3><p>将输入的图像划分为若干(很多)区域，在应用卷积神经网络对其进行分类。</p><p>R-CNN 效率低</p><p>Fast R-CNN 不用事先确定候选区而是通过一个卷积神经网络生成特征映射，在特征映射上通过固定函数像素划分确定候选区</p><p>Faster R-CNN在确定备选区时自己进行区域选择网络的训练</p><h3 id="Detection-without-Proposals"><a href="#Detection-without-Proposals" class="headerlink" title="Detection without Proposals"></a><strong>Detection without Proposals</strong></h3><h4 id="YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><a href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection" class="headerlink" title="YOLO(You Only Look Once)/SSD(Single Shot Detection)"></a>YOLO(You Only Look Once)/SSD(Single Shot Detection)</h4><p>利用回归，将输入图片划分为网格。 然后预测每个基本的方框的类别权重以及距离对象的信息。</p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/8.png" alt="1572970026182" style="zoom:50%"></p><h3 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h3><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/9.png" alt="1572972443690" style="zoom:50%"></p><p>两个分支，一个分支进行分类，一个分支进行类似语义分割确定对象的区域。</p><h3 id="DeepDream-amp-Feature-Inversion"><a href="#DeepDream-amp-Feature-Inversion" class="headerlink" title="DeepDream&amp;Feature Inversion"></a>DeepDream&amp;Feature Inversion</h3><p>DeepDream：放大存在的特征</p><p>Feature Inversion：特征反演</p><h3 id="纹理拼接-amp-风格迁移"><a href="#纹理拼接-amp-风格迁移" class="headerlink" title="纹理拼接&amp;风格迁移"></a>纹理拼接&amp;风格迁移</h3><p>Gram Matrix</p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/10.png" alt="1573008687755" style="zoom:50%"></p><p><img src="//browallia.github.io/2019/11/05/CS231n-note-5/11.png" alt="1573008897926" style="zoom:50%"></p><p>传统风格迁移会消耗大量的资源</p><p><strong>Fast Style Transfer</strong></p><h1 id="可视化和理解卷积神经网络"><a href="#可视化和理解卷积神经网络" class="headerlink" title="可视化和理解卷积神经网络"></a>可视化和理解卷积神经网络</h1></div><footer class="post-footer"><div class="post-tags"><a href="/tags/计算机视觉/" rel="tag"># 计算机视觉</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/10/28/CS231n-note-4/" rel="next" title="CS231n-note-4"><i class="fa fa-chevron-left"></i> CS231n-note-4</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2019/11/07/OCR手写识别-NoTe1/" rel="prev" title="OCR手写识别_NoTe1">OCR手写识别_NoTe1 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80MDA1MS8xNjU3OA=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/images/header.gif" alt="BROWALLIA"><p class="site-author-name" itemprop="name">BROWALLIA</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">25</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">7</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">13</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/browallia" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图像识别和分割"><span class="nav-number">1.</span> <span class="nav-text">图像识别和分割</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分割"><span class="nav-number">1.1.</span> <span class="nav-text">分割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语义分割"><span class="nav-number">1.1.1.</span> <span class="nav-text">语义分割</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Idea-1"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Idea-1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#idea-2"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">idea-2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#idea-3"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">idea-3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#upsampling"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">upsampling</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#去池化-Unpooling"><span class="nav-number">1.1.1.3.1.1.</span> <span class="nav-text">去池化(Unpooling)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Max-Unpooling"><span class="nav-number">1.1.1.3.1.2.</span> <span class="nav-text">Max Unpooling</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#转置卷积"><span class="nav-number">1.1.1.3.1.3.</span> <span class="nav-text">转置卷积</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类和定位"><span class="nav-number">1.2.</span> <span class="nav-text">分类和定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别"><span class="nav-number">1.3.</span> <span class="nav-text">识别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#候选区域方法-Region-Proposals"><span class="nav-number">1.3.1.</span> <span class="nav-text">候选区域方法(Region Proposals)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detection-without-Proposals"><span class="nav-number">1.3.2.</span> <span class="nav-text">Detection without Proposals</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">YOLO(You Only Look Once)/SSD(Single Shot Detection)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标分割"><span class="nav-number">1.3.3.</span> <span class="nav-text">目标分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeepDream-amp-Feature-Inversion"><span class="nav-number">1.3.4.</span> <span class="nav-text">DeepDream&amp;Feature Inversion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纹理拼接-amp-风格迁移"><span class="nav-number">1.3.5.</span> <span class="nav-text">纹理拼接&amp;风格迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可视化和理解卷积神经网络"><span class="nav-number">2.</span> <span class="nav-text">可视化和理解卷积神经网络</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2020</span> <span class="with-love" id="animate"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">BROWALLIA</span></div><div class="theme-info"><div class="powered-by"></div><span class="post-count">小破站共 36.8k 字</span></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="site-uv" title="总访客量"><i class="fa fa-user"></i> <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> </span><span class="site-pv" title="总访问量"><i class="fa fa-eye"></i> <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script><script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script><script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script><script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script><script type="text/javascript">window.livereOptions={refer:"2019/11/05/CS231n-note-5/"},function(e,t){var n,r=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&(n=e.createElement(t),n.src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,r.parentNode.insertBefore(n,r))}(document,"script")</script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;w<0&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      },
-      TeX: {equationNumbers: { autoNumber: "AMS" }}
-    });</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CS231n-note-5 | Viva La Vida</title><meta name="keywords" content="计算机视觉"><meta name="author" content="BROWALLIA"><meta name="copyright" content="BROWALLIA"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="图像识别和分割分割语义分割只将像素进行分割并贴上对应的分类标签。 Idea-1sliding windows，利用滑动窗口来对个像素进行分类，计算量太大 idea-2全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。 idea-3不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n-note-5">
+<meta property="og:url" content="https://browallia.github.io/2019/11/05/CS231n-note-5/index.html">
+<meta property="og:site_name" content="Viva La Vida">
+<meta property="og:description" content="图像识别和分割分割语义分割只将像素进行分割并贴上对应的分类标签。 Idea-1sliding windows，利用滑动窗口来对个像素进行分类，计算量太大 idea-2全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。 idea-3不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://browallia.github.io/img/post2.JPG">
+<meta property="article:published_time" content="2019-11-05T08:26:54.000Z">
+<meta property="article:modified_time" content="2020-10-17T03:01:13.385Z">
+<meta property="article:author" content="BROWALLIA">
+<meta property="article:tag" content="计算机视觉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://browallia.github.io/img/post2.JPG"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://browallia.github.io/2019/11/05/CS231n-note-5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-10-17 11:01:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
         }
-    });</script><script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script></body></html><!-- rebuild by neat -->
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Viva La Vida" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dbs.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> POI</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> Me</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E5%92%8C%E5%88%86%E5%89%B2"><span class="toc-number">1.</span> <span class="toc-text">图像识别和分割</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%89%B2"><span class="toc-number">1.1.</span> <span class="toc-text">分割</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2"><span class="toc-number">1.1.1.</span> <span class="toc-text">语义分割</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Idea-1"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">Idea-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">idea-2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-3"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">idea-3</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#upsampling"><span class="toc-number">1.1.1.3.1.</span> <span class="toc-text">upsampling</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%BB%E6%B1%A0%E5%8C%96-Unpooling"><span class="toc-number">1.1.1.3.1.1.</span> <span class="toc-text">去池化(Unpooling)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Max-Unpooling"><span class="toc-number">1.1.1.3.1.2.</span> <span class="toc-text">Max Unpooling</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF"><span class="toc-number">1.1.1.3.1.3.</span> <span class="toc-text">转置卷积</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E5%92%8C%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.2.</span> <span class="toc-text">分类和定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%86%E5%88%AB"><span class="toc-number">1.3.</span> <span class="toc-text">识别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%99%E9%80%89%E5%8C%BA%E5%9F%9F%E6%96%B9%E6%B3%95-Region-Proposals"><span class="toc-number">1.3.1.</span> <span class="toc-text">候选区域方法(Region Proposals)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Detection-without-Proposals"><span class="toc-number">1.3.2.</span> <span class="toc-text">Detection without Proposals</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">YOLO(You Only Look Once)&#x2F;SSD(Single Shot Detection)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%88%86%E5%89%B2"><span class="toc-number">1.3.3.</span> <span class="toc-text">目标分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepDream-amp-Feature-Inversion"><span class="toc-number">1.3.4.</span> <span class="toc-text">DeepDream&amp;Feature Inversion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%B9%E7%90%86%E6%8B%BC%E6%8E%A5-amp-%E9%A3%8E%E6%A0%BC%E8%BF%81%E7%A7%BB"><span class="toc-number">1.3.5.</span> <span class="toc-text">纹理拼接&amp;风格迁移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E5%92%8C%E7%90%86%E8%A7%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">2.</span> <span class="toc-text">可视化和理解卷积神经网络</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(/img/post2.JPG)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Viva La Vida</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> POI</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">CS231n-note-5</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-11-05T08:26:54.000Z" title="发表于 2019-11-05 16:26:54">2019-11-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-17T03:01:13.385Z" title="更新于 2020-10-17 11:01:13">2020-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">609</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><a id="more"></a>
+<h1 id="图像识别和分割"><a href="#图像识别和分割" class="headerlink" title="图像识别和分割"></a>图像识别和分割</h1><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><h3 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h3><p>只将像素进行分割并贴上对应的分类标签。</p>
+<h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea-1"></a><strong>Idea-1</strong></h4><p>sliding windows，利用滑动窗口来对个像素进行分类，计算量太大</p>
+<h4 id="idea-2"><a href="#idea-2" class="headerlink" title="idea-2"></a><strong>idea-2</strong></h4><p>全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。</p>
+<h4 id="idea-3"><a href="#idea-3" class="headerlink" title="idea-3"></a><strong>idea-3</strong></h4><p>不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以用池化或者跨卷积来降低清晰度，但是可以让网络建立的很深。</p>
+<h5 id="upsampling"><a href="#upsampling" class="headerlink" title="upsampling"></a>upsampling</h5><h6 id="去池化-Unpooling"><a href="#去池化-Unpooling" class="headerlink" title="去池化(Unpooling)"></a>去池化(Unpooling)</h6><p><img src="/2019/11/05/CS231n-note-5/1.png" alt="1572945307155" style="zoom:50%;"></p>
+<h6 id="Max-Unpooling"><a href="#Max-Unpooling" class="headerlink" title="Max Unpooling"></a>Max Unpooling</h6><p><img src="/2019/11/05/CS231n-note-5/2.png" alt="1572945525749" style="zoom:50%;"></p>
+<p>将池化层和去池化层相对应，其最大元素的相应位置将会被记录。</p>
+<h6 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h6><p>正常卷积和跨卷积(可以进行downsampling)并且可以学习参数进行下采样</p>
+<p>转置卷积</p>
+<p>在进行转置卷积时，将每个元素(标量)乘以过滤器(卷积核)，然后将加权后的卷积核叠加于新的输出。</p>
+<p><img src="/2019/11/05/CS231n-note-5/3.png" alt="1572946348192" style="zoom:50%;"></p>
+<p>sample：</p>
+<p><img src="/2019/11/05/CS231n-note-5/4.png" alt="1572946547455" style="zoom:50%;"></p>
+<p>卷积矩阵化</p>
+<p><img src="/2019/11/05/CS231n-note-5/5.png" alt="1572955265649" style="zoom:50%;"></p>
+<p>$4<em>4input &lt;—&gt; 4</em>4output$</p>
+<p><img src="/2019/11/05/CS231n-note-5/6.png" alt="1572955416177" style="zoom:50%;"></p>
+<p>$4<em>4input &lt;—&gt;2</em>2output$</p>
+<h2 id="分类和定位"><a href="#分类和定位" class="headerlink" title="分类和定位"></a>分类和定位</h2><p><img src="/2019/11/05/CS231n-note-5/7.png" alt="1572956657061" style="zoom:50%;"></p>
+<p>定位一般使用回归损失函数。</p>
+<h2 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h2><p>固定几类对象，再输入图片之后将识别图中对象框起来并预测该对象的从属类别。</p>
+<p>输入图片的包含对象数量是不确定的。</p>
+<h3 id="候选区域方法-Region-Proposals"><a href="#候选区域方法-Region-Proposals" class="headerlink" title="候选区域方法(Region Proposals)"></a><strong>候选区域方法(Region Proposals)</strong></h3><p>将输入的图像划分为若干(很多)区域，在应用卷积神经网络对其进行分类。</p>
+<p>R-CNN    效率低</p>
+<p>Fast R-CNN 不用事先确定候选区而是通过一个卷积神经网络生成特征映射，在特征映射上通过固定函数像素划分确定候选区</p>
+<p>Faster R-CNN在确定备选区时自己进行区域选择网络的训练</p>
+<h3 id="Detection-without-Proposals"><a href="#Detection-without-Proposals" class="headerlink" title="Detection without Proposals"></a><strong>Detection without Proposals</strong></h3><h4 id="YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><a href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection" class="headerlink" title="YOLO(You Only Look Once)/SSD(Single Shot Detection)"></a>YOLO(You Only Look Once)/SSD(Single Shot Detection)</h4><p>利用回归，将输入图片划分为网格。 然后预测每个基本的方框的类别权重以及距离对象的信息。</p>
+<p><img src="/2019/11/05/CS231n-note-5/8.png" alt="1572970026182" style="zoom:50%;"></p>
+<h3 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h3><p><img src="/2019/11/05/CS231n-note-5/9.png" alt="1572972443690" style="zoom:50%;"></p>
+<p> 两个分支，一个分支进行分类，一个分支进行类似语义分割确定对象的区域。  </p>
+<h3 id="DeepDream-amp-Feature-Inversion"><a href="#DeepDream-amp-Feature-Inversion" class="headerlink" title="DeepDream&amp;Feature Inversion"></a>DeepDream&amp;Feature Inversion</h3><p>DeepDream：放大存在的特征</p>
+<p>Feature Inversion：特征反演</p>
+<h3 id="纹理拼接-amp-风格迁移"><a href="#纹理拼接-amp-风格迁移" class="headerlink" title="纹理拼接&amp;风格迁移"></a>纹理拼接&amp;风格迁移</h3><p>Gram Matrix</p>
+<p><img src="/2019/11/05/CS231n-note-5/10.png" alt="1573008687755" style="zoom:50%;"></p>
+<p><img src="/2019/11/05/CS231n-note-5/11.png" alt="1573008897926" style="zoom:50%;"></p>
+<p>传统风格迁移会消耗大量的资源</p>
+<p><strong>Fast Style Transfer</strong></p>
+<h1 id="可视化和理解卷积神经网络"><a href="#可视化和理解卷积神经网络" class="headerlink" title="可视化和理解卷积神经网络"></a>可视化和理解卷积神经网络</h1></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">BROWALLIA</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://browallia.github.io/2019/11/05/CS231n-note-5/">https://browallia.github.io/2019/11/05/CS231n-note-5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://browallia.github.io" target="_blank">Viva La Vida</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a></div><div class="post_share"><div class="social-share" data-image="/img/post2.JPG" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/zfb.png" target="_blank"><img class="post-qr-code-img" src="/img/zfb.png" alt="Alipay"/></a><div class="post-qr-code-desc">Alipay</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/"><img class="prev-cover" src="/img/post1.JPG" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OCR手写识别_NoTe1</div></div></a></div><div class="next-post pull-right"><a href="/2019/10/28/CS231n-note-4/"><img class="next-cover" src="/img/post2.JPG" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CS231n-note-4</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/07/25/CS231n-note-1/" title="CS231n note-1"><img class="cover" src="/img/post2.JPG"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-07-25</div><div class="title">CS231n note-1</div></div></a></div><div><a href="/2019/10/21/CS231n-note-3/" title="CS231n-note-3"><img class="cover" src="/img/post1.JPG"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-21</div><div class="title">CS231n-note-3</div></div></a></div><div><a href="/2019/10/15/CS231n-note-2/" title="CS231n-note-2"><img class="cover" src="/img/post2.JPG"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-15</div><div class="title">CS231n-note-2</div></div></a></div><div><a href="/2019/10/28/CS231n-note-4/" title="CS231n-note-4"><img class="cover" src="/img/post2.JPG"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-28</div><div class="title">CS231n-note-4</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"/><span class="slider"></span></label><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By BROWALLIA</div><div class="footer_custom_text">早安，打工人！</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://browallia.github.io/2019/11/05/CS231n-note-5/'
+    this.page.identifier = '2019/11/05/CS231n-note-5/'
+    this.page.title = 'CS231n-note-5'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Valine' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
