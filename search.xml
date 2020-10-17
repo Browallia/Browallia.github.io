@@ -276,6 +276,55 @@ max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特�
       </tags>
   </entry>
   <entry>
+    <title>CS231n-note-4</title>
+    <url>/2019/10/28/CS231n-note-4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="深度学习软件"><a href="#深度学习软件" class="headerlink" title="深度学习软件"></a>深度学习软件</h1><h2 id="PyTorch-TODO"><a href="#PyTorch-TODO" class="headerlink" title="PyTorch(TODO)"></a>PyTorch(TODO)</h2><h3 id="组成-三层"><a href="#组成-三层" class="headerlink" title="组成(三层)"></a>组成(三层)</h3><h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>运行在GPU上的命令式数组(Imperative ndarray)</p>
+<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p>计算图中的节点，存储数据和梯度</p>
+<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><p>一个神经网络的层</p>
+<h1 id="CNN架构"><a href="#CNN架构" class="headerlink" title="CNN架构"></a>CNN架构</h1><p><strong>AlexNet</strong>：8layers</p>
+<p><strong>ZFNet</strong>：在AlexNet基础上调整了超参数</p>
+<p><strong>VGG</strong>：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)</p>
+<p><strong>GoogleNet</strong>:</p>
+<p>22layers，高效的“Inception”层，无全连接层</p>
+<p>Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。</p>
+<p><img src="/2019/10/28/CS231n-note-4/1.png" alt="1572427047546" style="zoom: 50%;"></p>
+<p>利用1X1卷积核进行深度的压缩对模型进行改进。 </p>
+<p><img src="/2019/10/28/CS231n-note-4/2.png" alt="1572427217649" style="zoom:50%;"></p>
+<p><strong>ResNet</strong>: 152layers</p>
+<p><img src="/2019/10/28/CS231n-note-4/3.png" alt="1572428187168" style="zoom:50%;"></p>
+<p>ResNet的整体结构</p>
+<p><img src="/2019/10/28/CS231n-note-4/4.png" style="zoom:50%;"></p>
+<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p><img src="/2019/10/28/CS231n-note-4/5.png" alt="1572832029309" style="zoom:67%;"></p>
+<p><strong>Vanilla RNN</strong></p>
+<script type="math/tex; mode=display">
+h_t = f_w(h_{t-1},x_t)\\
+h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
+y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
+<p>W的梯度是每个节点的W梯度值和  </p>
+<p><strong>Vanilla RNN梯度流</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/7.png" alt="1572869122126" style="zoom:50%;"></p>
+<p>在计算h0梯度时会发生梯度爆炸或者梯度消失   </p>
+<p>当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grad_norm = np.sum(grad * grad)</span><br><span class="line"><span class="keyword">if</span> grad_norm &gt; threshold</span><br><span class="line">	grad *= (threshold / grad_norm)</span><br></pre></td></tr></table></figure>
+<p>当梯度消失时可以采用更深的RNN网络，比如LSTM。</p>
+<p><strong>LSTM(长短期记忆网络)</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/blog\source\_posts\CS231n-note-4\8.png" alt="1572870827165" style="zoom: 50%;"></p>
+<p> ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。</p>
+<p>LSTM状态变化图</p>
+<p><img src="/2019/10/28/CS231n-note-4/9.png" alt="1572882658486" style="zoom:50%;"></p>
+<p>利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。</p>
+<p><strong>图像标注</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/6.png" alt></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CS231n-note-5</title>
     <url>/2019/11/05/CS231n-note-5/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -325,6 +374,73 @@ max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特�
       </tags>
   </entry>
   <entry>
+    <title>DETR-note</title>
+    <url>/2020/06/03/DETR-note/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="Transformer和Attention"><a href="#Transformer和Attention" class="headerlink" title="Transformer和Attention"></a>Transformer和Attention</h1><h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>Transformer本质上是一个Encoder-Decoder的结构</p>
+<p><img src="/2020/06/03/DETR-note/1.png" style="zoom: 67%;"></p>
+<p>在paper中，encoder和decoder都由6个block组成，编码器的输出作为解码器的输入。</p>
+<p>encoders每个block都是独立的单元，不会share weights。每个block又由以下的两部分组成(self-attention和FFN)</p>
+<p><img src="/2020/06/03/DETR-note/2.png" style="zoom:67%;"></p>
+<p>在decoder部分每个block也和encoder相似，只是在两层之间加了一个attention层(类似于seq2seq的attention机制，可以让decoder更加关注input相关的部分)。</p>
+<h4 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h4><p><img src="/2020/06/03/DETR-note/3.png" style="zoom:67%;"></p>
+<p>编码器接受单词的词嵌入列表作为输入(列表中每个向量为512-d)。单词在通过self-attention层时会依赖单词之间的关系，但是在通过Feed Forward时没有这些依赖关系，可以并行进行。</p>
+<h5 id="self-attention"><a href="#self-attention" class="headerlink" title="self-attention"></a>self-attention</h5><p>类似于RNN中的隐藏层，self-attention的作用是将其他单词的信息融入到正在处理的单词中。</p>
+<p>PS： ”<code>The animal didn&#39;t cross the street because it was too tired</code>” 在处理it时会将前文the animal等信息加到it中。</p>
+<p><strong>三个向量</strong></p>
+<p>self-attention的<strong>第一步</strong>就是从输入的词嵌入向量列表生成三个向量(64-d)</p>
+<p><img src="/2020/06/03/DETR-note/4.png" style="zoom:67%;"></p>
+<hr>
+<p><strong>query vector</strong>：与其他单词的key vector相乘计算得分<br><strong>key vector</strong>：与其他单词query vector相乘代表对其他单词在语义上的影响<br><strong>value vector</strong>：</p>
+<p> <strong>第二步</strong>是对输入的单词进行得分计算，得分决定了这个词在句子中有多重视其他部分。</p>
+<p>得分的计算是由其他单词的key vector和该单词的query vector进行点积计算。</p>
+<p><strong>第三步</strong>是对每个得分除以$\sqrt{d_k}$然后进行softmax可以得出每个位置的单词对该位置的贡献。</p>
+<p><strong>第四步</strong>是将每个单词的value vector与求出来的softmax权重相乘，可以关注语义上联系很强的单词。</p>
+<p><strong>第五步</strong>是将所有带权重的value vector进行求和，当作self-attention的输出。</p>
+<p><img src="/2020/06/03/DETR-note/5.png" style="zoom:50%;"></p>
+<p>在实际的运算中是以矩阵来进行运算的。</p>
+<p><img src="/2020/06/03/DETR-note/6.png" style="zoom:50%;"></p>
+<h5 id="multi-head机制"><a href="#multi-head机制" class="headerlink" title="multi-head机制"></a>multi-head机制</h5><ol>
+<li>多头注意力扩展了模型专注于不同位置的能力</li>
+<li>可以将每个词嵌入投射到不同的子空间</li>
+</ol>
+<p>n个注意力头会产生n个z输出，通过$W^0$与拼接好的输出进行相乘得到最后融合多个注意力头的Z</p>
+<p><img src="/2020/06/03/DETR-note/7.png" style="zoom:50%;"></p>
+<p>self-attention的总体计算过程</p>
+<p><img src="/2020/06/03/DETR-note/8.png" style="zoom:67%;"></p>
+<h5 id="Position-Encoding"><a href="#Position-Encoding" class="headerlink" title="Position Encoding"></a>Position Encoding</h5><p>在词嵌入中，将每个单词的位置编码(向量)加入到嵌入向量中，描述单词的输入顺序。</p>
+<p><img src="/2020/06/03/DETR-note/9.png" style="zoom:67%;"><img src="/2020/06/03/DETR-note/10.png" alt></p>
+<p>(Positional Embedding左半部分通过正弦函数求出，右半部分通过余弦函数求出)</p>
+<h5 id="Residuals"><a href="#Residuals" class="headerlink" title="Residuals"></a>Residuals</h5><p><img src="/2020/06/03/DETR-note/10.png" style="zoom:67%;"></p>
+<h4 id="解码器"><a href="#解码器" class="headerlink" title="解码器"></a>解码器</h4><p> <img src="https://jalammar.github.io/images/t/transformer_decoding_2.gif" alt="img"> </p>
+<p>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适 。</p>
+<p> 这个“编码-解码注意力层”工作方式基本就像多头自注意力层一样，只不过它是通过在它下面的层来创造查询矩阵，并且从编码器的输出中取得键/值矩阵。 </p>
+<p><strong>整体结构</strong></p>
+<p><img src="/2020/06/03/DETR-note/11.png" style="zoom:80%;"></p>
+<h2 id="DETR"><a href="#DETR" class="headerlink" title="DETR"></a>DETR</h2><h3 id="二分图匹配损失函数-bipartite-matiching-loss"><a href="#二分图匹配损失函数-bipartite-matiching-loss" class="headerlink" title="二分图匹配损失函数(bipartite matiching loss)"></a>二分图匹配损失函数(bipartite matiching loss)</h3><p>图片经过CNN提取特征输入Transformer模型，输出N个固定prediction box(class, bbox)格式。GT的bbox也以(class,bbox)的形式存在，并且补齐N个$(\emptyset,*)$ bbox。</p>
+<p>通过最佳匹配算法(匈牙利算法)来确定GT的最佳匹配框，然后可以计算损失函数。</p>
+<p>将输出的bbox与GT的bbox对应起来，寻找一个最佳的对应关系，使得loss最小。(这样做的好处是可以将多个输出相同object的框选择一个最优的输出bbox与GT标注框对应，迫使模型学习输出更多不同object的bbox，并且匈牙利算法会对预测的object数大于GT的object数进行惩罚)</p>
+<h3 id="DETR结构"><a href="#DETR结构" class="headerlink" title="DETR结构"></a>DETR结构</h3><p><img src="/2020/06/03/DETR-note/12.png" alt></p>
+<ol>
+<li><p>将图像经过CNN提取的特征与object的位置positional encoding结合送入transformer encoder中。</p>
+<p>(由于transformer只接受序列化输入，所以将(C,H,W) flatten 得到(C, HXW)的序列化特征)</p>
+</li>
+<li><p>将encoder的输出特征传入decoder(相当于一个特征映射的过程，encoder能够学习更多的其他位置的特征)，decoder的输入是object queries，object queries首先是n个随机变量，经过decoder融合encoder输出的图像信息得出n个合适的bbox输出（n个object queries可以当作n个不同的人从n个不同的角度对图像进行观测，<strong>注意</strong>图像不同的地方，<strong>是需要学习的</strong>）</p>
+</li>
+</ol>
+<p><strong>具体结构</strong></p>
+<p><img src="/2020/06/03/DETR-note/13.png" style="zoom:80%;"></p>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p><strong>pytorch</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torchvision.models <span class="keyword">import</span> resnet50</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DETR</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, hidden_dim, nheads,</span></span></span><br><span class="line"><span class="function"><span class="params">num_encoder_layers, num_decoder_layers</span>):</span></span><br><span class="line">	super().__init__()</span><br><span class="line"><span class="comment"># We take only convolutional layers from ResNet-50 model</span></span><br><span class="line">	self.backbone = nn.Sequential(*list(resnet50(pretrained=<span class="literal">True</span>).children())[:<span class="number">-2</span>])</span><br><span class="line">	self.conv = nn.Conv2d(<span class="number">2048</span>, hidden_dim, <span class="number">1</span>)</span><br><span class="line">    self.transformer = nn.Transformer(hidden_dim, nheads,</span><br><span class="line">	num_encoder_layers, num_decoder_layers)</span><br><span class="line">	self.linear_class = nn.Linear(hidden_dim, num_classes + <span class="number">1</span>)</span><br><span class="line">	self.linear_bbox = nn.Linear(hidden_dim, <span class="number">4</span>)</span><br><span class="line">	self.query_pos = nn.Parameter(torch.rand(<span class="number">100</span>, hidden_dim))</span><br><span class="line">	self.row_embed = nn.Parameter(torch.rand(<span class="number">50</span>, hidden_dim // <span class="number">2</span>))</span><br><span class="line">	self.col_embed = nn.Parameter(torch.rand(<span class="number">50</span>, hidden_dim // <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, inputs</span>):</span></span><br><span class="line">		x = self.backbone(inputs)</span><br><span class="line">		h = self.conv(x)</span><br><span class="line">		H, W = h.shape[<span class="number">-2</span>:]</span><br><span class="line">		pos = torch.cat([</span><br><span class="line">		self.col_embed[:W].unsqueeze(<span class="number">0</span>).repeat(H, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">		self.row_embed[:H].unsqueeze(<span class="number">1</span>).repeat(<span class="number">1</span>, W, <span class="number">1</span>),</span><br><span class="line">			], dim=<span class="number">-1</span>).flatten(<span class="number">0</span>, <span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">		h = self.transformer(pos + h.flatten(<span class="number">2</span>).permute(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>),</span><br><span class="line">		self.query_pos.unsqueeze(<span class="number">1</span>))</span><br><span class="line">		<span class="keyword">return</span> self.linear_class(h), self.linear_bbox(h).sigmoid()</span><br><span class="line"></span><br><span class="line">detr = DETR(num_classes=<span class="number">91</span>, hidden_dim=<span class="number">256</span>, nheads=<span class="number">8</span>, num_encoder_layers=<span class="number">6</span>, num_decoder_layers=<span class="number">6</span>)</span><br><span class="line">detr.eval()</span><br><span class="line">inputs = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">800</span>, <span class="number">1200</span>)</span><br><span class="line">logits, bboxes = detr(inputs)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Django学习笔记（一）</title>
     <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -358,52 +474,17 @@ max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特�
       </tags>
   </entry>
   <entry>
-    <title>CS231n-note-4</title>
-    <url>/2019/10/28/CS231n-note-4/</url>
+    <title>Django学习笔记（三）</title>
+    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="深度学习软件"><a href="#深度学习软件" class="headerlink" title="深度学习软件"></a>深度学习软件</h1><h2 id="PyTorch-TODO"><a href="#PyTorch-TODO" class="headerlink" title="PyTorch(TODO)"></a>PyTorch(TODO)</h2><h3 id="组成-三层"><a href="#组成-三层" class="headerlink" title="组成(三层)"></a>组成(三层)</h3><h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>运行在GPU上的命令式数组(Imperative ndarray)</p>
-<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p>计算图中的节点，存储数据和梯度</p>
-<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><p>一个神经网络的层</p>
-<h1 id="CNN架构"><a href="#CNN架构" class="headerlink" title="CNN架构"></a>CNN架构</h1><p><strong>AlexNet</strong>：8layers</p>
-<p><strong>ZFNet</strong>：在AlexNet基础上调整了超参数</p>
-<p><strong>VGG</strong>：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)</p>
-<p><strong>GoogleNet</strong>:</p>
-<p>22layers，高效的“Inception”层，无全连接层</p>
-<p>Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。</p>
-<p><img src="/2019/10/28/CS231n-note-4/1.png" alt="1572427047546" style="zoom: 50%;"></p>
-<p>利用1X1卷积核进行深度的压缩对模型进行改进。 </p>
-<p><img src="/2019/10/28/CS231n-note-4/2.png" alt="1572427217649" style="zoom:50%;"></p>
-<p><strong>ResNet</strong>: 152layers</p>
-<p><img src="/2019/10/28/CS231n-note-4/3.png" alt="1572428187168" style="zoom:50%;"></p>
-<p>ResNet的整体结构</p>
-<p><img src="/2019/10/28/CS231n-note-4/4.png" style="zoom:50%;"></p>
-<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p><img src="/2019/10/28/CS231n-note-4/5.png" alt="1572832029309" style="zoom:67%;"></p>
-<p><strong>Vanilla RNN</strong></p>
-<script type="math/tex; mode=display">
-h_t = f_w(h_{t-1},x_t)\\
-h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
-y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
-<p>W的梯度是每个节点的W梯度值和  </p>
-<p><strong>Vanilla RNN梯度流</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/7.png" alt="1572869122126" style="zoom:50%;"></p>
-<p>在计算h0梯度时会发生梯度爆炸或者梯度消失   </p>
-<p>当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grad_norm = np.sum(grad * grad)</span><br><span class="line"><span class="keyword">if</span> grad_norm &gt; threshold</span><br><span class="line">	grad *= (threshold / grad_norm)</span><br></pre></td></tr></table></figure>
-<p>当梯度消失时可以采用更深的RNN网络，比如LSTM。</p>
-<p><strong>LSTM(长短期记忆网络)</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/blog\source\_posts\CS231n-note-4\8.png" alt="1572870827165" style="zoom: 50%;"></p>
-<p> ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。</p>
-<p>LSTM状态变化图</p>
-<p><img src="/2019/10/28/CS231n-note-4/9.png" alt="1572882658486" style="zoom:50%;"></p>
-<p>利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。</p>
-<p><strong>图像标注</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/6.png" alt></p>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
+<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习</category>
+        <category>Web学习</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
@@ -494,78 +575,24 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Django学习笔记（三）</title>
-    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <title>FPN-note</title>
+    <url>/2020/05/06/FPN-note/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
-<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Web学习</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DETR-note</title>
-    <url>/2020/06/03/DETR-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="Transformer和Attention"><a href="#Transformer和Attention" class="headerlink" title="Transformer和Attention"></a>Transformer和Attention</h1><h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>Transformer本质上是一个Encoder-Decoder的结构</p>
-<p><img src="/2020/06/03/DETR-note/1.png" style="zoom: 67%;"></p>
-<p>在paper中，encoder和decoder都由6个block组成，编码器的输出作为解码器的输入。</p>
-<p>encoders每个block都是独立的单元，不会share weights。每个block又由以下的两部分组成(self-attention和FFN)</p>
-<p><img src="/2020/06/03/DETR-note/2.png" style="zoom:67%;"></p>
-<p>在decoder部分每个block也和encoder相似，只是在两层之间加了一个attention层(类似于seq2seq的attention机制，可以让decoder更加关注input相关的部分)。</p>
-<h4 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h4><p><img src="/2020/06/03/DETR-note/3.png" style="zoom:67%;"></p>
-<p>编码器接受单词的词嵌入列表作为输入(列表中每个向量为512-d)。单词在通过self-attention层时会依赖单词之间的关系，但是在通过Feed Forward时没有这些依赖关系，可以并行进行。</p>
-<h5 id="self-attention"><a href="#self-attention" class="headerlink" title="self-attention"></a>self-attention</h5><p>类似于RNN中的隐藏层，self-attention的作用是将其他单词的信息融入到正在处理的单词中。</p>
-<p>PS： ”<code>The animal didn&#39;t cross the street because it was too tired</code>” 在处理it时会将前文the animal等信息加到it中。</p>
-<p><strong>三个向量</strong></p>
-<p>self-attention的<strong>第一步</strong>就是从输入的词嵌入向量列表生成三个向量(64-d)</p>
-<p><img src="/2020/06/03/DETR-note/4.png" style="zoom:67%;"></p>
-<hr>
-<p><strong>query vector</strong>：与其他单词的key vector相乘计算得分<br><strong>key vector</strong>：与其他单词query vector相乘代表对其他单词在语义上的影响<br><strong>value vector</strong>：</p>
-<p> <strong>第二步</strong>是对输入的单词进行得分计算，得分决定了这个词在句子中有多重视其他部分。</p>
-<p>得分的计算是由其他单词的key vector和该单词的query vector进行点积计算。</p>
-<p><strong>第三步</strong>是对每个得分除以$\sqrt{d_k}$然后进行softmax可以得出每个位置的单词对该位置的贡献。</p>
-<p><strong>第四步</strong>是将每个单词的value vector与求出来的softmax权重相乘，可以关注语义上联系很强的单词。</p>
-<p><strong>第五步</strong>是将所有带权重的value vector进行求和，当作self-attention的输出。</p>
-<p><img src="/2020/06/03/DETR-note/5.png" style="zoom:50%;"></p>
-<p>在实际的运算中是以矩阵来进行运算的。</p>
-<p><img src="/2020/06/03/DETR-note/6.png" style="zoom:50%;"></p>
-<h5 id="multi-head机制"><a href="#multi-head机制" class="headerlink" title="multi-head机制"></a>multi-head机制</h5><ol>
-<li>多头注意力扩展了模型专注于不同位置的能力</li>
-<li>可以将每个词嵌入投射到不同的子空间</li>
-</ol>
-<p>n个注意力头会产生n个z输出，通过$W^0$与拼接好的输出进行相乘得到最后融合多个注意力头的Z</p>
-<p><img src="/2020/06/03/DETR-note/7.png" style="zoom:50%;"></p>
-<p>self-attention的总体计算过程</p>
-<p><img src="/2020/06/03/DETR-note/8.png" style="zoom:67%;"></p>
-<h5 id="Position-Encoding"><a href="#Position-Encoding" class="headerlink" title="Position Encoding"></a>Position Encoding</h5><p>在词嵌入中，将每个单词的位置编码(向量)加入到嵌入向量中，描述单词的输入顺序。</p>
-<p><img src="/2020/06/03/DETR-note/9.png" style="zoom:67%;"><img src="/2020/06/03/DETR-note/10.png" alt></p>
-<p>(Positional Embedding左半部分通过正弦函数求出，右半部分通过余弦函数求出)</p>
-<h5 id="Residuals"><a href="#Residuals" class="headerlink" title="Residuals"></a>Residuals</h5><p><img src="/2020/06/03/DETR-note/10.png" style="zoom:67%;"></p>
-<h4 id="解码器"><a href="#解码器" class="headerlink" title="解码器"></a>解码器</h4><p> <img src="https://jalammar.github.io/images/t/transformer_decoding_2.gif" alt="img"> </p>
-<p>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适 。</p>
-<p> 这个“编码-解码注意力层”工作方式基本就像多头自注意力层一样，只不过它是通过在它下面的层来创造查询矩阵，并且从编码器的输出中取得键/值矩阵。 </p>
-<p><strong>整体结构</strong></p>
-<p><img src="/2020/06/03/DETR-note/11.png" style="zoom:80%;"></p>
-<h2 id="DETR"><a href="#DETR" class="headerlink" title="DETR"></a>DETR</h2><h3 id="二分图匹配损失函数-bipartite-matiching-loss"><a href="#二分图匹配损失函数-bipartite-matiching-loss" class="headerlink" title="二分图匹配损失函数(bipartite matiching loss)"></a>二分图匹配损失函数(bipartite matiching loss)</h3><p>图片经过CNN提取特征输入Transformer模型，输出N个固定prediction box(class, bbox)格式。GT的bbox也以(class,bbox)的形式存在，并且补齐N个$(\emptyset,*)$ bbox。</p>
-<p>通过最佳匹配算法(匈牙利算法)来确定GT的最佳匹配框，然后可以计算损失函数。</p>
-<p>将输出的bbox与GT的bbox对应起来，寻找一个最佳的对应关系，使得loss最小。(这样做的好处是可以将多个输出相同object的框选择一个最优的输出bbox与GT标注框对应，迫使模型学习输出更多不同object的bbox，并且匈牙利算法会对预测的object数大于GT的object数进行惩罚)</p>
-<h3 id="DETR结构"><a href="#DETR结构" class="headerlink" title="DETR结构"></a>DETR结构</h3><p><img src="/2020/06/03/DETR-note/12.png" alt></p>
-<ol>
-<li><p>将图像经过CNN提取的特征与object的位置positional encoding结合送入transformer encoder中。</p>
-<p>(由于transformer只接受序列化输入，所以将(C,H,W) flatten 得到(C, HXW)的序列化特征)</p>
-</li>
-<li><p>将encoder的输出特征传入decoder(相当于一个特征映射的过程，encoder能够学习更多的其他位置的特征)，decoder的输入是object queries，object queries首先是n个随机变量，经过decoder融合encoder输出的图像信息得出n个合适的bbox输出（n个object queries可以当作n个不同的人从n个不同的角度对图像进行观测，<strong>注意</strong>图像不同的地方，<strong>是需要学习的</strong>）</p>
-</li>
-</ol>
-<p><strong>具体结构</strong></p>
-<p><img src="/2020/06/03/DETR-note/13.png" style="zoom:80%;"></p>
-<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p><strong>pytorch</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torchvision.models <span class="keyword">import</span> resnet50</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DETR</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, hidden_dim, nheads,</span></span></span><br><span class="line"><span class="function"><span class="params">num_encoder_layers, num_decoder_layers</span>):</span></span><br><span class="line">	super().__init__()</span><br><span class="line"><span class="comment"># We take only convolutional layers from ResNet-50 model</span></span><br><span class="line">	self.backbone = nn.Sequential(*list(resnet50(pretrained=<span class="literal">True</span>).children())[:<span class="number">-2</span>])</span><br><span class="line">	self.conv = nn.Conv2d(<span class="number">2048</span>, hidden_dim, <span class="number">1</span>)</span><br><span class="line">    self.transformer = nn.Transformer(hidden_dim, nheads,</span><br><span class="line">	num_encoder_layers, num_decoder_layers)</span><br><span class="line">	self.linear_class = nn.Linear(hidden_dim, num_classes + <span class="number">1</span>)</span><br><span class="line">	self.linear_bbox = nn.Linear(hidden_dim, <span class="number">4</span>)</span><br><span class="line">	self.query_pos = nn.Parameter(torch.rand(<span class="number">100</span>, hidden_dim))</span><br><span class="line">	self.row_embed = nn.Parameter(torch.rand(<span class="number">50</span>, hidden_dim // <span class="number">2</span>))</span><br><span class="line">	self.col_embed = nn.Parameter(torch.rand(<span class="number">50</span>, hidden_dim // <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, inputs</span>):</span></span><br><span class="line">		x = self.backbone(inputs)</span><br><span class="line">		h = self.conv(x)</span><br><span class="line">		H, W = h.shape[<span class="number">-2</span>:]</span><br><span class="line">		pos = torch.cat([</span><br><span class="line">		self.col_embed[:W].unsqueeze(<span class="number">0</span>).repeat(H, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">		self.row_embed[:H].unsqueeze(<span class="number">1</span>).repeat(<span class="number">1</span>, W, <span class="number">1</span>),</span><br><span class="line">			], dim=<span class="number">-1</span>).flatten(<span class="number">0</span>, <span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">		h = self.transformer(pos + h.flatten(<span class="number">2</span>).permute(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>),</span><br><span class="line">		self.query_pos.unsqueeze(<span class="number">1</span>))</span><br><span class="line">		<span class="keyword">return</span> self.linear_class(h), self.linear_bbox(h).sigmoid()</span><br><span class="line"></span><br><span class="line">detr = DETR(num_classes=<span class="number">91</span>, hidden_dim=<span class="number">256</span>, nheads=<span class="number">8</span>, num_encoder_layers=<span class="number">6</span>, num_decoder_layers=<span class="number">6</span>)</span><br><span class="line">detr.eval()</span><br><span class="line">inputs = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">800</span>, <span class="number">1200</span>)</span><br><span class="line">logits, bboxes = detr(inputs)</span><br></pre></td></tr></table></figure>
+<h1 id="FPN-Feature-Pyramid-Networks-for-Object-Detection"><a href="#FPN-Feature-Pyramid-Networks-for-Object-Detection" class="headerlink" title="FPN(Feature Pyramid Networks for Object Detection)"></a>FPN(Feature Pyramid Networks for Object Detection)</h1><p>FPN解决的主要问题是检测算法在处理多尺度变化问题时的不足以及对小物体检测不友好的问题。传统的方法是构造图像特征金字塔，但是计算量很大，FPN通过独特的构造避免了计算量过高的问题，并且有良好的多尺度处理性能。</p>
+<p><img src="/2020/05/06/FPN-note/1.png" alt></p>
+<p>图a为传统的多尺度特征提取方法，计算量极大。</p>
+<p>图b为单一特征的检测系统，有很大的局限性。</p>
+<p>图c为网络多层次结构提取特征，但是存在底层语义较弱的问题。</p>
+<p>图d为FPN金字塔特征提取，能够让各个不同尺度的特征都拥有较强的语义信息。</p>
+<h2 id="FPN算法"><a href="#FPN算法" class="headerlink" title="FPN算法"></a>FPN算法</h2><p> FPN包含两个部分：第一部分是自底向上的过程，第二部分是自顶向下和侧向连接的融合过程。 </p>
+<h3 id="自底向上过程"><a href="#自底向上过程" class="headerlink" title="自底向上过程"></a>自底向上过程</h3><p> 自底向上的过程和普通的CNN没有区别。现代的CNN网络一般都是按照特征图大小划分为不同的stage，每个stage之间特征图的尺度比例相差为2。在FPN中，每个stage对应了一个特征金字塔的级别（level），并且每个stage的最后一层特征被选为对应FPN中相应级别的特征。以ResNet为例，选取conv2、conv3、conv4、conv5层的最后一个残差block层特征作为FPN的特征，记为{C2、C3、C4、C5}。这几个特征层相对于原图的步长分别为4、8、16、32。 </p>
+<h3 id="自顶向下过程"><a href="#自顶向下过程" class="headerlink" title="自顶向下过程"></a>自顶向下过程</h3><p>自顶向下的过程通过上采样（up-sampling）的方式将顶层的小特征图（例如20）放大到上一个stage的特征图一样的大小（例如40）。这样的好处是既利用了顶层较强的语义特征（利于分类），又利用了底层的高分辨率信息（利于定位）。上采样的方法可以用最近邻差值实现。为了将高层语义特征和底层的精确定位能力结合，作者提出类似于残差网络的侧向连接结构。侧向连接将上一层经过上采样后和当前层分辨率一致的特征，通过相加的方法进行融合。（这里为了修正通道数量，将当前层先经过1x1卷积操作。）如图所示。</p>
+<p><img src="/2020/05/06/FPN-note/2.png" style="zoom:80%;"></p>
+<p>具体的，C5层先经过1x1卷积，得到M5特征。M5通过上采样，再加上C4经过1x1卷积后的特征，得到M4。这个过程再做两次，分别得到M3和M2。M层特征再经过3x3卷积，得到最终的P2、P3、P4、P5层特征。另外，和传统的图像金字塔方式一样，所有M层的通道数都设计成一样的，本文都用d=256。细节图如下所示（以ResNet为例）： </p>
+<p><img src="/2020/05/06/FPN-note/3.png" style="zoom:67%;"></p>
+<p> FPN本身不是检测算法，只是一个特征提取器。它需要和其他检测算法结合才能使用。 RetinaNet就是一个运用了FPN的网络。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>以Resnet为Backbone</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PyramidFeatures</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, C3_size, C4_size, C5_size, feature_size=<span class="number">256</span></span>):</span></span><br><span class="line">        super(PyramidFeatures, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upsample C5 to get P5 from the FPN paper</span></span><br><span class="line">        self.P5_1 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P5_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P5_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P5 elementwise to C4</span></span><br><span class="line">        self.P4_1 = nn.Conv2d(C4_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P4_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P4_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P4 elementwise to C3</span></span><br><span class="line">        self.P3_1 = nn.Conv2d(C3_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P3_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P6 is obtained via a 3x3 stride-2 conv on C5&quot;</span></span><br><span class="line">        self.P6 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P7 is computed by applying ReLU followed by a 3x3 stride-2 conv on P6&quot;</span></span><br><span class="line">        self.P7_1 = nn.ReLU()</span><br><span class="line">        self.P7_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, inputs</span>):</span></span><br><span class="line">        C3, C4, C5 = inputs</span><br><span class="line"></span><br><span class="line">        P5_x = self.P5_1(C5)</span><br><span class="line">        P5_upsampled_x = self.P5_upsampled(P5_x)</span><br><span class="line">        P5_x = self.P5_2(P5_x)</span><br><span class="line"></span><br><span class="line">        P4_x = self.P4_1(C4)</span><br><span class="line">        P4_x = P5_upsampled_x + P4_x</span><br><span class="line">        P4_upsampled_x = self.P4_upsampled(P4_x)</span><br><span class="line">        P4_x = self.P4_2(P4_x)</span><br><span class="line"></span><br><span class="line">        P3_x = self.P3_1(C3)</span><br><span class="line">        P3_x = P3_x + P4_upsampled_x</span><br><span class="line">        P3_x = self.P3_2(P3_x)</span><br><span class="line"></span><br><span class="line">        P6_x = self.P6(C5)</span><br><span class="line"></span><br><span class="line">        P7_x = self.P7_1(P6_x)</span><br><span class="line">        P7_x = self.P7_2(P7_x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [P3_x, P4_x, P5_x, P6_x, P7_x]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>深度学习</category>
@@ -614,33 +641,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>语义分割</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FPN-note</title>
-    <url>/2020/05/06/FPN-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="FPN-Feature-Pyramid-Networks-for-Object-Detection"><a href="#FPN-Feature-Pyramid-Networks-for-Object-Detection" class="headerlink" title="FPN(Feature Pyramid Networks for Object Detection)"></a>FPN(Feature Pyramid Networks for Object Detection)</h1><p>FPN解决的主要问题是检测算法在处理多尺度变化问题时的不足以及对小物体检测不友好的问题。传统的方法是构造图像特征金字塔，但是计算量很大，FPN通过独特的构造避免了计算量过高的问题，并且有良好的多尺度处理性能。</p>
-<p><img src="/2020/05/06/FPN-note/1.png" alt></p>
-<p>图a为传统的多尺度特征提取方法，计算量极大。</p>
-<p>图b为单一特征的检测系统，有很大的局限性。</p>
-<p>图c为网络多层次结构提取特征，但是存在底层语义较弱的问题。</p>
-<p>图d为FPN金字塔特征提取，能够让各个不同尺度的特征都拥有较强的语义信息。</p>
-<h2 id="FPN算法"><a href="#FPN算法" class="headerlink" title="FPN算法"></a>FPN算法</h2><p> FPN包含两个部分：第一部分是自底向上的过程，第二部分是自顶向下和侧向连接的融合过程。 </p>
-<h3 id="自底向上过程"><a href="#自底向上过程" class="headerlink" title="自底向上过程"></a>自底向上过程</h3><p> 自底向上的过程和普通的CNN没有区别。现代的CNN网络一般都是按照特征图大小划分为不同的stage，每个stage之间特征图的尺度比例相差为2。在FPN中，每个stage对应了一个特征金字塔的级别（level），并且每个stage的最后一层特征被选为对应FPN中相应级别的特征。以ResNet为例，选取conv2、conv3、conv4、conv5层的最后一个残差block层特征作为FPN的特征，记为{C2、C3、C4、C5}。这几个特征层相对于原图的步长分别为4、8、16、32。 </p>
-<h3 id="自顶向下过程"><a href="#自顶向下过程" class="headerlink" title="自顶向下过程"></a>自顶向下过程</h3><p>自顶向下的过程通过上采样（up-sampling）的方式将顶层的小特征图（例如20）放大到上一个stage的特征图一样的大小（例如40）。这样的好处是既利用了顶层较强的语义特征（利于分类），又利用了底层的高分辨率信息（利于定位）。上采样的方法可以用最近邻差值实现。为了将高层语义特征和底层的精确定位能力结合，作者提出类似于残差网络的侧向连接结构。侧向连接将上一层经过上采样后和当前层分辨率一致的特征，通过相加的方法进行融合。（这里为了修正通道数量，将当前层先经过1x1卷积操作。）如图所示。</p>
-<p><img src="/2020/05/06/FPN-note/2.png" style="zoom:80%;"></p>
-<p>具体的，C5层先经过1x1卷积，得到M5特征。M5通过上采样，再加上C4经过1x1卷积后的特征，得到M4。这个过程再做两次，分别得到M3和M2。M层特征再经过3x3卷积，得到最终的P2、P3、P4、P5层特征。另外，和传统的图像金字塔方式一样，所有M层的通道数都设计成一样的，本文都用d=256。细节图如下所示（以ResNet为例）： </p>
-<p><img src="/2020/05/06/FPN-note/3.png" style="zoom:67%;"></p>
-<p> FPN本身不是检测算法，只是一个特征提取器。它需要和其他检测算法结合才能使用。 RetinaNet就是一个运用了FPN的网络。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>以Resnet为Backbone</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PyramidFeatures</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, C3_size, C4_size, C5_size, feature_size=<span class="number">256</span></span>):</span></span><br><span class="line">        super(PyramidFeatures, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upsample C5 to get P5 from the FPN paper</span></span><br><span class="line">        self.P5_1 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P5_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P5_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P5 elementwise to C4</span></span><br><span class="line">        self.P4_1 = nn.Conv2d(C4_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P4_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P4_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P4 elementwise to C3</span></span><br><span class="line">        self.P3_1 = nn.Conv2d(C3_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P3_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P6 is obtained via a 3x3 stride-2 conv on C5&quot;</span></span><br><span class="line">        self.P6 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P7 is computed by applying ReLU followed by a 3x3 stride-2 conv on P6&quot;</span></span><br><span class="line">        self.P7_1 = nn.ReLU()</span><br><span class="line">        self.P7_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, inputs</span>):</span></span><br><span class="line">        C3, C4, C5 = inputs</span><br><span class="line"></span><br><span class="line">        P5_x = self.P5_1(C5)</span><br><span class="line">        P5_upsampled_x = self.P5_upsampled(P5_x)</span><br><span class="line">        P5_x = self.P5_2(P5_x)</span><br><span class="line"></span><br><span class="line">        P4_x = self.P4_1(C4)</span><br><span class="line">        P4_x = P5_upsampled_x + P4_x</span><br><span class="line">        P4_upsampled_x = self.P4_upsampled(P4_x)</span><br><span class="line">        P4_x = self.P4_2(P4_x)</span><br><span class="line"></span><br><span class="line">        P3_x = self.P3_1(C3)</span><br><span class="line">        P3_x = P3_x + P4_upsampled_x</span><br><span class="line">        P3_x = self.P3_2(P3_x)</span><br><span class="line"></span><br><span class="line">        P6_x = self.P6(C5)</span><br><span class="line"></span><br><span class="line">        P7_x = self.P7_1(P6_x)</span><br><span class="line">        P7_x = self.P7_2(P7_x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [P3_x, P4_x, P5_x, P6_x, P7_x]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -879,6 +879,91 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
+    <title>PolarMask-note</title>
+    <url>/2020/05/28/PolarMask-note/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="PolorMask：one-stage实例分割新思路"><a href="#PolorMask：one-stage实例分割新思路" class="headerlink" title="PolorMask：one-stage实例分割新思路"></a>PolorMask：one-stage实例分割新思路</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="FCOS"><a href="#FCOS" class="headerlink" title="FCOS"></a>FCOS</h3><p>​    FCOS是一个基于全卷积的one-stage检测网络，类似于语义分割针对每个像素进行预测。FCOS是anchor free，proposal free的检测器，可以减少大量的内存计算以及内存占用，并且不需要调优设计anchor和proposal的超参数。事实上这个anchor free方法还是有anchor的只不过不再是box形式，而是用点作为anchor，既减少了anchor数量又取消了超参。此外文章还提出了一个思路：<strong>将检测问题可以统一到其他FCN_solvable问题，可以简单的重用其他任务的idea。</strong></p>
+<p>​    网络结构图如下：</p>
+<p><img src="/2020/05/28/PolarMask-note/1.png" style="zoom:80%;"></p>
+<p>​    可以从图中看出网络结构中也运用了FPN的结构但是没有使用backbone的所有卷积层，但考虑了多尺度的问题直接加入了P5的下采样P6/P7。最后的损失函数也分为三个分支，classification、regression(不同于boxes，回归的4D向量为[l, r, t, b]代表每个像素点向四周的延伸)、centerness。</p>
+<p>​    文章还解决了重叠区域问题，引入了参数$m<em>i$为特征层$i$的最大距离，如果一个像素点(x, y)满足$max(l^<em>,t^</em>,r^<em>,b^</em>)&gt;m_i \or max(l^<em>,t^</em>,r^<em>,b^</em>)&lt;m</em>{i-1}$ 那么在该特征层将其视为负样本，不进行回归。</p>
+<p>​    此外，作者还运用了Center-ness($\sqrt{\frac{min(l^<em>,r^</em>)}{max(l^<em>, r^</em>)}\times\frac{min(t^<em>, b^</em>)}{max(t^<em>,b^</em>)}}$)对离物体中心较远质量差的预测边框进行了抑制。通过BCE Loss来进行训练。可以在预测时降低远离物体中心边框的得分。</p>
+<h3 id="PolorMask解决的问题"><a href="#PolorMask解决的问题" class="headerlink" title="PolorMask解决的问题"></a>PolorMask解决的问题</h3><p>将实例分割问题转化为基于<strong>实例中心分类(instance center classification)</strong>和<strong>密集距离回归(dense distance regression)</strong>的极坐标轮廓建模问题。提供了一种新的建模方式，让实例分割建模变得简单且高效。</p>
+<h3 id="PolorMask细节"><a href="#PolorMask细节" class="headerlink" title="PolorMask细节"></a>PolorMask细节</h3><h4 id="Polor-Representation"><a href="#Polor-Representation" class="headerlink" title="Polor Representation"></a>Polor Representation</h4><p>文章提出了一种新的mask表示，极坐标轮廓表示。这种表示方法有三个优势：</p>
+<ol>
+<li>极坐标的原点可以看作物体的中心</li>
+<li>轮廓上的点由距离和角度确定</li>
+<li>角度是确定的，所以将点连接到轮廓十分方便。(这是笛卡尔坐标系不存在的优势)</li>
+</ol>
+<h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><p><img src="/2020/05/28/PolarMask-note/2.png" style="zoom:80%;"></p>
+<p><em>ps：k = nr_class of dataset, n = the number of raws</em></p>
+<p>在网络结构上，PolorMask与FCOS十分相似，只是在head部分将bbox分支换成了mask分支。在网络结构复杂度上与FCOS相似。</p>
+<h4 id="Polar-Segmentation建模"><a href="#Polar-Segmentation建模" class="headerlink" title="Polar Segmentation建模"></a><strong>Polar Segmentation建模</strong></h4><p>经过网络可以得到中心点的位置和n(n=36 is best in our setting)根射线的距离，根据角度和长度计算出轮廓上的这些点的坐标，从0°开始连接这些点，最后把联通区域内的区域当做实例分割的结果。 </p>
+<h4 id="center-sample-中心采样"><a href="#center-sample-中心采样" class="headerlink" title="center sample(中心采样)"></a>center sample(中心采样)</h4><p>采取了在实例质心周围1.5个步幅内的像素点为正采样，否则为负采样，这样做的好处是避免了正负样本的过于不平衡以及有更多的候选点作为真正的中心。</p>
+<h4 id="Polar-IoU-Loss-amp-Polar-Centerness"><a href="#Polar-IoU-Loss-amp-Polar-Centerness" class="headerlink" title="Polar IoU Loss &amp; Polar Centerness"></a>Polar IoU Loss &amp; Polar Centerness</h4><p><strong>Polar IoU Loss</strong></p>
+<p><img src="/2020/05/28/PolarMask-note/4.png" style="zoom:80%;"></p>
+<p>采用从0-2Π的积分形式来进行IoU计算<br>$IoU = \frac{\int<em>0^{2\pi}1/2min(d_i,\tilde{d_i})^2d\theta}{\int_0^{2\pi}1/2max(d_i,\tilde{d_i})^2d\theta}=\lim</em>{N\rightarrow\infty}\frac{\sum<em>{i=1}^N1/2d</em>{min}^2\Delta \theta<em>i}{\sum</em>{i=1}^N1/2d<em>{max}^2\Delta \theta_i}-&gt;Polar IoU=\frac{\sum</em>{i=1}^Ndmin}{\sum<em>{i=1}^Ndmax}-&gt;PolarIoULoss=log\frac{\sum</em>{i=1}^Ndmin}{\sum_{i=1}^Ndmax}$<br>Polar IoU Loss采用的是BCE LOSS，在不用调权重的情况下，相比Smooth L1 Loss提了2.6个点</p>
+<p><strong>Polar Centerness</strong></p>
+<p>Polar Centerness是基于FCOS的Center ness的变化，也是为了定义高质量的正样本抑制低质量的正样本。</p>
+<p>$Polar \ Centerness=\sqrt\frac{min({d_1,d_2,…,d_n})}{max({d_1,d_2,…,d_n})}$如下图所示，右边的mask更加符合要求。</p>
+<p><img src="/2020/05/28/PolarMask-note/3.png" style="zoom:80%;"></p>
+<h3 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h3><ul>
+<li>关于实例中心的选择：实验表明使用质心(mass-center)比检测框中心(box-center)有更好的效果(可能是质心相比检测框中心更普遍在实例中？)</li>
+<li>关于polar segmentation的建模上限问题：作者在这实验证明了IoU能够达到90左右，逐像素法也会因下采样等操作而达不到100%。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">Number of rays</th>
+<th style="text-align:center">Loss</th>
+<th style="text-align:center">centerness</th>
+<th style="text-align:center">box brunch</th>
+<th>backbone</th>
+<th>scale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>influence</td>
+<td style="text-align:center">实验表明当数量增加时性能会提升但到72时接近饱和</td>
+<td style="text-align:center">Polar IoU Loss 表现明显优于Smooth L1 Loss</td>
+<td style="text-align:center">Polar centerness在大实例/高精度表现更好</td>
+<td style="text-align:center">polar mask无需边界框</td>
+<td>更好的特征提取网络会提高性能</td>
+<td>较大的图像尺寸会以较低的推理速度产生较高的精度</td>
+</tr>
+<tr>
+<td>best</td>
+<td style="text-align:center">36</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td>ResNeXt-101</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol>
+<li>不需要检测框，与FCOS一样是简洁高效的结构，包括在loss部分都不需要过多的超参数调节，在推理速度实验上也略优于two-stage model和其他one-stage model</li>
+<li>将目标检测和实例分割统一到了一个模型，为之后anchor free模型的研究与改进提供了一个思路</li>
+</ol>
+<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a><strong>不足</strong></h4><ol>
+<li>在精度方面与sota模型还是有差距</li>
+<li>center采样的过程在论文中没有详细描述这样采样的原因是什么</li>
+<li>在数据处理会更加复杂，会处理实例质心相关的问题</li>
+</ol>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>实例分割</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Retinanet&amp;focal-loss</title>
     <url>/2020/05/12/Retinanet-focal-loss/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -972,6 +1057,11 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
+    <title>关于Github+Hexo+NexT的配置</title>
+    <url>/2018/09/30/%E5%85%B3%E4%BA%8EGithub-Hexo-NexT%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+  </entry>
+  <entry>
     <title>用numpy实现简单的三层BP神经网络</title>
     <url>/2018/10/13/%E7%94%A8numpy%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%89%E5%B1%82bp%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -986,96 +1076,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       <tags>
         <tag>神经网络</tag>
         <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于Github+Hexo+NexT的配置</title>
-    <url>/2018/09/30/%E5%85%B3%E4%BA%8EGithub-Hexo-NexT%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-  </entry>
-  <entry>
-    <title>PolarMask-note</title>
-    <url>/2020/05/28/PolarMask-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="PolorMask：one-stage实例分割新思路"><a href="#PolorMask：one-stage实例分割新思路" class="headerlink" title="PolorMask：one-stage实例分割新思路"></a>PolorMask：one-stage实例分割新思路</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="FCOS"><a href="#FCOS" class="headerlink" title="FCOS"></a>FCOS</h3><p>​    FCOS是一个基于全卷积的one-stage检测网络，类似于语义分割针对每个像素进行预测。FCOS是anchor free，proposal free的检测器，可以减少大量的内存计算以及内存占用，并且不需要调优设计anchor和proposal的超参数。事实上这个anchor free方法还是有anchor的只不过不再是box形式，而是用点作为anchor，既减少了anchor数量又取消了超参。此外文章还提出了一个思路：<strong>将检测问题可以统一到其他FCN_solvable问题，可以简单的重用其他任务的idea。</strong></p>
-<p>​    网络结构图如下：</p>
-<p><img src="/2020/05/28/PolarMask-note/1.png" style="zoom:80%;"></p>
-<p>​    可以从图中看出网络结构中也运用了FPN的结构但是没有使用backbone的所有卷积层，但考虑了多尺度的问题直接加入了P5的下采样P6/P7。最后的损失函数也分为三个分支，classification、regression(不同于boxes，回归的4D向量为[l, r, t, b]代表每个像素点向四周的延伸)、centerness。</p>
-<p>​    文章还解决了重叠区域问题，引入了参数$m<em>i$为特征层$i$的最大距离，如果一个像素点(x, y)满足$max(l^<em>,t^</em>,r^<em>,b^</em>)&gt;m_i \or max(l^<em>,t^</em>,r^<em>,b^</em>)&lt;m</em>{i-1}$ 那么在该特征层将其视为负样本，不进行回归。</p>
-<p>​    此外，作者还运用了Center-ness($\sqrt{\frac{min(l^<em>,r^</em>)}{max(l^<em>, r^</em>)}\times\frac{min(t^<em>, b^</em>)}{max(t^<em>,b^</em>)}}$)对离物体中心较远质量差的预测边框进行了抑制。通过BCE Loss来进行训练。可以在预测时降低远离物体中心边框的得分。</p>
-<h3 id="PolorMask解决的问题"><a href="#PolorMask解决的问题" class="headerlink" title="PolorMask解决的问题"></a>PolorMask解决的问题</h3><p>将实例分割问题转化为基于<strong>实例中心分类(instance center classification)</strong>和<strong>密集距离回归(dense distance regression)</strong>的极坐标轮廓建模问题。提供了一种新的建模方式，让实例分割建模变得简单且高效。</p>
-<h3 id="PolorMask细节"><a href="#PolorMask细节" class="headerlink" title="PolorMask细节"></a>PolorMask细节</h3><h4 id="Polor-Representation"><a href="#Polor-Representation" class="headerlink" title="Polor Representation"></a>Polor Representation</h4><p>文章提出了一种新的mask表示，极坐标轮廓表示。这种表示方法有三个优势：</p>
-<ol>
-<li>极坐标的原点可以看作物体的中心</li>
-<li>轮廓上的点由距离和角度确定</li>
-<li>角度是确定的，所以将点连接到轮廓十分方便。(这是笛卡尔坐标系不存在的优势)</li>
-</ol>
-<h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><p><img src="/2020/05/28/PolarMask-note/2.png" style="zoom:80%;"></p>
-<p><em>ps：k = nr_class of dataset, n = the number of raws</em></p>
-<p>在网络结构上，PolorMask与FCOS十分相似，只是在head部分将bbox分支换成了mask分支。在网络结构复杂度上与FCOS相似。</p>
-<h4 id="Polar-Segmentation建模"><a href="#Polar-Segmentation建模" class="headerlink" title="Polar Segmentation建模"></a><strong>Polar Segmentation建模</strong></h4><p>经过网络可以得到中心点的位置和n(n=36 is best in our setting)根射线的距离，根据角度和长度计算出轮廓上的这些点的坐标，从0°开始连接这些点，最后把联通区域内的区域当做实例分割的结果。 </p>
-<h4 id="center-sample-中心采样"><a href="#center-sample-中心采样" class="headerlink" title="center sample(中心采样)"></a>center sample(中心采样)</h4><p>采取了在实例质心周围1.5个步幅内的像素点为正采样，否则为负采样，这样做的好处是避免了正负样本的过于不平衡以及有更多的候选点作为真正的中心。</p>
-<h4 id="Polar-IoU-Loss-amp-Polar-Centerness"><a href="#Polar-IoU-Loss-amp-Polar-Centerness" class="headerlink" title="Polar IoU Loss &amp; Polar Centerness"></a>Polar IoU Loss &amp; Polar Centerness</h4><p><strong>Polar IoU Loss</strong></p>
-<p><img src="/2020/05/28/PolarMask-note/4.png" style="zoom:80%;"></p>
-<p>采用从0-2Π的积分形式来进行IoU计算<br>$IoU = \frac{\int<em>0^{2\pi}1/2min(d_i,\tilde{d_i})^2d\theta}{\int_0^{2\pi}1/2max(d_i,\tilde{d_i})^2d\theta}=\lim</em>{N\rightarrow\infty}\frac{\sum<em>{i=1}^N1/2d</em>{min}^2\Delta \theta<em>i}{\sum</em>{i=1}^N1/2d<em>{max}^2\Delta \theta_i}-&gt;Polar IoU=\frac{\sum</em>{i=1}^Ndmin}{\sum<em>{i=1}^Ndmax}-&gt;PolarIoULoss=log\frac{\sum</em>{i=1}^Ndmin}{\sum_{i=1}^Ndmax}$<br>Polar IoU Loss采用的是BCE LOSS，在不用调权重的情况下，相比Smooth L1 Loss提了2.6个点</p>
-<p><strong>Polar Centerness</strong></p>
-<p>Polar Centerness是基于FCOS的Center ness的变化，也是为了定义高质量的正样本抑制低质量的正样本。</p>
-<p>$Polar \ Centerness=\sqrt\frac{min({d_1,d_2,…,d_n})}{max({d_1,d_2,…,d_n})}$如下图所示，右边的mask更加符合要求。</p>
-<p><img src="/2020/05/28/PolarMask-note/3.png" style="zoom:80%;"></p>
-<h3 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h3><ul>
-<li>关于实例中心的选择：实验表明使用质心(mass-center)比检测框中心(box-center)有更好的效果(可能是质心相比检测框中心更普遍在实例中？)</li>
-<li>关于polar segmentation的建模上限问题：作者在这实验证明了IoU能够达到90左右，逐像素法也会因下采样等操作而达不到100%。</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:center">Number of rays</th>
-<th style="text-align:center">Loss</th>
-<th style="text-align:center">centerness</th>
-<th style="text-align:center">box brunch</th>
-<th>backbone</th>
-<th>scale</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>influence</td>
-<td style="text-align:center">实验表明当数量增加时性能会提升但到72时接近饱和</td>
-<td style="text-align:center">Polar IoU Loss 表现明显优于Smooth L1 Loss</td>
-<td style="text-align:center">Polar centerness在大实例/高精度表现更好</td>
-<td style="text-align:center">polar mask无需边界框</td>
-<td>更好的特征提取网络会提高性能</td>
-<td>较大的图像尺寸会以较低的推理速度产生较高的精度</td>
-</tr>
-<tr>
-<td>best</td>
-<td style="text-align:center">36</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">-</td>
-<td>ResNeXt-101</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol>
-<li>不需要检测框，与FCOS一样是简洁高效的结构，包括在loss部分都不需要过多的超参数调节，在推理速度实验上也略优于two-stage model和其他one-stage model</li>
-<li>将目标检测和实例分割统一到了一个模型，为之后anchor free模型的研究与改进提供了一个思路</li>
-</ol>
-<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a><strong>不足</strong></h4><ol>
-<li>在精度方面与sota模型还是有差距</li>
-<li>center采样的过程在论文中没有详细描述这样采样的原因是什么</li>
-<li>在数据处理会更加复杂，会处理实例质心相关的问题</li>
-</ol>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>实例分割</tag>
       </tags>
   </entry>
   <entry>
