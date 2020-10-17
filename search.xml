@@ -142,6 +142,55 @@ max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特�
       </tags>
   </entry>
   <entry>
+    <title>CS231n-note-4</title>
+    <url>/2019/10/28/CS231n-note-4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="深度学习软件"><a href="#深度学习软件" class="headerlink" title="深度学习软件"></a>深度学习软件</h1><h2 id="PyTorch-TODO"><a href="#PyTorch-TODO" class="headerlink" title="PyTorch(TODO)"></a>PyTorch(TODO)</h2><h3 id="组成-三层"><a href="#组成-三层" class="headerlink" title="组成(三层)"></a>组成(三层)</h3><h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>运行在GPU上的命令式数组(Imperative ndarray)</p>
+<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p>计算图中的节点，存储数据和梯度</p>
+<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><p>一个神经网络的层</p>
+<h1 id="CNN架构"><a href="#CNN架构" class="headerlink" title="CNN架构"></a>CNN架构</h1><p><strong>AlexNet</strong>：8layers</p>
+<p><strong>ZFNet</strong>：在AlexNet基础上调整了超参数</p>
+<p><strong>VGG</strong>：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)</p>
+<p><strong>GoogleNet</strong>:</p>
+<p>22layers，高效的“Inception”层，无全连接层</p>
+<p>Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。</p>
+<p><img src="/2019/10/28/CS231n-note-4/1.png" alt="1572427047546" style="zoom: 50%;"></p>
+<p>利用1X1卷积核进行深度的压缩对模型进行改进。 </p>
+<p><img src="/2019/10/28/CS231n-note-4/2.png" alt="1572427217649" style="zoom:50%;"></p>
+<p><strong>ResNet</strong>: 152layers</p>
+<p><img src="/2019/10/28/CS231n-note-4/3.png" alt="1572428187168" style="zoom:50%;"></p>
+<p>ResNet的整体结构</p>
+<p><img src="/2019/10/28/CS231n-note-4/4.png" style="zoom:50%;"></p>
+<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p><img src="/2019/10/28/CS231n-note-4/5.png" alt="1572832029309" style="zoom:67%;"></p>
+<p><strong>Vanilla RNN</strong></p>
+<script type="math/tex; mode=display">
+h_t = f_w(h_{t-1},x_t)\\
+h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
+y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
+<p>W的梯度是每个节点的W梯度值和  </p>
+<p><strong>Vanilla RNN梯度流</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/7.png" alt="1572869122126" style="zoom:50%;"></p>
+<p>在计算h0梯度时会发生梯度爆炸或者梯度消失   </p>
+<p>当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grad_norm = np.sum(grad * grad)</span><br><span class="line"><span class="keyword">if</span> grad_norm &gt; threshold</span><br><span class="line">	grad *= (threshold / grad_norm)</span><br></pre></td></tr></table></figure>
+<p>当梯度消失时可以采用更深的RNN网络，比如LSTM。</p>
+<p><strong>LSTM(长短期记忆网络)</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/blog\source\_posts\CS231n-note-4\8.png" alt="1572870827165" style="zoom: 50%;"></p>
+<p> ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。</p>
+<p>LSTM状态变化图</p>
+<p><img src="/2019/10/28/CS231n-note-4/9.png" alt="1572882658486" style="zoom:50%;"></p>
+<p>利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。</p>
+<p><strong>图像标注</strong></p>
+<p><img src="/2019/10/28/CS231n-note-4/6.png" alt></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CS231n-note-3</title>
     <url>/2019/10/21/CS231n-note-3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -276,55 +325,6 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       </tags>
   </entry>
   <entry>
-    <title>CS231n-note-4</title>
-    <url>/2019/10/28/CS231n-note-4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="深度学习软件"><a href="#深度学习软件" class="headerlink" title="深度学习软件"></a>深度学习软件</h1><h2 id="PyTorch-TODO"><a href="#PyTorch-TODO" class="headerlink" title="PyTorch(TODO)"></a>PyTorch(TODO)</h2><h3 id="组成-三层"><a href="#组成-三层" class="headerlink" title="组成(三层)"></a>组成(三层)</h3><h4 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h4><p>运行在GPU上的命令式数组(Imperative ndarray)</p>
-<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p>计算图中的节点，存储数据和梯度</p>
-<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h4><p>一个神经网络的层</p>
-<h1 id="CNN架构"><a href="#CNN架构" class="headerlink" title="CNN架构"></a>CNN架构</h1><p><strong>AlexNet</strong>：8layers</p>
-<p><strong>ZFNet</strong>：在AlexNet基础上调整了超参数</p>
-<p><strong>VGG</strong>：16/19layers(全部采用3X3的卷积核——更有利于加深神经网络的深度)</p>
-<p><strong>GoogleNet</strong>:</p>
-<p>22layers，高效的“Inception”层，无全连接层</p>
-<p>Inception层是设计好的一个局部网络拓朴，对输入的层进行并行操作，然后将每个滤波器的输出进行深度上的串联，通过0填充保持输出尺寸一致。</p>
-<p><img src="/2019/10/28/CS231n-note-4/1.png" alt="1572427047546" style="zoom: 50%;"></p>
-<p>利用1X1卷积核进行深度的压缩对模型进行改进。 </p>
-<p><img src="/2019/10/28/CS231n-note-4/2.png" alt="1572427217649" style="zoom:50%;"></p>
-<p><strong>ResNet</strong>: 152layers</p>
-<p><img src="/2019/10/28/CS231n-note-4/3.png" alt="1572428187168" style="zoom:50%;"></p>
-<p>ResNet的整体结构</p>
-<p><img src="/2019/10/28/CS231n-note-4/4.png" style="zoom:50%;"></p>
-<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><p><img src="/2019/10/28/CS231n-note-4/5.png" alt="1572832029309" style="zoom:67%;"></p>
-<p><strong>Vanilla RNN</strong></p>
-<script type="math/tex; mode=display">
-h_t = f_w(h_{t-1},x_t)\\
-h_t = tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
-y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
-<p>W的梯度是每个节点的W梯度值和  </p>
-<p><strong>Vanilla RNN梯度流</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/7.png" alt="1572869122126" style="zoom:50%;"></p>
-<p>在计算h0梯度时会发生梯度爆炸或者梯度消失   </p>
-<p>当梯度爆炸，L2范式大于一个阙值时可以进行剪枝。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grad_norm = np.sum(grad * grad)</span><br><span class="line"><span class="keyword">if</span> grad_norm &gt; threshold</span><br><span class="line">	grad *= (threshold / grad_norm)</span><br></pre></td></tr></table></figure>
-<p>当梯度消失时可以采用更深的RNN网络，比如LSTM。</p>
-<p><strong>LSTM(长短期记忆网络)</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/blog\source\_posts\CS231n-note-4\8.png" alt="1572870827165" style="zoom: 50%;"></p>
-<p> ht为隐藏状态，ct为单元状态，保留在lstm内部不会暴露到外面。</p>
-<p>LSTM状态变化图</p>
-<p><img src="/2019/10/28/CS231n-note-4/9.png" alt="1572882658486" style="zoom:50%;"></p>
-<p>利用加法和乘法门可以很好的解决梯度消失和梯度爆炸问题。</p>
-<p><strong>图像标注</strong></p>
-<p><img src="/2019/10/28/CS231n-note-4/6.png" alt></p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CS231n-note-5</title>
     <url>/2019/11/05/CS231n-note-5/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -371,6 +371,39 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django学习笔记（一）</title>
+    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h2 id="Django文件"><a href="#Django文件" class="headerlink" title="Django文件"></a>Django文件</h2><h3 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h3><p>网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。</p>
+<h3 id="views-py"><a href="#views-py" class="headerlink" title="views,py"></a>views,py</h3><p>处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。</p>
+<h3 id="models-py"><a href="#models-py" class="headerlink" title="models.py"></a>models.py</h3><p>与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。</p>
+<h3 id="forms-py"><a href="#forms-py" class="headerlink" title="forms.py"></a>forms.py</h3><p>表单，用户在浏览器上输入数据提交，对数据的验证工作以及输入框的生成等工作，当然你也可以不使用。</p>
+<p><strong>templates 文件夹</strong></p>
+<p>views.py 中的函数渲染templates中的Html模板，得到动态内容的网页，当然可以用缓存来提高速度。</p>
+<h3 id="admin-py"><a href="#admin-py" class="headerlink" title="admin.py"></a>admin.py</h3><p>后台，可以用很少量的代码就拥有一个强大的后台。</p>
+<h3 id="settings-py"><a href="#settings-py" class="headerlink" title="settings.py"></a>settings.py</h3><p>Django 的设置，配置文件，比如 DEBUG 的开关，静态文件的位置等。</p>
+<h2 id="Django安装"><a href="#Django安装" class="headerlink" title="Django安装"></a>Django安装</h2><h3 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h3><p>Windows下在Anaconda Prompt中用pip install Django安装</p>
+<h3 id="虚拟环境依赖安装（搭建多个开发环境）"><a href="#虚拟环境依赖安装（搭建多个开发环境）" class="headerlink" title="虚拟环境依赖安装（搭建多个开发环境）"></a>虚拟环境依赖安装（搭建多个开发环境）</h3><p>Windows下Anaconda Prompt中用</p>
+<p>pip install virtualenv virtualenvwrapper-win</p>
+<p>安装</p>
+<h4 id="虚拟环境使用方法"><a href="#虚拟环境使用方法" class="headerlink" title="虚拟环境使用方法"></a>虚拟环境使用方法</h4><p><strong>mkvirtualenv</strong> zqxt：创建运行环境zqxt</p>
+<p><strong>workon</strong> zqxt: 工作在 zqxt 环境 或 从其它环境切换到 zqxt 环境</p>
+<p><strong>deactivate</strong>: 退出终端环境</p>
+<p><strong>rmvirtualenv</strong> ENV：删除运行环境ENV</p>
+<p><strong>mkproject</strong> mic：创建mic项目和运行环境mic</p>
+<p><strong>mktmpenv</strong>：创建临时运行环境</p>
+<p><strong>lsvirtualenv</strong>: 列出可用的运行环境</p>
+<p><strong>lssitepackages</strong>: 列出当前环境安装了的包</p>
+<p>创建的环境是独立的，互不干扰，无需sudo权限即可使用 pip 来进行包的管理。</p>
+]]></content>
+      <categories>
+        <category>Web学习</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
@@ -441,30 +474,11 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Django学习笔记（一）</title>
-    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <title>Django学习笔记（三）</title>
+    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h2 id="Django文件"><a href="#Django文件" class="headerlink" title="Django文件"></a>Django文件</h2><h3 id="urls-py"><a href="#urls-py" class="headerlink" title="urls.py"></a>urls.py</h3><p>网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。</p>
-<h3 id="views-py"><a href="#views-py" class="headerlink" title="views,py"></a>views,py</h3><p>处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。</p>
-<h3 id="models-py"><a href="#models-py" class="headerlink" title="models.py"></a>models.py</h3><p>与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。</p>
-<h3 id="forms-py"><a href="#forms-py" class="headerlink" title="forms.py"></a>forms.py</h3><p>表单，用户在浏览器上输入数据提交，对数据的验证工作以及输入框的生成等工作，当然你也可以不使用。</p>
-<p><strong>templates 文件夹</strong></p>
-<p>views.py 中的函数渲染templates中的Html模板，得到动态内容的网页，当然可以用缓存来提高速度。</p>
-<h3 id="admin-py"><a href="#admin-py" class="headerlink" title="admin.py"></a>admin.py</h3><p>后台，可以用很少量的代码就拥有一个强大的后台。</p>
-<h3 id="settings-py"><a href="#settings-py" class="headerlink" title="settings.py"></a>settings.py</h3><p>Django 的设置，配置文件，比如 DEBUG 的开关，静态文件的位置等。</p>
-<h2 id="Django安装"><a href="#Django安装" class="headerlink" title="Django安装"></a>Django安装</h2><h3 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h3><p>Windows下在Anaconda Prompt中用pip install Django安装</p>
-<h3 id="虚拟环境依赖安装（搭建多个开发环境）"><a href="#虚拟环境依赖安装（搭建多个开发环境）" class="headerlink" title="虚拟环境依赖安装（搭建多个开发环境）"></a>虚拟环境依赖安装（搭建多个开发环境）</h3><p>Windows下Anaconda Prompt中用</p>
-<p>pip install virtualenv virtualenvwrapper-win</p>
-<p>安装</p>
-<h4 id="虚拟环境使用方法"><a href="#虚拟环境使用方法" class="headerlink" title="虚拟环境使用方法"></a>虚拟环境使用方法</h4><p><strong>mkvirtualenv</strong> zqxt：创建运行环境zqxt</p>
-<p><strong>workon</strong> zqxt: 工作在 zqxt 环境 或 从其它环境切换到 zqxt 环境</p>
-<p><strong>deactivate</strong>: 退出终端环境</p>
-<p><strong>rmvirtualenv</strong> ENV：删除运行环境ENV</p>
-<p><strong>mkproject</strong> mic：创建mic项目和运行环境mic</p>
-<p><strong>mktmpenv</strong>：创建临时运行环境</p>
-<p><strong>lsvirtualenv</strong>: 列出可用的运行环境</p>
-<p><strong>lssitepackages</strong>: 列出当前环境安装了的包</p>
-<p>创建的环境是独立的，互不干扰，无需sudo权限即可使用 pip 来进行包的管理。</p>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
+<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Web学习</category>
@@ -552,20 +566,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <li>运行 <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/django-admin/#django-admin-makemigrations"><code>python manage.py makemigrations</code></a> 为模型的改变生成迁移文件。</li>
 <li>运行 <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/django-admin/#django-admin-migrate"><code>python manage.py migrate</code></a> 来应用数据库迁移。</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Web学习</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Django学习笔记（三）</title>
-    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
-<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Web学习</category>
@@ -902,7 +902,8 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <h4 id="center-sample-中心采样"><a href="#center-sample-中心采样" class="headerlink" title="center sample(中心采样)"></a>center sample(中心采样)</h4><p>采取了在实例质心周围1.5个步幅内的像素点为正采样，否则为负采样，这样做的好处是避免了正负样本的过于不平衡以及有更多的候选点作为真正的中心。</p>
 <h4 id="Polar-IoU-Loss-amp-Polar-Centerness"><a href="#Polar-IoU-Loss-amp-Polar-Centerness" class="headerlink" title="Polar IoU Loss &amp; Polar Centerness"></a>Polar IoU Loss &amp; Polar Centerness</h4><p><strong>Polar IoU Loss</strong></p>
 <p><img src="/2020/05/28/PolarMask-note/4.png" style="zoom:80%;"></p>
-<p>采用从0-2Π的积分形式来进行IoU计算<br>$IoU = \frac{\int<em>0^{2\pi}1/2min(d_i,\tilde{d_i})^2d\theta}{\int_0^{2\pi}1/2max(d_i,\tilde{d_i})^2d\theta}=\lim</em>{N\rightarrow\infty}\frac{\sum<em>{i=1}^N1/2d</em>{min}^2\Delta \theta<em>i}{\sum</em>{i=1}^N1/2d<em>{max}^2\Delta \theta_i}-&gt;Polar IoU=\frac{\sum</em>{i=1}^Ndmin}{\sum<em>{i=1}^Ndmax}-&gt;PolarIoULoss=log\frac{\sum</em>{i=1}^Ndmin}{\sum_{i=1}^Ndmax}$<br>Polar IoU Loss采用的是BCE LOSS，在不用调权重的情况下，相比Smooth L1 Loss提了2.6个点</p>
+<p>采用从0-2Π的积分形式来进行IoU计算</p>
+<script type="math/tex; mode=display">IoU = \frac{\int_0^{2\pi}1/2min(d_i,\tilde{d_i})^2d\theta}{\int_0^{2\pi}1/2max(d_i,\tilde{d_i})^2d\theta}=\lim_{N\rightarrow\infty}\frac{\sum_{i=1}^N1/2d_{min}^2\Delta \theta_i}{\sum_{i=1}^N1/2d_{max}^2\Delta \theta_i}->Polar IoU=\frac{\sum_{i=1}^Ndmin}{\sum_{i=1}^Ndmax}->PolarIoULoss=log\frac{\sum_{i=1}^Ndmin}{\sum_{i=1}^Ndmax}</script><p>Polar IoU Loss采用的是BCE LOSS，在不用调权重的情况下，相比Smooth L1 Loss提了2.6个点</p>
 <p><strong>Polar Centerness</strong></p>
 <p>Polar Centerness是基于FCOS的Center ness的变化，也是为了定义高质量的正样本抑制低质量的正样本。</p>
 <p>$Polar \ Centerness=\sqrt\frac{min({d_1,d_2,…,d_n})}{max({d_1,d_2,…,d_n})}$如下图所示，右边的mask更加符合要求。</p>
@@ -961,31 +962,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>实例分割</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫框架Scrapy(二)</title>
-    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
-<li><p>item读取数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构造Request对象实现翻页</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
-</li>
-<li><p>构造Request对象实现详情页爬取</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>python爬虫</category>
-      </categories>
-      <tags>
-        <tag>scrapy</tag>
       </tags>
   </entry>
   <entry>
@@ -1048,6 +1024,31 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>即可以打印输出内容的时间，文件来源，等级，内容</p>
 <p>在settings.py中加入<code>LOG_FILE = ./XXX.log</code>即可把日志内容保存在文件中</p>
+]]></content>
+      <categories>
+        <category>python爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫框架Scrapy(二)</title>
+    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
+<li><p>item读取数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造Request对象实现翻页</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
+</li>
+<li><p>构造Request对象实现详情页爬取</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>python爬虫</category>
