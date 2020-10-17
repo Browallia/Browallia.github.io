@@ -63,6 +63,85 @@
       </tags>
   </entry>
   <entry>
+    <title>CS231n-note-2</title>
+    <url>/2019/10/15/CS231n-note-2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h1><h2 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h2><p> <img src="https://pic1.zhimg.com/80/0799b3d6e5e92245ee937db3c26d1b80_hd.png" alt="img" style="zoom: 80%;"> </p>
+<p>根据链式法则进行反向传播，算出每个结点的梯度。</p>
+<ul>
+<li>max门：一个是1 一个是0</li>
+<li>乘法门：梯度互换</li>
+</ul>
+<p>梯度会在分支节点处累加</p>
+<p><strong>sigmod函数</strong></p>
+<script type="math/tex; mode=display">
+\sigma(x) = \frac{1}{1+e^{-x}}</script><p><strong>梯度</strong>为</p>
+<script type="math/tex; mode=display">
+\frac{d\sigma(x)}{dx}=(1-\sigma(x))\sigma(x)</script><h2 id="雅可比矩阵"><a href="#雅可比矩阵" class="headerlink" title="雅可比矩阵"></a>雅可比矩阵</h2><p> 在向量分析中，<strong>雅可比矩阵</strong>是函数的一阶偏导数以一定方式排列成的矩阵，其行列式称为<strong>雅可比行列式</strong>。 </p>
+<p>由球坐标系 到直角坐标系的转化由F函数给出 ：</p>
+<p><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/d1160924ab18972b11ff25b2edcd7b899f510a84.jpg" alt="img"></p>
+<p><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/728da9773912b31b5d59e9518d18367adab4e195.jpg" alt="img"></p>
+<p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/8601a18b87d6277f65d3174023381f30e824fc81.jpg" alt="img"></p>
+<p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/08f790529822720e2ffec68270cb0a46f21fab91.jpg" alt="img"></p>
+<p>此坐标变换的雅可比矩阵是</p>
+<p><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/810a19d8bc3eb135a1f593c3ad1ea8d3fd1f4493.jpg" alt="img"></p>
+<hr>
+<p>在实际的运用中，不用计算$4096*4096$的雅可比矩阵（如果输入向量为4096维）。</p>
+<p>一般的雅可比矩阵为对角矩阵，只用算出每一个维度的梯度。</p>
+<p><img src="/2019/10/15/CS231n-note-2/1.png" alt></p>
+<p> <strong>矩阵函数的梯度矩阵是其Jacobian矩阵的转置【Transposition】</strong></p>
+<h1 id="构造神经网络"><a href="#构造神经网络" class="headerlink" title="构造神经网络"></a>构造神经网络</h1><p> <img src="https://pic2.zhimg.com/80/d0cbce2f2654b8e70fe201fec2982c7d_hd.png" alt="img"></p>
+<p> 一个神经元前向传播的实例代码如下  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Neuron</span>(<span class="params">object</span>):</span></span><br><span class="line">  <span class="comment"># ... </span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">inputs</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot; 假设输入和权重是1-D的numpy数组，偏差是一个数字 &quot;&quot;&quot;</span></span><br><span class="line">    cell_body_sum = np.sum(inputs * self.weights) + self.bias</span><br><span class="line">    firing_rate = <span class="number">1.0</span> / (<span class="number">1.0</span> + math.exp(-cell_body_sum)) <span class="comment"># sigmoid激活函数</span></span><br><span class="line">    <span class="keyword">return</span> firing_rate</span><br></pre></td></tr></table></figure>
+<h2 id="常用激活函数"><a href="#常用激活函数" class="headerlink" title="常用激活函数"></a>常用激活函数</h2><p> 每个激活函数（或非线性函数）的输入都是一个数字，然后对其进行某种固定的数学操作。 </p>
+<h3 id="Sigmod"><a href="#Sigmod" class="headerlink" title="Sigmod"></a>Sigmod</h3><p> <img src="/2019/10/15/CS231n-note-2/3.png" alt="img"> </p>
+<p> 左边是Sigmoid非线性函数，将实数压缩到[0,1]之间。右边是tanh函数，将实数压缩到[-1,1]。 </p>
+<script type="math/tex; mode=display">
+\sigma(x) = \frac{1}{1+e^{-x}}</script><p>它输入实数值并将其“挤压”到0到1范围内。更具体地说，很大的负数变成0，很大的正数变成1。在历史上，sigmoid函数非常常用，这是因为它对于神经元的激活频率有良好的解释：从完全不激活（0）到在求和后的最大频率处的完全饱和（<strong>saturated</strong>）的激活（1）。然而现在sigmoid函数已经不太受欢迎，实际很少使用了，这是因为它有两个主要缺点：</p>
+<ul>
+<li><em>Sigmoid函数饱和使梯度消失</em>。sigmoid神经元有一个不好的特性，就是当神经元的激活在接近0或1处时会饱和：在这些区域，梯度几乎为0。回忆一下，在反向传播的时候，这个（局部）梯度将会与整个损失函数关于该门单元输出的梯度相乘。因此，如果局部梯度非常小，那么相乘的结果也会接近零，这会有效地“杀死”梯度，几乎就有没有信号通过神经元传到权重再到数据了。还有，为了防止饱和，必须对于权重矩阵初始化特别留意。比如，如果初始化权重过大，那么大多数神经元将会饱和，导致网络就几乎不学习了。</li>
+<li><em>Sigmoid函数的输出不是零中心的</em>。这个性质并不是我们想要的，因为在神经网络后面层中的神经元得到的数据将不是零中心的。这一情况将影响梯度下降的运作，因为如果输入神经元的数据总是正数（比如在$f=w^T+b$中每个元素都$x&gt;0$），那么关于$w$的梯度在反向传播的过程中，将会要么全部是正数，要么全部是负数（具体依整个表达式$f$而定)。这将会导致梯度下降权重更新时出现z字型的下降。然而，可以看到整个批量的数据的梯度被加起来后，对于权重的最终更新将会有不同的正负，这样就从一定程度上减轻了这个问题。因此，该问题相对于上面的神经元饱和问题来说只是个小麻烦，没有那么严重。</li>
+</ul>
+<p><img src="/2019/10/15/CS231n-note-2/4.PNG" style="zoom:50%;"></p>
+<h3 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h3><script type="math/tex; mode=display">
+tanh(x)=2\sigma(2x)-1</script><p> tanh非线性函数图像如上图右边所示。它将实数值压缩到[-1,1]之间。和sigmoid神经元一样，它也存在饱和问题，但是和sigmoid神经元不同的是，它的输出是零中心的。因此，在实际操作中，<em>tanh非线性函数比sigmoid非线性函数更受欢迎</em>。tanh神经元是一个简单放大的sigmoid神经元 </p>
+<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><p> <img src="/2019/10/15/CS231n-note-2/7.png" alt></p>
+<p> 左边是ReLU（校正线性单元：Rectified Linear Unit）激活函数，当 $x=0$ 时函数值为0。当$x&gt;0$时函数的斜率为1。 </p>
+<script type="math/tex; mode=display">
+f(x) = max(0,x)</script><ul>
+<li><p>优点：相较于sigmoid和tanh函数，ReLU对于随机梯度下降的收敛有巨大的加速作用（ <a href="https://link.zhihu.com/?target=http%3A//www.cs.toronto.edu/~fritz/absps/imagenet.pdf">Krizhevsky </a>等的论文指出有6倍之多）。据称这是由它的线性，非饱和的公式导致的。(右图)</p>
+</li>
+<li><p>优点：sigmoid和tanh神经元含有指数运算等耗费计算资源的操作，而ReLU可以简单地通过对一个矩阵进行阈值计算得到。</p>
+</li>
+<li><p>缺点：在训练的时候，ReLU单元比较脆弱并且可能“死掉”。举例来说，当一个很大的梯度流过ReLU的神经元的时候，可能会导致梯度更新到一种特别的状态，在这种状态下神经元将无法被其他任何数据点再次激活。如果这种情况发生，那么从此所以流过这个神经元的梯度将都变成0。也就是说，这个ReLU单元在训练中将不可逆转的死亡，因为这导致了数据多样化的丢失。例如，如果学习率设置得太高，可能会发现网络中40%的神经元都会死掉（在整个训练集中这些神经元都不会被激活）。通过合理设置学习率，这种情况的发生概率会降低。</p>
+<p><img src="/2019/10/15/CS231n-note-2/5.png" style="zoom: 33%;"></p>
+</li>
+</ul>
+<h3 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky ReLU"></a>Leaky ReLU</h3><p><img src="/2019/10/15/CS231n-note-2/8.png" alt></p>
+<script type="math/tex; mode=display">
+f(x) = max(0.01x,x)</script><p> Leaky ReLU是为解决“ReLU死亡”问题的尝试。ReLU中当x&lt;0时，函数值为0。而Leaky ReLU则是给出一个很小的负数梯度值，比如0.01。</p>
+<h4 id="Parametric-Rectifier-PReLU"><a href="#Parametric-Rectifier-PReLU" class="headerlink" title="Parametric Rectifier(PReLU)"></a>Parametric Rectifier(PReLU)</h4><script type="math/tex; mode=display">
+f(x)=max(\alpha x,x)</script><p>$\alpha$可以作为反向传播训练的参数。</p>
+<h3 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h3><script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+x  & &  x\geq0\\
+\alpha(e^x -1)  & &  x<0
+\end{aligned}
+\right.</script><p><img src="/2019/10/15/CS231n-note-2/2.png" style="zoom:67%;"></p>
+<p>会获得均值接近0的输出。</p>
+<h3 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h3><script type="math/tex; mode=display">
+max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特殊情况 。 这样Maxout神经元就拥有ReLU单元的所有优点（线性操作和不饱和），而没有它的缺点（死亡的ReLU单元）。然而和ReLU对比，它每个神经元的参数数量增加了一倍，这就导致整体参数的数量激增。 </p>
+<h3 id="Summury"><a href="#Summury" class="headerlink" title="Summury"></a>Summury</h3><p><img src="/2019/10/15/CS231n-note-2/6.png" alt></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CS231n-note-3</title>
     <url>/2019/10/21/CS231n-note-3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -194,85 +273,6 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       <tags>
         <tag>计算机视觉</tag>
         <tag>卷积神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CS231n-note-2</title>
-    <url>/2019/10/15/CS231n-note-2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h1><h2 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h2><p> <img src="https://pic1.zhimg.com/80/0799b3d6e5e92245ee937db3c26d1b80_hd.png" alt="img" style="zoom: 80%;"> </p>
-<p>根据链式法则进行反向传播，算出每个结点的梯度。</p>
-<ul>
-<li>max门：一个是1 一个是0</li>
-<li>乘法门：梯度互换</li>
-</ul>
-<p>梯度会在分支节点处累加</p>
-<p><strong>sigmod函数</strong></p>
-<script type="math/tex; mode=display">
-\sigma(x) = \frac{1}{1+e^{-x}}</script><p><strong>梯度</strong>为</p>
-<script type="math/tex; mode=display">
-\frac{d\sigma(x)}{dx}=(1-\sigma(x))\sigma(x)</script><h2 id="雅可比矩阵"><a href="#雅可比矩阵" class="headerlink" title="雅可比矩阵"></a>雅可比矩阵</h2><p> 在向量分析中，<strong>雅可比矩阵</strong>是函数的一阶偏导数以一定方式排列成的矩阵，其行列式称为<strong>雅可比行列式</strong>。 </p>
-<p>由球坐标系 到直角坐标系的转化由F函数给出 ：</p>
-<p><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/d1160924ab18972b11ff25b2edcd7b899f510a84.jpg" alt="img"></p>
-<p><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/728da9773912b31b5d59e9518d18367adab4e195.jpg" alt="img"></p>
-<p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/8601a18b87d6277f65d3174023381f30e824fc81.jpg" alt="img"></p>
-<p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/08f790529822720e2ffec68270cb0a46f21fab91.jpg" alt="img"></p>
-<p>此坐标变换的雅可比矩阵是</p>
-<p><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/pic/item/810a19d8bc3eb135a1f593c3ad1ea8d3fd1f4493.jpg" alt="img"></p>
-<hr>
-<p>在实际的运用中，不用计算$4096*4096$的雅可比矩阵（如果输入向量为4096维）。</p>
-<p>一般的雅可比矩阵为对角矩阵，只用算出每一个维度的梯度。</p>
-<p><img src="/2019/10/15/CS231n-note-2/1.png" alt></p>
-<p> <strong>矩阵函数的梯度矩阵是其Jacobian矩阵的转置【Transposition】</strong></p>
-<h1 id="构造神经网络"><a href="#构造神经网络" class="headerlink" title="构造神经网络"></a>构造神经网络</h1><p> <img src="https://pic2.zhimg.com/80/d0cbce2f2654b8e70fe201fec2982c7d_hd.png" alt="img"></p>
-<p> 一个神经元前向传播的实例代码如下  </p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Neuron</span>(<span class="params">object</span>):</span></span><br><span class="line">  <span class="comment"># ... </span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">inputs</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot; 假设输入和权重是1-D的numpy数组，偏差是一个数字 &quot;&quot;&quot;</span></span><br><span class="line">    cell_body_sum = np.sum(inputs * self.weights) + self.bias</span><br><span class="line">    firing_rate = <span class="number">1.0</span> / (<span class="number">1.0</span> + math.exp(-cell_body_sum)) <span class="comment"># sigmoid激活函数</span></span><br><span class="line">    <span class="keyword">return</span> firing_rate</span><br></pre></td></tr></table></figure>
-<h2 id="常用激活函数"><a href="#常用激活函数" class="headerlink" title="常用激活函数"></a>常用激活函数</h2><p> 每个激活函数（或非线性函数）的输入都是一个数字，然后对其进行某种固定的数学操作。 </p>
-<h3 id="Sigmod"><a href="#Sigmod" class="headerlink" title="Sigmod"></a>Sigmod</h3><p> <img src="/2019/10/15/CS231n-note-2/3.png" alt="img"> </p>
-<p> 左边是Sigmoid非线性函数，将实数压缩到[0,1]之间。右边是tanh函数，将实数压缩到[-1,1]。 </p>
-<script type="math/tex; mode=display">
-\sigma(x) = \frac{1}{1+e^{-x}}</script><p>它输入实数值并将其“挤压”到0到1范围内。更具体地说，很大的负数变成0，很大的正数变成1。在历史上，sigmoid函数非常常用，这是因为它对于神经元的激活频率有良好的解释：从完全不激活（0）到在求和后的最大频率处的完全饱和（<strong>saturated</strong>）的激活（1）。然而现在sigmoid函数已经不太受欢迎，实际很少使用了，这是因为它有两个主要缺点：</p>
-<ul>
-<li><em>Sigmoid函数饱和使梯度消失</em>。sigmoid神经元有一个不好的特性，就是当神经元的激活在接近0或1处时会饱和：在这些区域，梯度几乎为0。回忆一下，在反向传播的时候，这个（局部）梯度将会与整个损失函数关于该门单元输出的梯度相乘。因此，如果局部梯度非常小，那么相乘的结果也会接近零，这会有效地“杀死”梯度，几乎就有没有信号通过神经元传到权重再到数据了。还有，为了防止饱和，必须对于权重矩阵初始化特别留意。比如，如果初始化权重过大，那么大多数神经元将会饱和，导致网络就几乎不学习了。</li>
-<li><em>Sigmoid函数的输出不是零中心的</em>。这个性质并不是我们想要的，因为在神经网络后面层中的神经元得到的数据将不是零中心的。这一情况将影响梯度下降的运作，因为如果输入神经元的数据总是正数（比如在$f=w^T+b$中每个元素都$x&gt;0$），那么关于$w$的梯度在反向传播的过程中，将会要么全部是正数，要么全部是负数（具体依整个表达式$f$而定)。这将会导致梯度下降权重更新时出现z字型的下降。然而，可以看到整个批量的数据的梯度被加起来后，对于权重的最终更新将会有不同的正负，这样就从一定程度上减轻了这个问题。因此，该问题相对于上面的神经元饱和问题来说只是个小麻烦，没有那么严重。</li>
-</ul>
-<p><img src="/2019/10/15/CS231n-note-2/4.PNG" style="zoom:50%;"></p>
-<h3 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h3><script type="math/tex; mode=display">
-tanh(x)=2\sigma(2x)-1</script><p> tanh非线性函数图像如上图右边所示。它将实数值压缩到[-1,1]之间。和sigmoid神经元一样，它也存在饱和问题，但是和sigmoid神经元不同的是，它的输出是零中心的。因此，在实际操作中，<em>tanh非线性函数比sigmoid非线性函数更受欢迎</em>。tanh神经元是一个简单放大的sigmoid神经元 </p>
-<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><p> <img src="/2019/10/15/CS231n-note-2/7.png" alt></p>
-<p> 左边是ReLU（校正线性单元：Rectified Linear Unit）激活函数，当 $x=0$ 时函数值为0。当$x&gt;0$时函数的斜率为1。 </p>
-<script type="math/tex; mode=display">
-f(x) = max(0,x)</script><ul>
-<li><p>优点：相较于sigmoid和tanh函数，ReLU对于随机梯度下降的收敛有巨大的加速作用（ <a href="https://link.zhihu.com/?target=http%3A//www.cs.toronto.edu/~fritz/absps/imagenet.pdf">Krizhevsky </a>等的论文指出有6倍之多）。据称这是由它的线性，非饱和的公式导致的。(右图)</p>
-</li>
-<li><p>优点：sigmoid和tanh神经元含有指数运算等耗费计算资源的操作，而ReLU可以简单地通过对一个矩阵进行阈值计算得到。</p>
-</li>
-<li><p>缺点：在训练的时候，ReLU单元比较脆弱并且可能“死掉”。举例来说，当一个很大的梯度流过ReLU的神经元的时候，可能会导致梯度更新到一种特别的状态，在这种状态下神经元将无法被其他任何数据点再次激活。如果这种情况发生，那么从此所以流过这个神经元的梯度将都变成0。也就是说，这个ReLU单元在训练中将不可逆转的死亡，因为这导致了数据多样化的丢失。例如，如果学习率设置得太高，可能会发现网络中40%的神经元都会死掉（在整个训练集中这些神经元都不会被激活）。通过合理设置学习率，这种情况的发生概率会降低。</p>
-<p><img src="/2019/10/15/CS231n-note-2/5.png" style="zoom: 33%;"></p>
-</li>
-</ul>
-<h3 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky ReLU"></a>Leaky ReLU</h3><p><img src="/2019/10/15/CS231n-note-2/8.png" alt></p>
-<script type="math/tex; mode=display">
-f(x) = max(0.01x,x)</script><p> Leaky ReLU是为解决“ReLU死亡”问题的尝试。ReLU中当x&lt;0时，函数值为0。而Leaky ReLU则是给出一个很小的负数梯度值，比如0.01。</p>
-<h4 id="Parametric-Rectifier-PReLU"><a href="#Parametric-Rectifier-PReLU" class="headerlink" title="Parametric Rectifier(PReLU)"></a>Parametric Rectifier(PReLU)</h4><script type="math/tex; mode=display">
-f(x)=max(\alpha x,x)</script><p>$\alpha$可以作为反向传播训练的参数。</p>
-<h3 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h3><script type="math/tex; mode=display">
-\left\{
-\begin{aligned}
-x  & &  x\geq0\\
-\alpha(e^x -1)  & &  x<0
-\end{aligned}
-\right.</script><p><img src="/2019/10/15/CS231n-note-2/2.png" style="zoom:67%;"></p>
-<p>会获得均值接近0的输出。</p>
-<h3 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h3><script type="math/tex; mode=display">
-max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特殊情况 。 这样Maxout神经元就拥有ReLU单元的所有优点（线性操作和不饱和），而没有它的缺点（死亡的ReLU单元）。然而和ReLU对比，它每个神经元的参数数量增加了一倍，这就导致整体参数的数量激增。 </p>
-<h3 id="Summury"><a href="#Summury" class="headerlink" title="Summury"></a>Summury</h3><p><img src="/2019/10/15/CS231n-note-2/6.png" alt></p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -644,6 +644,76 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
+    <title>Faster_RCNN 笔记</title>
+    <url>/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<p>Faster RCNN是在2016提出的用于目标检测的网络结构，并且与之前的网络不同，已经将特征提取(feature extraction)，proposal提取，bounding box regression，classification都整合在了一个网络之中。由于RCNN的准确度很大一部分依赖于proposal区域的选择，所以候选区确定尤为重要。Faster RCNN中的RPN是一个最为突出也是最重要的部分。</p>
+<h3 id="Faster-RCNN的基本结构"><a href="#Faster-RCNN的基本结构" class="headerlink" title="Faster_RCNN的基本结构"></a>Faster_RCNN的基本结构</h3><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/1.png" style="zoom:67%;"></p>
+<p><strong>1.Conv layers</strong></p>
+<p>Faster RCNN首先使用了基础的Conv layer(conv+relu+pooling)提取输入图像的feature maps。提取出来的feature maps共享用于后续的RPN层以及全连接层。</p>
+<p><strong><font color="red">2.RPN(Region Proposal Networks)</font></strong></p>
+<p>RPN是Faster RCNN中最重要的部分，用于生成region proposals。RPN中引入了一个重要的概念anchor，通过每个位置的anchor(共有k个选框生成)，输出2k个score评估选框是否为目标，4k个score确定选框的位置。 <strong>正是anchor的引入实现了通过单一尺度图像特征映射并使用单一滤波器解决多尺度问题。</strong>softmax判断anchors属于positive或者negative，再利用bounding box regression修正anchors获得精确的proposals。 </p>
+<p><strong>3.Roi Pooling</strong></p>
+<p>该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。</p>
+<p><strong>4.Classification</strong></p>
+<p>利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。 </p>
+<h3 id="Faster-RCNN结构分析"><a href="#Faster-RCNN结构分析" class="headerlink" title="Faster RCNN结构分析"></a>Faster RCNN结构分析</h3><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/2.png" style="zoom:80%;"></p>
+<p>​    上图是基于VGG16的Faster RCNN网络结构，输入任意尺寸的image，缩放至固定大小MXN，然后经过Conv layers提取feature maps先送入RPN网络中，通过3X3的卷积生成positive anchors以及对应的bounding box regression偏移量，输出proposals进入Roi poooling层通过proposal feature map进行classification。</p>
+<h4 id="1-Conv-layers"><a href="#1-Conv-layers" class="headerlink" title="1 Conv layers"></a>1 Conv layers</h4><p>卷积层一共包括常规的三种层(conv,relu,pooling)</p>
+<p><strong>conv层</strong></p>
+<p>kernel_size = 3, pad = 1, stride = 1</p>
+<p><strong>pooling层</strong></p>
+<p>kernel_size = 3, pad = 1, stride = 1</p>
+<p>在经过conv层之后，输入输出矩阵尺度不变。</p>
+<p>最后变成M/16，N/16的feature map</p>
+<h4 id="2-Region-Proposal-Networks-RPN"><a href="#2-Region-Proposal-Networks-RPN" class="headerlink" title="2 Region Proposal Networks(RPN)"></a>2 Region Proposal Networks(RPN)</h4><p>​     经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS(Selective Search)方法生成检测框。而Faster RCNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。 </p>
+<h5 id="2-1-anchors"><a href="#2-1-anchors" class="headerlink" title="2.1 anchors"></a>2.1 anchors</h5><pre><code> 遍历Conv layers计算获得的feature maps，为每一个点都配备这9种anchors作为初始的检测框。 之后可以通过bbox regression修正检测的位置。
+</code></pre><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/3.png" alt></p>
+<p>​    </p>
+<p>​    在原文中最后的conv5层输出了256个特征图，即每个点对应256-dimensions。在最后conv5层之后进入RPN层利用3X3的卷积输出，维度也是256-d，在conv5输出的feature map上每个点对应k个anchor(默认k = 9)。每个anchor需要判断是都为positive anchor，每个点有256-d转化为cls = 2k scores，每个anchor又有4个偏移量确定位置(x, y, w, h)，reg = 4k scores。在进行训练时会随机选取1:1数量的positive anchor和negative anchor进行训练。</p>
+<h5 id="2-2-每个anchor的输出"><a href="#2-2-每个anchor的输出" class="headerlink" title="2.2 每个anchor的输出"></a>2.2 每个anchor的输出</h5><p>在mmdetection的源代码rpn_head.py中对anchor的卷积描述为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">self.rpn_cls = nn.Conv2d(self.feat_channels,</span><br><span class="line">                         self.num_anchors * self.cls_out_channels, <span class="number">1</span>)</span><br><span class="line">self.rpn_reg = nn.Conv2d(self.feat_channels, self.num_anchors * <span class="number">4</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>cls做了1X1的卷积输出为2k，代表该anchor是否为positive。</p>
+<p>reg做了1X1的卷积输出为4k，代表该anchor对应region proposal的位置。</p>
+<p> <strong>RPN最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用cnn去判断哪些Anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！</strong> </p>
+<h5 id="2-3-bbox-regression原理"><a href="#2-3-bbox-regression原理" class="headerlink" title="2.3 bbox regression原理"></a>2.3 bbox regression原理</h5><p>如图所示绿色框为飞机的Ground Truth(GT)，红色为提取的positive anchors，即便红色的框被分类器识别为飞机，但是由于红色的框定位不准，这张图相当于没有正确的检测出飞机。所以我们希望采用一种方法对红色的框进行微调，使得positive anchors和GT更加接近。</p>
+<p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/4.png" alt></p>
+<p>bbox regression的目标是寻找一种关系使输入的anchor A经过映射得到跟真实窗口G更接近的回归窗口G’。（TODO）</p>
+<p>对应于Faster RCNN原文，positive anchor与ground truth之间的平移量 <img src="https://www.zhihu.com/equation?tex=%28t_x%2C+t_y%29" alt="[公式]"> 与尺度因子 <img src="https://www.zhihu.com/equation?tex=%28t_w%2C+t_h%29" alt="[公式]"> 如下：</p>
+<p><img src="https://www.zhihu.com/equation?tex=t_x%3D%28x-x_a%29%2Fw_a%5C+%5C+%5C+%5C++t_y%3D%28y-y_a%29%2Fh_a%5C%5C" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=t_w%3D%5Clog%28w%2Fw_a%29%5C+%5C+%5C+%5C+t_h%3D%5Clog%28h%2Fh_a%29%5C%5C" alt="[公式]"></p>
+<p>对于训练bouding box regression网络回归分支，输入是cnn feature Φ，监督信号是Anchor与GT的差距 <img src="https://www.zhihu.com/equation?tex=%28t_x%2C+t_y%2C+t_w%2C+t_h%29" alt="[公式]">，即训练目标是：输入 Φ的情况下使网络输出与监督信号尽可能接近。那么当bouding box regression工作时，再输入Φ时，回归网络分支的输出就是每个Anchor的平移量和变换尺度 <img src="https://www.zhihu.com/equation?tex=%28t_x%2C+t_y%2C+t_w%2C+t_h%29" alt="[公式]">，显然即可用来修正Anchor位置了。</p>
+<p><strong>对proposals进行bounding box regression</strong></p>
+<p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/6.png" alt></p>
+<p>经卷积输出后的图像为(W,H,36)，相当于feature map每个店都有9个anchors，每个anchors有四个用于回归的变换量。</p>
+<h5 id="2-4-Proposal-layer"><a href="#2-4-Proposal-layer" class="headerlink" title="2.4 Proposal layer"></a>2.4 Proposal layer</h5><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/5.png" alt></p>
+<p>Propsal layer负责综合所有的$[d_x(A), d_y(A),d_w(A),d_h(A)]$变换量和positive anchors，计算出精准的proposal，送入后续的RoIl Pooling Layer。</p>
+<p> Proposal Layer有3个输入：positive vs negative anchors分类器结果rpn_cls_prob_reshape，对应的bbox reg的 $[d_x(A), d_y(A),d_w(A),d_h(A)]$变换量rpn_bbox_pred，以及im_info；另外还有参数feature_stride=16。<br>首先解释im_info。对于一副任意大小PxQ图像，传入Faster RCNN前首先reshape到固定MxN，im_info=[M, N, scale_factor]则保存了此次缩放的所有信息。然后经过Conv Layers，经过4次pooling变为WxH=(M/16)x(N/16)大小，其中feature_stride=16则保存了该信息，用于计算anchor偏移量。 </p>
+<ol>
+<li>对<strong>所有</strong> anchors 做bbox regression回归（learning offset）</li>
+<li>对 <strong>foreground</strong> (iou&gt;0.7) softmax scores由大到小排序anchors，提取 6000/12000(test/train) anchors(<strong>已经在上一步进行好了 coord reg</strong>)</li>
+<li>限定超出图像边界的 foreground anchors 为图像边界（防止后续roi pooling时proposal超出图像边界）</li>
+<li>剔除非常小的foreground anchors <strong>(__C.TRAIN.RPN_MIN_SIZE = 16)</strong></li>
+<li>进行 NMS(threshold=0.7)</li>
+<li><p>提取 NMS 后的前300/2000(test/train) 个 fg anchor 结果作为proposal输出</p>
+<p>RPN网络结构总结起来就是：<br><strong>生成anchors -&gt; softmax分类器提取positvie anchors -&gt; bbox reg回归positive anchors -&gt; Proposal Layer生成proposals</strong> </p>
+</li>
+</ol>
+<h4 id="3-RoI-Pooling"><a href="#3-RoI-Pooling" class="headerlink" title="3 RoI Pooling"></a>3 RoI Pooling</h4><p>RoI Pooling负责收集proposal并计算出proposal feature maps，送入后面的classification网络。</p>
+<p>RoI Pooling层有两个输入：</p>
+<p>1.原始的feature maps</p>
+<p>2.RPN输出的proposal boxes</p>
+<p>与传统网络不同，传入的图像尺寸必须是固定值，就需要进行crop或者wrap，但效果都不好，破坏了图像原始的信息，这正是需要引入RoIl Pooling的理由。</p>
+<h5 id="3-1-RoI-Pooling原理"><a href="#3-1-RoI-Pooling原理" class="headerlink" title="3.1 RoI Pooling原理"></a>3.1 RoI Pooling原理</h5><p>TODO</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux下的信号量机制与编程</title>
     <url>/2019/04/22/Linux%E4%B8%8B%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -721,76 +791,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>Linux编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Faster_RCNN 笔记</title>
-    <url>/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<p>Faster RCNN是在2016提出的用于目标检测的网络结构，并且与之前的网络不同，已经将特征提取(feature extraction)，proposal提取，bounding box regression，classification都整合在了一个网络之中。由于RCNN的准确度很大一部分依赖于proposal区域的选择，所以候选区确定尤为重要。Faster RCNN中的RPN是一个最为突出也是最重要的部分。</p>
-<h3 id="Faster-RCNN的基本结构"><a href="#Faster-RCNN的基本结构" class="headerlink" title="Faster_RCNN的基本结构"></a>Faster_RCNN的基本结构</h3><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/1.png" style="zoom:67%;"></p>
-<p><strong>1.Conv layers</strong></p>
-<p>Faster RCNN首先使用了基础的Conv layer(conv+relu+pooling)提取输入图像的feature maps。提取出来的feature maps共享用于后续的RPN层以及全连接层。</p>
-<p><strong><font color="red">2.RPN(Region Proposal Networks)</font></strong></p>
-<p>RPN是Faster RCNN中最重要的部分，用于生成region proposals。RPN中引入了一个重要的概念anchor，通过每个位置的anchor(共有k个选框生成)，输出2k个score评估选框是否为目标，4k个score确定选框的位置。 <strong>正是anchor的引入实现了通过单一尺度图像特征映射并使用单一滤波器解决多尺度问题。</strong>softmax判断anchors属于positive或者negative，再利用bounding box regression修正anchors获得精确的proposals。 </p>
-<p><strong>3.Roi Pooling</strong></p>
-<p>该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。</p>
-<p><strong>4.Classification</strong></p>
-<p>利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。 </p>
-<h3 id="Faster-RCNN结构分析"><a href="#Faster-RCNN结构分析" class="headerlink" title="Faster RCNN结构分析"></a>Faster RCNN结构分析</h3><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/2.png" style="zoom:80%;"></p>
-<p>​    上图是基于VGG16的Faster RCNN网络结构，输入任意尺寸的image，缩放至固定大小MXN，然后经过Conv layers提取feature maps先送入RPN网络中，通过3X3的卷积生成positive anchors以及对应的bounding box regression偏移量，输出proposals进入Roi poooling层通过proposal feature map进行classification。</p>
-<h4 id="1-Conv-layers"><a href="#1-Conv-layers" class="headerlink" title="1 Conv layers"></a>1 Conv layers</h4><p>卷积层一共包括常规的三种层(conv,relu,pooling)</p>
-<p><strong>conv层</strong></p>
-<p>kernel_size = 3, pad = 1, stride = 1</p>
-<p><strong>pooling层</strong></p>
-<p>kernel_size = 3, pad = 1, stride = 1</p>
-<p>在经过conv层之后，输入输出矩阵尺度不变。</p>
-<p>最后变成M/16，N/16的feature map</p>
-<h4 id="2-Region-Proposal-Networks-RPN"><a href="#2-Region-Proposal-Networks-RPN" class="headerlink" title="2 Region Proposal Networks(RPN)"></a>2 Region Proposal Networks(RPN)</h4><p>​     经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS(Selective Search)方法生成检测框。而Faster RCNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。 </p>
-<h5 id="2-1-anchors"><a href="#2-1-anchors" class="headerlink" title="2.1 anchors"></a>2.1 anchors</h5><pre><code> 遍历Conv layers计算获得的feature maps，为每一个点都配备这9种anchors作为初始的检测框。 之后可以通过bbox regression修正检测的位置。
-</code></pre><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/3.png" alt></p>
-<p>​    </p>
-<p>​    在原文中最后的conv5层输出了256个特征图，即每个点对应256-dimensions。在最后conv5层之后进入RPN层利用3X3的卷积输出，维度也是256-d，在conv5输出的feature map上每个点对应k个anchor(默认k = 9)。每个anchor需要判断是都为positive anchor，每个点有256-d转化为cls = 2k scores，每个anchor又有4个偏移量确定位置(x, y, w, h)，reg = 4k scores。在进行训练时会随机选取1:1数量的positive anchor和negative anchor进行训练。</p>
-<h5 id="2-2-每个anchor的输出"><a href="#2-2-每个anchor的输出" class="headerlink" title="2.2 每个anchor的输出"></a>2.2 每个anchor的输出</h5><p>在mmdetection的源代码rpn_head.py中对anchor的卷积描述为</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">self.rpn_cls = nn.Conv2d(self.feat_channels,</span><br><span class="line">                         self.num_anchors * self.cls_out_channels, <span class="number">1</span>)</span><br><span class="line">self.rpn_reg = nn.Conv2d(self.feat_channels, self.num_anchors * <span class="number">4</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>cls做了1X1的卷积输出为2k，代表该anchor是否为positive。</p>
-<p>reg做了1X1的卷积输出为4k，代表该anchor对应region proposal的位置。</p>
-<p> <strong>RPN最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用cnn去判断哪些Anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！</strong> </p>
-<h5 id="2-3-bbox-regression原理"><a href="#2-3-bbox-regression原理" class="headerlink" title="2.3 bbox regression原理"></a>2.3 bbox regression原理</h5><p>如图所示绿色框为飞机的Ground Truth(GT)，红色为提取的positive anchors，即便红色的框被分类器识别为飞机，但是由于红色的框定位不准，这张图相当于没有正确的检测出飞机。所以我们希望采用一种方法对红色的框进行微调，使得positive anchors和GT更加接近。</p>
-<p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/4.png" alt></p>
-<p>bbox regression的目标是寻找一种关系使输入的anchor A经过映射得到跟真实窗口G更接近的回归窗口G’。（TODO）</p>
-<p>对应于Faster RCNN原文，positive anchor与ground truth之间的平移量 <img src="https://www.zhihu.com/equation?tex=%28t_x%2C+t_y%29" alt="[公式]"> 与尺度因子 <img src="https://www.zhihu.com/equation?tex=%28t_w%2C+t_h%29" alt="[公式]"> 如下：</p>
-<p><img src="https://www.zhihu.com/equation?tex=t_x%3D%28x-x_a%29%2Fw_a%5C+%5C+%5C+%5C++t_y%3D%28y-y_a%29%2Fh_a%5C%5C" alt="[公式]"></p>
-<p><img src="https://www.zhihu.com/equation?tex=t_w%3D%5Clog%28w%2Fw_a%29%5C+%5C+%5C+%5C+t_h%3D%5Clog%28h%2Fh_a%29%5C%5C" alt="[公式]"></p>
-<p>对于训练bouding box regression网络回归分支，输入是cnn feature Φ，监督信号是Anchor与GT的差距 <img src="https://www.zhihu.com/equation?tex=%28t_x%2C+t_y%2C+t_w%2C+t_h%29" alt="[公式]">，即训练目标是：输入 Φ的情况下使网络输出与监督信号尽可能接近。那么当bouding box regression工作时，再输入Φ时，回归网络分支的输出就是每个Anchor的平移量和变换尺度 <img src="https://www.zhihu.com/equation?tex=%28t_x%2C+t_y%2C+t_w%2C+t_h%29" alt="[公式]">，显然即可用来修正Anchor位置了。</p>
-<p><strong>对proposals进行bounding box regression</strong></p>
-<p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/6.png" alt></p>
-<p>经卷积输出后的图像为(W,H,36)，相当于feature map每个店都有9个anchors，每个anchors有四个用于回归的变换量。</p>
-<h5 id="2-4-Proposal-layer"><a href="#2-4-Proposal-layer" class="headerlink" title="2.4 Proposal layer"></a>2.4 Proposal layer</h5><p><img src="/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/5.png" alt></p>
-<p>Propsal layer负责综合所有的$[d_x(A), d_y(A),d_w(A),d_h(A)]$变换量和positive anchors，计算出精准的proposal，送入后续的RoIl Pooling Layer。</p>
-<p> Proposal Layer有3个输入：positive vs negative anchors分类器结果rpn_cls_prob_reshape，对应的bbox reg的 $[d_x(A), d_y(A),d_w(A),d_h(A)]$变换量rpn_bbox_pred，以及im_info；另外还有参数feature_stride=16。<br>首先解释im_info。对于一副任意大小PxQ图像，传入Faster RCNN前首先reshape到固定MxN，im_info=[M, N, scale_factor]则保存了此次缩放的所有信息。然后经过Conv Layers，经过4次pooling变为WxH=(M/16)x(N/16)大小，其中feature_stride=16则保存了该信息，用于计算anchor偏移量。 </p>
-<ol>
-<li>对<strong>所有</strong> anchors 做bbox regression回归（learning offset）</li>
-<li>对 <strong>foreground</strong> (iou&gt;0.7) softmax scores由大到小排序anchors，提取 6000/12000(test/train) anchors(<strong>已经在上一步进行好了 coord reg</strong>)</li>
-<li>限定超出图像边界的 foreground anchors 为图像边界（防止后续roi pooling时proposal超出图像边界）</li>
-<li>剔除非常小的foreground anchors <strong>(__C.TRAIN.RPN_MIN_SIZE = 16)</strong></li>
-<li>进行 NMS(threshold=0.7)</li>
-<li><p>提取 NMS 后的前300/2000(test/train) 个 fg anchor 结果作为proposal输出</p>
-<p>RPN网络结构总结起来就是：<br><strong>生成anchors -&gt; softmax分类器提取positvie anchors -&gt; bbox reg回归positive anchors -&gt; Proposal Layer生成proposals</strong> </p>
-</li>
-</ol>
-<h4 id="3-RoI-Pooling"><a href="#3-RoI-Pooling" class="headerlink" title="3 RoI Pooling"></a>3 RoI Pooling</h4><p>RoI Pooling负责收集proposal并计算出proposal feature maps，送入后面的classification网络。</p>
-<p>RoI Pooling层有两个输入：</p>
-<p>1.原始的feature maps</p>
-<p>2.RPN输出的proposal boxes</p>
-<p>与传统网络不同，传入的图像尺寸必须是固定值，就需要进行crop或者wrap，但效果都不好，破坏了图像原始的信息，这正是需要引入RoIl Pooling的理由。</p>
-<h5 id="3-1-RoI-Pooling原理"><a href="#3-1-RoI-Pooling原理" class="headerlink" title="3.1 RoI Pooling原理"></a>3.1 RoI Pooling原理</h5><p>TODO</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -879,54 +879,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>python爬虫框架Scrapy(二)</title>
-    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
-<li><p>item读取数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构造Request对象实现翻页</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
-</li>
-<li><p>构造Request对象实现详情页爬取</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>python爬虫</category>
-      </categories>
-      <tags>
-        <tag>scrapy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Retinanet&amp;focal-loss</title>
-    <url>/2020/05/12/Retinanet-focal-loss/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
-<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
-<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
-<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
-<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
-<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
-<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
-<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
-<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>目标检测</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PolarMask-note</title>
     <url>/2020/05/28/PolarMask-note/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -1009,6 +961,54 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>实例分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫框架Scrapy(二)</title>
+    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
+<li><p>item读取数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造Request对象实现翻页</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
+</li>
+<li><p>构造Request对象实现详情页爬取</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>python爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Retinanet&amp;focal-loss</title>
+    <url>/2020/05/12/Retinanet-focal-loss/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
+<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
+<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
+<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
+<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
+<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
+<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
+<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
+<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
