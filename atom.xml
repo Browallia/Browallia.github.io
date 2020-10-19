@@ -6,7 +6,7 @@
   <link href="https://www.browallia.top/atom.xml" rel="self"/>
   
   <link href="https://www.browallia.top/"/>
-  <updated>2020-10-17T03:01:13.379Z</updated>
+  <updated>2020-10-19T02:33:00.021Z</updated>
   <id>https://www.browallia.top/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>2D-TAN-note</title>
-    <link href="https://www.browallia.top/2020/06/30/2D-TAN-note/"/>
-    <id>https://www.browallia.top/2020/06/30/2D-TAN-note/</id>
-    <published>2020-06-30T01:19:37.000Z</published>
-    <updated>2020-10-17T03:01:13.379Z</updated>
+    <title>DL面试知识点</title>
+    <link href="https://www.browallia.top/2020/10/19/DL%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    <id>https://www.browallia.top/2020/10/19/DL%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/</id>
+    <published>2020-10-19T01:59:25.000Z</published>
+    <updated>2020-10-19T02:33:00.021Z</updated>
     
     
       
@@ -34,6 +34,10 @@
     
     
     
+    <category term="深度学习" scheme="https://www.browallia.top/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="面试准备" scheme="https://www.browallia.top/tags/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/"/>
     
   </entry>
   
