@@ -185,55 +185,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>CS231n-note-5</title>
-    <url>/2019/11/05/CS231n-note-5/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="图像识别和分割"><a href="#图像识别和分割" class="headerlink" title="图像识别和分割"></a>图像识别和分割</h1><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><h3 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h3><p>只将像素进行分割并贴上对应的分类标签。</p>
-<h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea-1"></a><strong>Idea-1</strong></h4><p>sliding windows，利用滑动窗口来对个像素进行分类，计算量太大</p>
-<h4 id="idea-2"><a href="#idea-2" class="headerlink" title="idea-2"></a><strong>idea-2</strong></h4><p>全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。</p>
-<h4 id="idea-3"><a href="#idea-3" class="headerlink" title="idea-3"></a><strong>idea-3</strong></h4><p>不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以用池化或者跨卷积来降低清晰度，但是可以让网络建立的很深。</p>
-<h5 id="upsampling"><a href="#upsampling" class="headerlink" title="upsampling"></a>upsampling</h5><h6 id="去池化-Unpooling"><a href="#去池化-Unpooling" class="headerlink" title="去池化(Unpooling)"></a>去池化(Unpooling)</h6><p><img src="/2019/11/05/CS231n-note-5/1.png" alt="1572945307155" style="zoom:50%;"></p>
-<h6 id="Max-Unpooling"><a href="#Max-Unpooling" class="headerlink" title="Max Unpooling"></a>Max Unpooling</h6><p><img src="/2019/11/05/CS231n-note-5/2.png" alt="1572945525749" style="zoom:50%;"></p>
-<p>将池化层和去池化层相对应，其最大元素的相应位置将会被记录。</p>
-<h6 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h6><p>正常卷积和跨卷积(可以进行downsampling)并且可以学习参数进行下采样</p>
-<p>转置卷积</p>
-<p>在进行转置卷积时，将每个元素(标量)乘以过滤器(卷积核)，然后将加权后的卷积核叠加于新的输出。</p>
-<p><img src="/2019/11/05/CS231n-note-5/3.png" alt="1572946348192" style="zoom:50%;"></p>
-<p>sample：</p>
-<p><img src="/2019/11/05/CS231n-note-5/4.png" alt="1572946547455" style="zoom:50%;"></p>
-<p>卷积矩阵化</p>
-<p><img src="/2019/11/05/CS231n-note-5/5.png" alt="1572955265649" style="zoom:50%;"></p>
-<p>$4<em>4input &lt;—&gt; 4</em>4output$</p>
-<p><img src="/2019/11/05/CS231n-note-5/6.png" alt="1572955416177" style="zoom:50%;"></p>
-<p>$4<em>4input &lt;—&gt;2</em>2output$</p>
-<h2 id="分类和定位"><a href="#分类和定位" class="headerlink" title="分类和定位"></a>分类和定位</h2><p><img src="/2019/11/05/CS231n-note-5/7.png" alt="1572956657061" style="zoom:50%;"></p>
-<p>定位一般使用回归损失函数。</p>
-<h2 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h2><p>固定几类对象，再输入图片之后将识别图中对象框起来并预测该对象的从属类别。</p>
-<p>输入图片的包含对象数量是不确定的。</p>
-<h3 id="候选区域方法-Region-Proposals"><a href="#候选区域方法-Region-Proposals" class="headerlink" title="候选区域方法(Region Proposals)"></a><strong>候选区域方法(Region Proposals)</strong></h3><p>将输入的图像划分为若干(很多)区域，在应用卷积神经网络对其进行分类。</p>
-<p>R-CNN    效率低</p>
-<p>Fast R-CNN 不用事先确定候选区而是通过一个卷积神经网络生成特征映射，在特征映射上通过固定函数像素划分确定候选区</p>
-<p>Faster R-CNN在确定备选区时自己进行区域选择网络的训练</p>
-<h3 id="Detection-without-Proposals"><a href="#Detection-without-Proposals" class="headerlink" title="Detection without Proposals"></a><strong>Detection without Proposals</strong></h3><h4 id="YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><a href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection" class="headerlink" title="YOLO(You Only Look Once)/SSD(Single Shot Detection)"></a>YOLO(You Only Look Once)/SSD(Single Shot Detection)</h4><p>利用回归，将输入图片划分为网格。 然后预测每个基本的方框的类别权重以及距离对象的信息。</p>
-<p><img src="/2019/11/05/CS231n-note-5/8.png" alt="1572970026182" style="zoom:50%;"></p>
-<h3 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h3><p><img src="/2019/11/05/CS231n-note-5/9.png" alt="1572972443690" style="zoom:50%;"></p>
-<p> 两个分支，一个分支进行分类，一个分支进行类似语义分割确定对象的区域。  </p>
-<h3 id="DeepDream-amp-Feature-Inversion"><a href="#DeepDream-amp-Feature-Inversion" class="headerlink" title="DeepDream&amp;Feature Inversion"></a>DeepDream&amp;Feature Inversion</h3><p>DeepDream：放大存在的特征</p>
-<p>Feature Inversion：特征反演</p>
-<h3 id="纹理拼接-amp-风格迁移"><a href="#纹理拼接-amp-风格迁移" class="headerlink" title="纹理拼接&amp;风格迁移"></a>纹理拼接&amp;风格迁移</h3><p>Gram Matrix</p>
-<p><img src="/2019/11/05/CS231n-note-5/10.png" alt="1573008687755" style="zoom:50%;"></p>
-<p><img src="/2019/11/05/CS231n-note-5/11.png" alt="1573008897926" style="zoom:50%;"></p>
-<p>传统风格迁移会消耗大量的资源</p>
-<p><strong>Fast Style Transfer</strong></p>
-<h1 id="可视化和理解卷积神经网络"><a href="#可视化和理解卷积神经网络" class="headerlink" title="可视化和理解卷积神经网络"></a>可视化和理解卷积神经网络</h1>]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CS231n-note-3</title>
     <url>/2019/10/21/CS231n-note-3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -365,6 +316,55 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       <tags>
         <tag>计算机视觉</tag>
         <tag>卷积神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS231n-note-5</title>
+    <url>/2019/11/05/CS231n-note-5/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="图像识别和分割"><a href="#图像识别和分割" class="headerlink" title="图像识别和分割"></a>图像识别和分割</h1><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><h3 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h3><p>只将像素进行分割并贴上对应的分类标签。</p>
+<h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea-1"></a><strong>Idea-1</strong></h4><p>sliding windows，利用滑动窗口来对个像素进行分类，计算量太大</p>
+<h4 id="idea-2"><a href="#idea-2" class="headerlink" title="idea-2"></a><strong>idea-2</strong></h4><p>全连接卷积神经网络，可以生成一个CxHxW的张量，对每个像素进行评分，数据集获取昂贵且困难。并且模型训练代价很高。</p>
+<h4 id="idea-3"><a href="#idea-3" class="headerlink" title="idea-3"></a><strong>idea-3</strong></h4><p>不采用全连接(同尺寸)卷积神经网络，而是采用downsampling和upsampling，在中间层可以用池化或者跨卷积来降低清晰度，但是可以让网络建立的很深。</p>
+<h5 id="upsampling"><a href="#upsampling" class="headerlink" title="upsampling"></a>upsampling</h5><h6 id="去池化-Unpooling"><a href="#去池化-Unpooling" class="headerlink" title="去池化(Unpooling)"></a>去池化(Unpooling)</h6><p><img src="/2019/11/05/CS231n-note-5/1.png" alt="1572945307155" style="zoom:50%;"></p>
+<h6 id="Max-Unpooling"><a href="#Max-Unpooling" class="headerlink" title="Max Unpooling"></a>Max Unpooling</h6><p><img src="/2019/11/05/CS231n-note-5/2.png" alt="1572945525749" style="zoom:50%;"></p>
+<p>将池化层和去池化层相对应，其最大元素的相应位置将会被记录。</p>
+<h6 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h6><p>正常卷积和跨卷积(可以进行downsampling)并且可以学习参数进行下采样</p>
+<p>转置卷积</p>
+<p>在进行转置卷积时，将每个元素(标量)乘以过滤器(卷积核)，然后将加权后的卷积核叠加于新的输出。</p>
+<p><img src="/2019/11/05/CS231n-note-5/3.png" alt="1572946348192" style="zoom:50%;"></p>
+<p>sample：</p>
+<p><img src="/2019/11/05/CS231n-note-5/4.png" alt="1572946547455" style="zoom:50%;"></p>
+<p>卷积矩阵化</p>
+<p><img src="/2019/11/05/CS231n-note-5/5.png" alt="1572955265649" style="zoom:50%;"></p>
+<p>$4<em>4input &lt;—&gt; 4</em>4output$</p>
+<p><img src="/2019/11/05/CS231n-note-5/6.png" alt="1572955416177" style="zoom:50%;"></p>
+<p>$4<em>4input &lt;—&gt;2</em>2output$</p>
+<h2 id="分类和定位"><a href="#分类和定位" class="headerlink" title="分类和定位"></a>分类和定位</h2><p><img src="/2019/11/05/CS231n-note-5/7.png" alt="1572956657061" style="zoom:50%;"></p>
+<p>定位一般使用回归损失函数。</p>
+<h2 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h2><p>固定几类对象，再输入图片之后将识别图中对象框起来并预测该对象的从属类别。</p>
+<p>输入图片的包含对象数量是不确定的。</p>
+<h3 id="候选区域方法-Region-Proposals"><a href="#候选区域方法-Region-Proposals" class="headerlink" title="候选区域方法(Region Proposals)"></a><strong>候选区域方法(Region Proposals)</strong></h3><p>将输入的图像划分为若干(很多)区域，在应用卷积神经网络对其进行分类。</p>
+<p>R-CNN    效率低</p>
+<p>Fast R-CNN 不用事先确定候选区而是通过一个卷积神经网络生成特征映射，在特征映射上通过固定函数像素划分确定候选区</p>
+<p>Faster R-CNN在确定备选区时自己进行区域选择网络的训练</p>
+<h3 id="Detection-without-Proposals"><a href="#Detection-without-Proposals" class="headerlink" title="Detection without Proposals"></a><strong>Detection without Proposals</strong></h3><h4 id="YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection"><a href="#YOLO-You-Only-Look-Once-SSD-Single-Shot-Detection" class="headerlink" title="YOLO(You Only Look Once)/SSD(Single Shot Detection)"></a>YOLO(You Only Look Once)/SSD(Single Shot Detection)</h4><p>利用回归，将输入图片划分为网格。 然后预测每个基本的方框的类别权重以及距离对象的信息。</p>
+<p><img src="/2019/11/05/CS231n-note-5/8.png" alt="1572970026182" style="zoom:50%;"></p>
+<h3 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h3><p><img src="/2019/11/05/CS231n-note-5/9.png" alt="1572972443690" style="zoom:50%;"></p>
+<p> 两个分支，一个分支进行分类，一个分支进行类似语义分割确定对象的区域。  </p>
+<h3 id="DeepDream-amp-Feature-Inversion"><a href="#DeepDream-amp-Feature-Inversion" class="headerlink" title="DeepDream&amp;Feature Inversion"></a>DeepDream&amp;Feature Inversion</h3><p>DeepDream：放大存在的特征</p>
+<p>Feature Inversion：特征反演</p>
+<h3 id="纹理拼接-amp-风格迁移"><a href="#纹理拼接-amp-风格迁移" class="headerlink" title="纹理拼接&amp;风格迁移"></a>纹理拼接&amp;风格迁移</h3><p>Gram Matrix</p>
+<p><img src="/2019/11/05/CS231n-note-5/10.png" alt="1573008687755" style="zoom:50%;"></p>
+<p><img src="/2019/11/05/CS231n-note-5/11.png" alt="1573008897926" style="zoom:50%;"></p>
+<p>传统风格迁移会消耗大量的资源</p>
+<p><strong>Fast Style Transfer</strong></p>
+<h1 id="可视化和理解卷积神经网络"><a href="#可视化和理解卷积神经网络" class="headerlink" title="可视化和理解卷积神经网络"></a>可视化和理解卷积神经网络</h1>]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -788,15 +788,32 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       </tags>
   </entry>
   <entry>
-    <title>OCR手写识别_NoTe1</title>
-    <url>/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</url>
+    <title>PSPNet-note</title>
+    <url>/2020/04/15/PSPNet-note/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h3 id="Pyramid-Scene-Parseing-Network-Note"><a href="#Pyramid-Scene-Parseing-Network-Note" class="headerlink" title="Pyramid Scene Parseing Network  Note"></a>Pyramid Scene Parseing Network  Note</h3><p>​    PSPNet 采用金字塔池化模块搭建的场景分析网络 ， <strong>基于语义分割的场景解析，其目的是赋予图像中每个像素一个类别标签</strong>。 </p>
+<h4 id="1-PSPNet介绍"><a href="#1-PSPNet介绍" class="headerlink" title="1 PSPNet介绍"></a>1 PSPNet介绍</h4><p>由于传统的FCN存在缺陷：</p>
+<p><img src="/2020/04/15/PSPNet-note/1.png" alt></p>
+<ol>
+<li>不匹配上下文关系， <strong>FCN将水中的“boat”预测为“car”</strong> 。</li>
+<li>类别混淆，将摩天大楼一部分识别成了其他。</li>
+<li><p>不显著的类别难以预测，可能会忽略小的东西。</p>
+<p>基于对FCN的透彻分析，作者提出了能够获取全局场景的深度网络PSPNet，可以融合局部特征和全局特征，有较好的效果。</p>
+</li>
+</ol>
+<h5 id="1-1-Pyramid-Pooling-Module（金字塔池化模块）"><a href="#1-1-Pyramid-Pooling-Module（金字塔池化模块）" class="headerlink" title="1.1  Pyramid Pooling Module（金字塔池化模块）"></a>1.1  <strong>Pyramid Pooling Module</strong>（金字塔池化模块）</h5><p>​     金字塔池化模块Pyramid Pooling Module由一组不同尺度的池化块组成 </p>
+<p><img src="/2020/04/15/PSPNet-note/2.png" alt></p>
+<p>​    该模块融合了4种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个bin输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有N个级别，则在每个级别后使用1X1的卷积将对于级别通道降为原本的1/N。再通过双线性插值获得未池化前的大小，最终concat到一起。<br>​    在POOL过程中，论文一共采用了$1X1,2X2,3X3,6X6$ 4个等级的池化尺寸(即<strong>输出尺寸</strong>)进行池化。</p>
+<h5 id="1-2-基于ResNet的预训练辅助损失函数"><a href="#1-2-基于ResNet的预训练辅助损失函数" class="headerlink" title="1.2 基于ResNet的预训练辅助损失函数"></a>1.2 基于ResNet的预训练辅助损失函数</h5><p><img src="/2020/04/15/PSPNet-note/3.png" alt></p>
+<pre><code> 在ResNet101的基础上做了改进，除了使用后面的softmax分类做loss，额外的在第四阶段添加了一个辅助的loss， 叫做**auxiliary loss**， 两个loss一起传播，使用不同的权重，共同优化参数。后续的实验证明这样做有利于快速收敛。 
+</code></pre><h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p>金字塔池化以及PSPNet网络架构</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_PyramidPoolingModule</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, in_dim, reduction_dim, setting</span>):</span></span><br><span class="line">        super(_PyramidPoolingModule, self).__init__()</span><br><span class="line">        self.features = []</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> setting:</span><br><span class="line">            self.features.append(nn.Sequential(</span><br><span class="line">                nn.AdaptiveAvgPool2d(s),</span><br><span class="line">                nn.Conv2d(in_dim, reduction_dim, kernel_size=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(reduction_dim, momentum=<span class="number">.95</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">            ))</span><br><span class="line">        self.features = nn.ModuleList(self.features)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        out = [x]</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.features:</span><br><span class="line">            out.append(F.upsample(f(x), x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>))</span><br><span class="line">        out = torch.cat(out, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSPNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, use_aux=True</span>):</span></span><br><span class="line">        super(PSPNet, self).__init__()</span><br><span class="line">        self.use_aux = use_aux</span><br><span class="line">        resnet = models.resnet101()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            resnet.load_state_dict(torch.load(res101_path))</span><br><span class="line">        self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)</span><br><span class="line">        self.layer1, self.layer2, self.layer3, self.layer4 = resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer3.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer4.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.ppm = _PyramidPoolingModule(<span class="number">2048</span>, <span class="number">512</span>, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>))</span><br><span class="line">        self.final = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">4096</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>, momentum=<span class="number">.95</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.1</span>),</span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_aux:</span><br><span class="line">            self.aux_logits = nn.Conv2d(<span class="number">1024</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">            initialize_weights(self.aux_logits)</span><br><span class="line"></span><br><span class="line">        initialize_weights(self.ppm, self.final)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        x = self.layer0(x)</span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            aux = self.aux_logits(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line">        x = self.ppm(x)</span><br><span class="line">        x = self.final(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>), F.upsample(aux, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
       <tags>
-        <tag>OCR手写识别</tag>
+        <tag>语义分割</tag>
       </tags>
   </entry>
   <entry>
@@ -844,100 +861,15 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       </tags>
   </entry>
   <entry>
-    <title>PSPNet-note</title>
-    <url>/2020/04/15/PSPNet-note/</url>
+    <title>OCR手写识别_NoTe1</title>
+    <url>/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h3 id="Pyramid-Scene-Parseing-Network-Note"><a href="#Pyramid-Scene-Parseing-Network-Note" class="headerlink" title="Pyramid Scene Parseing Network  Note"></a>Pyramid Scene Parseing Network  Note</h3><p>​    PSPNet 采用金字塔池化模块搭建的场景分析网络 ， <strong>基于语义分割的场景解析，其目的是赋予图像中每个像素一个类别标签</strong>。 </p>
-<h4 id="1-PSPNet介绍"><a href="#1-PSPNet介绍" class="headerlink" title="1 PSPNet介绍"></a>1 PSPNet介绍</h4><p>由于传统的FCN存在缺陷：</p>
-<p><img src="/2020/04/15/PSPNet-note/1.png" alt></p>
-<ol>
-<li>不匹配上下文关系， <strong>FCN将水中的“boat”预测为“car”</strong> 。</li>
-<li>类别混淆，将摩天大楼一部分识别成了其他。</li>
-<li><p>不显著的类别难以预测，可能会忽略小的东西。</p>
-<p>基于对FCN的透彻分析，作者提出了能够获取全局场景的深度网络PSPNet，可以融合局部特征和全局特征，有较好的效果。</p>
-</li>
-</ol>
-<h5 id="1-1-Pyramid-Pooling-Module（金字塔池化模块）"><a href="#1-1-Pyramid-Pooling-Module（金字塔池化模块）" class="headerlink" title="1.1  Pyramid Pooling Module（金字塔池化模块）"></a>1.1  <strong>Pyramid Pooling Module</strong>（金字塔池化模块）</h5><p>​     金字塔池化模块Pyramid Pooling Module由一组不同尺度的池化块组成 </p>
-<p><img src="/2020/04/15/PSPNet-note/2.png" alt></p>
-<p>​    该模块融合了4种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个bin输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有N个级别，则在每个级别后使用1X1的卷积将对于级别通道降为原本的1/N。再通过双线性插值获得未池化前的大小，最终concat到一起。<br>​    在POOL过程中，论文一共采用了$1X1,2X2,3X3,6X6$ 4个等级的池化尺寸(即<strong>输出尺寸</strong>)进行池化。</p>
-<h5 id="1-2-基于ResNet的预训练辅助损失函数"><a href="#1-2-基于ResNet的预训练辅助损失函数" class="headerlink" title="1.2 基于ResNet的预训练辅助损失函数"></a>1.2 基于ResNet的预训练辅助损失函数</h5><p><img src="/2020/04/15/PSPNet-note/3.png" alt></p>
-<pre><code> 在ResNet101的基础上做了改进，除了使用后面的softmax分类做loss，额外的在第四阶段添加了一个辅助的loss， 叫做**auxiliary loss**， 两个loss一起传播，使用不同的权重，共同优化参数。后续的实验证明这样做有利于快速收敛。 
-</code></pre><h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p>金字塔池化以及PSPNet网络架构</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_PyramidPoolingModule</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, in_dim, reduction_dim, setting</span>):</span></span><br><span class="line">        super(_PyramidPoolingModule, self).__init__()</span><br><span class="line">        self.features = []</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> setting:</span><br><span class="line">            self.features.append(nn.Sequential(</span><br><span class="line">                nn.AdaptiveAvgPool2d(s),</span><br><span class="line">                nn.Conv2d(in_dim, reduction_dim, kernel_size=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(reduction_dim, momentum=<span class="number">.95</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">            ))</span><br><span class="line">        self.features = nn.ModuleList(self.features)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        out = [x]</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.features:</span><br><span class="line">            out.append(F.upsample(f(x), x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>))</span><br><span class="line">        out = torch.cat(out, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSPNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, use_aux=True</span>):</span></span><br><span class="line">        super(PSPNet, self).__init__()</span><br><span class="line">        self.use_aux = use_aux</span><br><span class="line">        resnet = models.resnet101()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            resnet.load_state_dict(torch.load(res101_path))</span><br><span class="line">        self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)</span><br><span class="line">        self.layer1, self.layer2, self.layer3, self.layer4 = resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer3.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer4.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.ppm = _PyramidPoolingModule(<span class="number">2048</span>, <span class="number">512</span>, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>))</span><br><span class="line">        self.final = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">4096</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>, momentum=<span class="number">.95</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.1</span>),</span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_aux:</span><br><span class="line">            self.aux_logits = nn.Conv2d(<span class="number">1024</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">            initialize_weights(self.aux_logits)</span><br><span class="line"></span><br><span class="line">        initialize_weights(self.ppm, self.final)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        x = self.layer0(x)</span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            aux = self.aux_logits(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line">        x = self.ppm(x)</span><br><span class="line">        x = self.final(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>), F.upsample(aux, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
       <tags>
-        <tag>语义分割</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Retinanet&amp;focal-loss</title>
-    <url>/2020/05/12/Retinanet-focal-loss/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
-<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
-<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
-<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
-<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
-<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
-<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
-<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
-<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>目标检测</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫框架Scrapy(一)</title>
-    <url>/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="Scrapy框架简介"><a href="#Scrapy框架简介" class="headerlink" title="Scrapy框架简介"></a>Scrapy框架简介</h1><p><img src="/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/1.jpg" alt></p>
-<p><img src="/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/2.jpg" alt></p>
-<p>-Spider MiddlewaresSpider只对response进行过滤处理，不对数据进行处理</p>
-<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy startproject myspider </span><br></pre></td></tr></table></figure>
-<h2 id="生成爬虫"><a href="#生成爬虫" class="headerlink" title="生成爬虫"></a>生成爬虫</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy genspider response response.cn</span><br><span class="line"><span class="comment">#@response 爬虫名称</span></span><br><span class="line"><span class="comment">#@response.cn 爬虫域名范围</span></span><br></pre></td></tr></table></figure>
-<p>在生成的response.py文件中包含以下代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PixviSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;pixvi&#x27;</span>  <span class="comment">#爬虫名</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;pixiv.net&#x27;</span>] <span class="comment">#爬虫范围，需要爬取的url地址你必须在这个域名下</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;http://www.pixiv.net/&#x27;</span>] <span class="comment">#初始响应网站，需要有内容爬取的内容</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span><span class="comment">#parse函数名称不能修改</span></span><br><span class="line">        <span class="comment">#处理start_ urls对应的响应</span></span><br><span class="line">        item = response.xpath() <span class="comment">#返回的是一个含有selector对象的列表</span></span><br><span class="line">        <span class="keyword">yield</span> item<span class="comment">#生成器可以遍历不占用太多空间</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行爬虫"><a href="#运行爬虫" class="headerlink" title="运行爬虫"></a>运行爬虫</h2><p>在项目文件夹下运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scrapy crawl response</span><br></pre></td></tr></table></figure>
-<h3 id="pipline"><a href="#pipline" class="headerlink" title="pipline"></a>pipline</h3><p>生成的item数据会传入pipline中，在使用pipline之前要先在settings.py中去掉</p>
-<p>可以创建多个pipline：</p>
-<p>​    1.可能有多个爬虫</p>
-<p>​    2.可能爬取的数据需要不同的处理（如写入不同的数据库）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Pipeline</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span><span class="comment">#实现存储方法，函数名同样不能改变</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
-<p>如有多个pipline，每个pipline都要return item以传入下一个管道，不能缺少return</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ITEM_PIPELINES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;test1.pipelines.Test1Pipeline&#x27;: 300,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br></pre></td></tr></table></figure>
-<p>的注释。</p>
-<p>300表示举例pipline的远近，越小越先执行</p>
-<p>若有多个爬虫，则可以</p>
-<p>​    1.在item中加入<code>item[&#39;come_from&#39;] = &#39;spider1&#39;</code></p>
-<p>​    <code>if item[&#39;come_from&#39;] == &#39;spider1&#39;:</code></p>
-<p>​        …</p>
-<p>​    2.在pipline.py中直接用</p>
-<p>​    <code>if spider.name == &#39;spider1&#39;:</code></p>
-<p>​        …</p>
-<h3 id="logging模块"><a href="#logging模块" class="headerlink" title="logging模块"></a>logging模块</h3><p>logging模块是输出日志的模块</p>
-<p>可以在settings.py中加入<code>LOG_LEVEL = &#39;WARNING&#39;</code>来使程序输出warning及以上级别的日志</p>
-<p>logging模块可以代替print输出数据并知晓数据来自哪一个文件</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logger = logging.getlogger(__name__)</span><br><span class="line">logger.warning(item)</span><br></pre></td></tr></table></figure>
-<p>运行结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>即可以打印输出内容的时间，文件来源，等级，内容</p>
-<p>在settings.py中加入<code>LOG_FILE = ./XXX.log</code>即可把日志内容保存在文件中</p>
-]]></content>
-      <categories>
-        <category>python爬虫</category>
-      </categories>
-      <tags>
-        <tag>scrapy</tag>
+        <tag>OCR手写识别</tag>
       </tags>
   </entry>
   <entry>
@@ -1024,6 +956,74 @@ y^{(k)}=\gamma^{(k)}\hat x^{(k)}  + \beta^{(k)}</script><p>可以学习$\gamma$�
       </categories>
       <tags>
         <tag>实例分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Retinanet&amp;focal-loss</title>
+    <url>/2020/05/12/Retinanet-focal-loss/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
+<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
+<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
+<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
+<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
+<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
+<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
+<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
+<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫框架Scrapy(一)</title>
+    <url>/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="Scrapy框架简介"><a href="#Scrapy框架简介" class="headerlink" title="Scrapy框架简介"></a>Scrapy框架简介</h1><p><img src="/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/1.jpg" alt></p>
+<p><img src="/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/2.jpg" alt></p>
+<p>-Spider MiddlewaresSpider只对response进行过滤处理，不对数据进行处理</p>
+<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy startproject myspider </span><br></pre></td></tr></table></figure>
+<h2 id="生成爬虫"><a href="#生成爬虫" class="headerlink" title="生成爬虫"></a>生成爬虫</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy genspider response response.cn</span><br><span class="line"><span class="comment">#@response 爬虫名称</span></span><br><span class="line"><span class="comment">#@response.cn 爬虫域名范围</span></span><br></pre></td></tr></table></figure>
+<p>在生成的response.py文件中包含以下代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PixviSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;pixvi&#x27;</span>  <span class="comment">#爬虫名</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;pixiv.net&#x27;</span>] <span class="comment">#爬虫范围，需要爬取的url地址你必须在这个域名下</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;http://www.pixiv.net/&#x27;</span>] <span class="comment">#初始响应网站，需要有内容爬取的内容</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span><span class="comment">#parse函数名称不能修改</span></span><br><span class="line">        <span class="comment">#处理start_ urls对应的响应</span></span><br><span class="line">        item = response.xpath() <span class="comment">#返回的是一个含有selector对象的列表</span></span><br><span class="line">        <span class="keyword">yield</span> item<span class="comment">#生成器可以遍历不占用太多空间</span></span><br></pre></td></tr></table></figure>
+<h2 id="运行爬虫"><a href="#运行爬虫" class="headerlink" title="运行爬虫"></a>运行爬虫</h2><p>在项目文件夹下运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scrapy crawl response</span><br></pre></td></tr></table></figure>
+<h3 id="pipline"><a href="#pipline" class="headerlink" title="pipline"></a>pipline</h3><p>生成的item数据会传入pipline中，在使用pipline之前要先在settings.py中去掉</p>
+<p>可以创建多个pipline：</p>
+<p>​    1.可能有多个爬虫</p>
+<p>​    2.可能爬取的数据需要不同的处理（如写入不同的数据库）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1Pipeline</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span><span class="comment">#实现存储方法，函数名同样不能改变</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<p>如有多个pipline，每个pipline都要return item以传入下一个管道，不能缺少return</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ITEM_PIPELINES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;test1.pipelines.Test1Pipeline&#x27;: 300,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br></pre></td></tr></table></figure>
+<p>的注释。</p>
+<p>300表示举例pipline的远近，越小越先执行</p>
+<p>若有多个爬虫，则可以</p>
+<p>​    1.在item中加入<code>item[&#39;come_from&#39;] = &#39;spider1&#39;</code></p>
+<p>​    <code>if item[&#39;come_from&#39;] == &#39;spider1&#39;:</code></p>
+<p>​        …</p>
+<p>​    2.在pipline.py中直接用</p>
+<p>​    <code>if spider.name == &#39;spider1&#39;:</code></p>
+<p>​        …</p>
+<h3 id="logging模块"><a href="#logging模块" class="headerlink" title="logging模块"></a>logging模块</h3><p>logging模块是输出日志的模块</p>
+<p>可以在settings.py中加入<code>LOG_LEVEL = &#39;WARNING&#39;</code>来使程序输出warning及以上级别的日志</p>
+<p>logging模块可以代替print输出数据并知晓数据来自哪一个文件</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logger = logging.getlogger(__name__)</span><br><span class="line">logger.warning(item)</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>即可以打印输出内容的时间，文件来源，等级，内容</p>
+<p>在settings.py中加入<code>LOG_FILE = ./XXX.log</code>即可把日志内容保存在文件中</p>
+]]></content>
+      <categories>
+        <category>python爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
       </tags>
   </entry>
   <entry>
