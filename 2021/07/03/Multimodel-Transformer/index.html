@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Multimodel-Transformer | Viva La Vida</title><meta name="keywords" content="Multimodel"><meta name="author" content="BROWALLIA"><meta name="copyright" content="BROWALLIA"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Multimodel-TransformerVisual Embedding Schema 图片来自ViLT  Region Feature  利用faster rcnn提取bbox的region feature作为multimodel transformer的输入。 ViLBert｜LXMERT｜VL-BERT｜VisualBert｜Unicoder-VL｜UNITER｜VinVL  Grid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multimodel-Transformer">
+<meta property="og:url" content="https://www.browallia.top/2021/07/03/Multimodel-Transformer/index.html">
+<meta property="og:site_name" content="Viva La Vida">
+<meta property="og:description" content="Multimodel-TransformerVisual Embedding Schema 图片来自ViLT  Region Feature  利用faster rcnn提取bbox的region feature作为multimodel transformer的输入。 ViLBert｜LXMERT｜VL-BERT｜VisualBert｜Unicoder-VL｜UNITER｜VinVL  Grid">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/browallia/tuchuang/raw/master/img/MT.jpg">
+<meta property="article:published_time" content="2021-07-03T05:00:41.000Z">
+<meta property="article:modified_time" content="2021-09-03T05:37:17.332Z">
+<meta property="article:author" content="BROWALLIA">
+<meta property="article:tag" content="Multimodel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/browallia/tuchuang/raw/master/img/MT.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.browallia.top/2021/07/03/Multimodel-Transformer/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="content"/><meta name="baidu-site-verification" content="content"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6df37eb9bea6fc6acfb352324998b672";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D99NED65DC"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D99NED65DC');
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-09-03 13:37:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Viva La Vida" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/dbs.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">26</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">16</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> POI</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> Me</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Multimodel-Transformer"><span class="toc-number">1.</span> <span class="toc-text">Multimodel-Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Visual-Embedding-Schema"><span class="toc-number">1.1.</span> <span class="toc-text">Visual Embedding Schema</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grid-Feature"><span class="toc-number">1.2.</span> <span class="toc-text">Grid Feature</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pixel-Bert"><span class="toc-number">1.2.1.</span> <span class="toc-text">Pixel-Bert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIPBERT"><span class="toc-number">1.2.2.</span> <span class="toc-text">CLIPBERT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Patch-Projection"><span class="toc-number">1.3.</span> <span class="toc-text">Patch Projection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ViLT"><span class="toc-number">1.3.1.</span> <span class="toc-text">ViLT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViViT"><span class="toc-number">1.3.2.</span> <span class="toc-text">ViViT</span></a></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/browallia/tuchuang/raw/master/img/MT.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Viva La Vida</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> POI</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Multimodel-Transformer</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-03T05:00:41.000Z" title="发表于 2021-07-03 13:00:41">2021-07-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-03T05:37:17.332Z" title="更新于 2021-09-03 13:37:17">2021-09-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><a id="more"></a>
+<h1 id="Multimodel-Transformer"><a href="#Multimodel-Transformer" class="headerlink" title="Multimodel-Transformer"></a>Multimodel-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
+<p>图片来自<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
+<ol>
+<li>Region Feature</li>
+</ol>
+<p>利用faster rcnn提取bbox的region feature作为multimodel transformer的输入。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.02265">ViLBert</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.07490">LXMERT</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.08530">VL-BERT</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.03557.pdf">VisualBert</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.06066.pdf">Unicoder-VL</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1909.11740.pdf">UNITER</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2101.00529.pdf">VinVL</a></p>
+<ol>
+<li>Grid Feature</li>
+</ol>
+<p>直接利用CNN backbone提取出的grid feature</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.00849.pdf">Pixel-Bert</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2102.06183.pdf">CLIPBERT</a></p>
+<ol>
+<li>Patch Projection</li>
+</ol>
+<p>类似VIT将输入的图像分成多个patch直接输入transformer</p>
+<p>image：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
+<p>video：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.05095">TimeSformer</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.15691.pdf">ViViT</a>｜<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2102.00719.pdf">VTN</a></p>
+<p>由于Region Feature方法对于视频数据不是很友好，主要介绍Grid Feature方法和Patch Projection方法</p>
+<h2 id="Grid-Feature"><a href="#Grid-Feature" class="headerlink" title="Grid Feature"></a>Grid Feature</h2><h3 id="Pixel-Bert"><a href="#Pixel-Bert" class="headerlink" title="Pixel-Bert"></a>Pixel-Bert</h3><p>pixel-bert提出是为了解决目前Region Feature方法的一些问题，这些方法只能提取到图片的部分目标的特征，对应的文本部分并不能完全和提取出来的特征相对应。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_2.png" alt></p>
+<p>论文提出了pixel-text levl语义对齐的end2end网络，可以有效的解决这个问题。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_3.png" alt></p>
+<p>模型由三个部分 CNN-based visual Encoder 基于bert的Sentence Encoder以及Joint-Transformer</p>
+<p>预训练有两个任务 MLM和ITM</p>
+<p><strong>文本部分</strong></p>
+<p>采用和Bert一样的处理方式 输出N个token</p>
+<p><strong>图像部分</strong></p>
+<p>提出了Pixel Feature Embedding，将图片过backbone然后平铺特征 ，k代表pixel的数量。然后对pixel特征加上一个区分于文字的semantic embedding作为transformer的输入。</p>
+<p>在pre-train阶段，论文还提出Pixel Random Sampling的方法来对backbone提取到的pixel feature map进行随机采样，增强网络的鲁棒性减缓过拟合。（感觉是用部分的pixel来学习到完整的visual特征，增强表征能力）</p>
+<p><strong>多模态融合部分</strong></p>
+<p>将1和2的输出作为transformer的输入</p>
+<p><strong>训练细节</strong></p>
+<p>利用COCO和VG数据集合进行预训练，不同分支利用不同的优化器，visual backbone用SGD，transformer用AdamW。</p>
+<h3 id="CLIPBERT"><a href="#CLIPBERT" class="headerlink" title="CLIPBERT"></a>CLIPBERT</h3><p>官方代码：<a target="_blank" rel="noopener" href="https://github.com/jayleicn/ClipBERT">https://github.com/jayleicn/ClipBERT</a></p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_4.png" alt></p>
+<p>传统的video-text模型采用的模式是固定vision/text的backbone提取两种模态的特征输入到融合模型。这种传统的模式会有两个缺点：</p>
+<p>对不同任务/领域的数据集 feature提取器需要进行不同的预训练，才会有比较好的效果。</p>
+<p>不同模态的feature之间有可能是割裂的，比如在视频动作识别模型是靠纯视频特征进行学习的，并没有用到文本特征。端到端的finetune会有效的解决这一点。</p>
+<p>CLIPBERT借鉴了PixelBert中稀疏采样的方法，对视频的帧进行稀疏采样。在训练时将多个clip进行片段推理，最后将多个片段的推理结果合并作为整个视频总的结果。由于是稀疏采样视频帧进行训练，并且考虑到image-text预训练对video-text模型有一定的收益，模型采用2-D visual backbone提取视频特征，可以减小模型的计算量。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_5.png" alt></p>
+<p>每个CLIP代表随机采样视频中的某一个片段</p>
+<p>每个CLIP由该片段中随机采样T帧组成，将T帧的特征进行Fusion然后送入transformer，融合text特征。</p>
+<p>相当于model的visual部分输入为(B, N, T, H, W, D)，分别对应Batch_size，N个clip，每个clip包含T帧，图片被降采样为HxW，每帧图片过backbone得到D维特征。对降采样的特征做2D position embedding然后以(B, HxW, D)的token输入transformer。clip在我的理解是每个视频样本过N次模型得到N个结果，最后将N个结果进行融合然后传给video-level的下游任务。</p>
+<p>代码实现中在训练时打包数据集以(B, T=num_clips*num_frm, C, H, W)的shape打包，在训练时将reshape成(B, num_clips, num_frm, C, H, W)，然后分clip过model，组后将得出来的logits进行concat</p>
+<h2 id="Patch-Projection"><a href="#Patch-Projection" class="headerlink" title="Patch Projection"></a>Patch Projection</h2><h3 id="ViLT"><a href="#ViLT" class="headerlink" title="ViLT"></a>ViLT</h3><p>code：<a target="_blank" rel="noopener" href="https://github.com/dandelin/vilt">https://github.com/dandelin/vilt</a></p>
+<p>论文提出了一种基于类似VIT中的Patch Projection方法的更轻量的多模态Transformer，没有使用常见的CNN backbone(不管是检测器还是ResNet)。</p>
+<p>基于CNN的模型有两个比较大的问题。一是计算量会很大，二是表征能力取决于视觉模型，以及预定义的视觉词汇（图像语义可能比文字表现得少很多）。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_6.png" alt></p>
+<p>论文提出的方法直接将图像分为patch和文字一起直接输入transformer进行联合训练</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_7.png" alt></p>
+<p><strong>训练细节</strong></p>
+<p>模型初始化为预训练的VIT，能够弥补没有图像特征提取的缺陷。</p>
+<p>预训练任务为MLM和ITM，在预训练时，利用了whole word masking的方法，whole word masking是将连续的子词tokens进行mask的技巧，避免了只通过单词上下文进行预测。比如将“giraffe”词tokenized成3个部分[“gi”, “##raf”, “##fe”]，可以mask成[“gi”, “[MASK]”, “##fe”]，模型会通过mask的上下文信息[“gi”，“##fe”]来预测mask的“##raf”，就会导致不利用图像信息。这样可以最大化的利用视觉特征来补全语言特征。</p>
+<p>在预训练时没有对图像做augmentation，在finetune时运用了除颜色改变和剪裁之外的random aug。</p>
+<h3 id="ViViT"><a href="#ViViT" class="headerlink" title="ViViT"></a>ViViT</h3><p>关于video的pathch projection方法</p>
+<p>整体上还是采取了VIT的思路</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_8.png" alt></p>
+<p><strong>Embedding Video Clips</strong></p>
+<ul>
+<li>Uniform frame sampling</li>
+</ul>
+<p>这种方法均匀采样n帧图片，采用和VIT一样的处理方法，分别对单张图片进行分patch操作，类似于对一张巨大的图片进行操作</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_9.png" alt></p>
+<ul>
+<li>Tubelet embedding</li>
+</ul>
+<p>在时空两个维度进行采样，可以更好利用video的时序信息</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_10.png" alt></p>
+<p><strong>Encoder 变体</strong></p>
+<p>由于随着视频帧数的增加，token数量是线性增加的，会带来很高的复杂度，所以论文中提出了一些模型的变体。</p>
+<ul>
+<li>Factorised Encoder</li>
+</ul>
+<p>采用两阶段的transformer，第一阶段transformer对每帧的图片进行处理，然后把cls输出作为下一阶段transformer的输入，第二阶段的transformer融合时序信息。类似于late-fusion的思路。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_11.png" alt></p>
+<p>PS：从FLOPs角度来看计算量是小于直接用全部token过transformer的</p>
+<ul>
+<li>Factorised self-attention</li>
+</ul>
+<p>直接在一个transformer中对时间和空间分开计算self-attention</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_12.png" alt></p>
+<ul>
+<li>Factorised dot-product attention</li>
+</ul>
+<p>将一个self attentin分为spatial和temporal两部分，K，V分成两 ，然后将两组output concat得到最终的输出。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_13.png" alt></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">BROWALLIA</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.browallia.top/2021/07/03/Multimodel-Transformer/">https://www.browallia.top/2021/07/03/Multimodel-Transformer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.browallia.top" target="_blank">Viva La Vida</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Multimodel/">Multimodel</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/browallia/tuchuang/raw/master/img/MT.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/zfb.png" target="_blank"><img class="post-qr-code-img" src="/img/zfb.png" alt="Alipay"/></a><div class="post-qr-code-desc">Alipay</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/10/29/Knowledge-Distillation/"><img class="next-cover" src="https://gitee.com/browallia/tuchuang/raw/master/img/KD.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Knowledge Distillation</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By BROWALLIA</div><div class="footer_custom_text">早安，打工人！</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: 'N9FvFdatw3iiNqYayrrAfRhJ-gzGzoHsz',
+      appKey: 'oE1wULzwlDDcdjA0kAbxd3k0',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
