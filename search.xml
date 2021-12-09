@@ -468,62 +468,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Django学习笔记（三）</title>
-    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
-<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Web学习</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FCN note</title>
-    <url>/2020/04/13/FCN-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="FCN：Semantic-Segmentation"><a href="#FCN：Semantic-Segmentation" class="headerlink" title="FCN：Semantic Segmentation"></a>FCN：Semantic Segmentation</h1><p>图像的语义分割，简言之就是对一张图片上的所有像素点进行分类</p>
-<h4 id="1-FCN介绍"><a href="#1-FCN介绍" class="headerlink" title="1 FCN介绍"></a>1 FCN介绍</h4><p>​    与传统的CNN解决的分类与检测问题不同，语义分割是一个空间密集型的预测任务，是<strong>像素级别</strong>的，需要对图像上所有的像素进行分类。 由于CNN在进行convolution和pooling过程中丢失了图像细节，即feature map size逐渐变小，所以不能很好地指出物体的具体轮廓、指出每个像素具体属于哪个物体，无法做到精确的分割。 </p>
-<p>​    FCN是针对语义分割训练的的一个端到端的网络, 是处理语义分割问题的基本框架，后续算法其实都是在这个框架中改进而来。 </p>
-<h5 id="1-1-卷积化"><a href="#1-1-卷积化" class="headerlink" title="1.1 卷积化"></a>1.1 卷积化</h5><p>​    在一般的分类任务中在conv层之后一般会有全连接层,将二维的图像特征压缩为一维,可以训练输出一个标量,成为分类标签。这样做会失去部分的空间信息，不适用于分割的操作。</p>
-<p>​    语义分割输出为分割图，信息是二维的，所以在进行网络构建的时候抛弃了全连接层而是采用了卷积层，叫做卷积化。</p>
-<p><img src="/2020/04/13/FCN-note/1.png" alt></p>
-<h5 id="1-2-上采样-Upsampling"><a href="#1-2-上采样-Upsampling" class="headerlink" title="1.2 上采样(Upsampling)"></a>1.2 上采样(Upsampling)</h5><p>上采样与下采样相反，我们需要得到原图像的分割图就需要将缩小的特征恢复到原来的size。</p>
-<p>上采样一般有两种方式：</p>
-<ul>
-<li>Resize 即图片缩放</li>
-<li>Deconvolution（反卷积） 也叫做Transposed Convolution（转置卷积）</li>
-</ul>
-<p>常用的方式就是反卷积</p>
-<p>反卷积通俗的来讲就是将普通的卷积操作反过来做。</p>
-<p>PS：</p>
-<p>输入为2X2矩阵，kernel_size = 3, pad = 0, stride = 1,进行反卷积操作会变成4X4的矩阵</p>
-<p><img src="/2020/04/13/FCN-note/1.gif" style="zoom:50%;"></p>
-<p>反卷积公式如下</p>
-<p>$output = (input-1)<em>stride + outputpadding-2</em>padding+kernel_size$</p>
-<p>upsampling的意义在于小尺寸的高纬度feature map恢复成原来图像的大小，再做像素预测，获取每个像素的分类信息。</p>
-<p>为了更好地将图像还原成原来的尺寸，在FCN中还加入了crop层，</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#caffe中的crop层定义</span></span><br><span class="line">layer &#123;</span><br><span class="line">  name: <span class="string">&quot;score_pool4c&quot;</span></span><br><span class="line">  type: <span class="string">&quot;Crop&quot;</span></span><br><span class="line">  bottom: <span class="string">&quot;score_pool4&quot;</span>  <span class="comment"># 需要裁切的blob</span></span><br><span class="line">  bottom: <span class="string">&quot;upscore2&quot;</span>     <span class="comment"># 用于指示裁切尺寸的blob，和输出blob一样大</span></span><br><span class="line">  top: <span class="string">&quot;score_pool4c&quot;</span>    <span class="comment"># 输出blob</span></span><br><span class="line">  crop_param &#123;</span><br><span class="line">    axis: <span class="number">2</span></span><br><span class="line">    offset: <span class="number">5</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>相当于在图像的W，H纬度进行剪裁。用python的语法表示为</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">score_pool4c = score_pool4[:, :, <span class="number">5</span>:<span class="number">5</span>+crop_h, <span class="number">5</span>:<span class="number">5</span>+crop_w]</span><br></pre></td></tr></table></figure>
-<h5 id="1-3-跳跃结构-Skip-Architecture"><a href="#1-3-跳跃结构-Skip-Architecture" class="headerlink" title="1.3 跳跃结构(Skip Architecture)"></a>1.3 跳跃结构(Skip Architecture)</h5><p>​    如果只用最后一层池化结果进行上采样的话得到的结果通常十分粗糙，所以FCN采用了将不同池化层的结果进行上采样最后叠加的结构来增加精确度。</p>
-<p><img src="/2020/04/13/FCN-note/2.png" style="zoom:80%;"></p>
-<p> 效果：FCN-32s &lt; FCN-16s &lt; FCN-8s，即<strong>使用多层feature融合有利于提高分割准确性</strong>。 </p>
-<p><img src="/2020/04/13/FCN-note/3.png" style="zoom:80%;"></p>
-<h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p><strong>FCN model代码</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FCN8s</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, caffe=False</span>):</span></span><br><span class="line">        super(FCN8s, self).__init__()</span><br><span class="line">        vgg = models.vgg16()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            <span class="keyword">if</span> caffe:</span><br><span class="line">                <span class="comment"># load the pretrained vgg16 used by the paper&#x27;s author</span></span><br><span class="line">                vgg.load_state_dict(torch.load(vgg16_caffe_path))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                vgg.load_state_dict(torch.load(vgg16_path))</span><br><span class="line">        features, classifier = list(vgg.features.children()), list(vgg.classifier.children())</span><br><span class="line"></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        100 padding for 2 reasons:</span></span><br><span class="line"><span class="string">            1) support very small input size</span></span><br><span class="line"><span class="string">            2) allow cropping in order to match size of different layers&#x27; feature maps</span></span><br><span class="line"><span class="string">        Note that the cropped part corresponds to a part of the 100 padding</span></span><br><span class="line"><span class="string">        Spatial information of different layers&#x27; feature maps cannot be align exactly because of cropping, which is bad</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        features[<span class="number">0</span>].padding = (<span class="number">100</span>, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> features:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;MaxPool&#x27;</span> <span class="keyword">in</span> f.__class__.__name__:</span><br><span class="line">                f.ceil_mode = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;ReLU&#x27;</span> <span class="keyword">in</span> f.__class__.__name__:</span><br><span class="line">                f.inplace = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        self.features3 = nn.Sequential(*features[: <span class="number">17</span>])</span><br><span class="line">        self.features4 = nn.Sequential(*features[<span class="number">17</span>: <span class="number">24</span>])</span><br><span class="line">        self.features5 = nn.Sequential(*features[<span class="number">24</span>:])</span><br><span class="line"></span><br><span class="line">        self.score_pool3 = nn.Conv2d(<span class="number">256</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        self.score_pool4 = nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        self.score_pool3.weight.data.zero_()</span><br><span class="line">        self.score_pool3.bias.data.zero_()</span><br><span class="line">        self.score_pool4.weight.data.zero_()</span><br><span class="line">        self.score_pool4.bias.data.zero_()</span><br><span class="line"></span><br><span class="line">        fc6 = nn.Conv2d(<span class="number">512</span>, <span class="number">4096</span>, kernel_size=<span class="number">7</span>)</span><br><span class="line">        fc6.weight.data.copy_(classifier[<span class="number">0</span>].weight.data.view(<span class="number">4096</span>, <span class="number">512</span>, <span class="number">7</span>, <span class="number">7</span>))</span><br><span class="line">        fc6.bias.data.copy_(classifier[<span class="number">0</span>].bias.data)</span><br><span class="line">        fc7 = nn.Conv2d(<span class="number">4096</span>, <span class="number">4096</span>, kernel_size=<span class="number">1</span>)</span><br><span class="line">        fc7.weight.data.copy_(classifier[<span class="number">3</span>].weight.data.view(<span class="number">4096</span>, <span class="number">4096</span>, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        fc7.bias.data.copy_(classifier[<span class="number">3</span>].bias.data)</span><br><span class="line">        score_fr = nn.Conv2d(<span class="number">4096</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        score_fr.weight.data.zero_()</span><br><span class="line">        score_fr.bias.data.zero_()</span><br><span class="line">        self.score_fr = nn.Sequential(</span><br><span class="line">            fc6, nn.ReLU(inplace=<span class="literal">True</span>), nn.Dropout(), fc7, nn.ReLU(inplace=<span class="literal">True</span>), nn.Dropout(), score_fr</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        self.upscore2 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=<span class="number">4</span>, stride=<span class="number">2</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        self.upscore_pool4 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=<span class="number">4</span>, stride=<span class="number">2</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        self.upscore8 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=<span class="number">16</span>, stride=<span class="number">8</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        self.upscore2.weight.data.copy_(get_upsampling_weight(num_classes, num_classes, <span class="number">4</span>))</span><br><span class="line">        self.upscore_pool4.weight.data.copy_(get_upsampling_weight(num_classes, num_classes, <span class="number">4</span>))</span><br><span class="line">        self.upscore8.weight.data.copy_(get_upsampling_weight(num_classes, num_classes, <span class="number">16</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        pool3 = self.features3(x)</span><br><span class="line">        pool4 = self.features4(pool3)</span><br><span class="line">        pool5 = self.features5(pool4)</span><br><span class="line"></span><br><span class="line">        score_fr = self.score_fr(pool5)</span><br><span class="line">        upscore2 = self.upscore2(score_fr)</span><br><span class="line"></span><br><span class="line">        score_pool4 = self.score_pool4(<span class="number">0.01</span> * pool4)</span><br><span class="line">        upscore_pool4 = self.upscore_pool4(score_pool4[:, :, <span class="number">5</span>: (<span class="number">5</span> + upscore2.size()[<span class="number">2</span>]), <span class="number">5</span>: (<span class="number">5</span> + upscore2.size()[<span class="number">3</span>])]</span><br><span class="line">                                           + upscore2)</span><br><span class="line"></span><br><span class="line">        score_pool3 = self.score_pool3(<span class="number">0.0001</span> * pool3)</span><br><span class="line">        upscore8 = self.upscore8(score_pool3[:, :, <span class="number">9</span>: (<span class="number">9</span> + upscore_pool4.size()[<span class="number">2</span>]), <span class="number">9</span>: (<span class="number">9</span> + upscore_pool4.size()[<span class="number">3</span>])]</span><br><span class="line">                                 + upscore_pool4)</span><br><span class="line">        <span class="keyword">return</span> upscore8[:, :, <span class="number">31</span>: (<span class="number">31</span> + x_size[<span class="number">2</span>]), <span class="number">31</span>: (<span class="number">31</span> + x_size[<span class="number">3</span>])].contiguous()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>语义分割</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Django学习笔记（二）</title>
     <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -602,6 +546,62 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <li>运行 <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/django-admin/#django-admin-makemigrations"><code>python manage.py makemigrations</code></a> 为模型的改变生成迁移文件。</li>
 <li>运行 <a href="https://docs.djangoproject.com/zh-hans/2.1/ref/django-admin/#django-admin-migrate"><code>python manage.py migrate</code></a> 来应用数据库迁移。</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Web学习</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FCN note</title>
+    <url>/2020/04/13/FCN-note/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="FCN：Semantic-Segmentation"><a href="#FCN：Semantic-Segmentation" class="headerlink" title="FCN：Semantic Segmentation"></a>FCN：Semantic Segmentation</h1><p>图像的语义分割，简言之就是对一张图片上的所有像素点进行分类</p>
+<h4 id="1-FCN介绍"><a href="#1-FCN介绍" class="headerlink" title="1 FCN介绍"></a>1 FCN介绍</h4><p>​    与传统的CNN解决的分类与检测问题不同，语义分割是一个空间密集型的预测任务，是<strong>像素级别</strong>的，需要对图像上所有的像素进行分类。 由于CNN在进行convolution和pooling过程中丢失了图像细节，即feature map size逐渐变小，所以不能很好地指出物体的具体轮廓、指出每个像素具体属于哪个物体，无法做到精确的分割。 </p>
+<p>​    FCN是针对语义分割训练的的一个端到端的网络, 是处理语义分割问题的基本框架，后续算法其实都是在这个框架中改进而来。 </p>
+<h5 id="1-1-卷积化"><a href="#1-1-卷积化" class="headerlink" title="1.1 卷积化"></a>1.1 卷积化</h5><p>​    在一般的分类任务中在conv层之后一般会有全连接层,将二维的图像特征压缩为一维,可以训练输出一个标量,成为分类标签。这样做会失去部分的空间信息，不适用于分割的操作。</p>
+<p>​    语义分割输出为分割图，信息是二维的，所以在进行网络构建的时候抛弃了全连接层而是采用了卷积层，叫做卷积化。</p>
+<p><img src="/2020/04/13/FCN-note/1.png" alt></p>
+<h5 id="1-2-上采样-Upsampling"><a href="#1-2-上采样-Upsampling" class="headerlink" title="1.2 上采样(Upsampling)"></a>1.2 上采样(Upsampling)</h5><p>上采样与下采样相反，我们需要得到原图像的分割图就需要将缩小的特征恢复到原来的size。</p>
+<p>上采样一般有两种方式：</p>
+<ul>
+<li>Resize 即图片缩放</li>
+<li>Deconvolution（反卷积） 也叫做Transposed Convolution（转置卷积）</li>
+</ul>
+<p>常用的方式就是反卷积</p>
+<p>反卷积通俗的来讲就是将普通的卷积操作反过来做。</p>
+<p>PS：</p>
+<p>输入为2X2矩阵，kernel_size = 3, pad = 0, stride = 1,进行反卷积操作会变成4X4的矩阵</p>
+<p><img src="/2020/04/13/FCN-note/1.gif" style="zoom:50%;"></p>
+<p>反卷积公式如下</p>
+<p>$output = (input-1)<em>stride + outputpadding-2</em>padding+kernel_size$</p>
+<p>upsampling的意义在于小尺寸的高纬度feature map恢复成原来图像的大小，再做像素预测，获取每个像素的分类信息。</p>
+<p>为了更好地将图像还原成原来的尺寸，在FCN中还加入了crop层，</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#caffe中的crop层定义</span></span><br><span class="line">layer &#123;</span><br><span class="line">  name: <span class="string">&quot;score_pool4c&quot;</span></span><br><span class="line">  type: <span class="string">&quot;Crop&quot;</span></span><br><span class="line">  bottom: <span class="string">&quot;score_pool4&quot;</span>  <span class="comment"># 需要裁切的blob</span></span><br><span class="line">  bottom: <span class="string">&quot;upscore2&quot;</span>     <span class="comment"># 用于指示裁切尺寸的blob，和输出blob一样大</span></span><br><span class="line">  top: <span class="string">&quot;score_pool4c&quot;</span>    <span class="comment"># 输出blob</span></span><br><span class="line">  crop_param &#123;</span><br><span class="line">    axis: <span class="number">2</span></span><br><span class="line">    offset: <span class="number">5</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相当于在图像的W，H纬度进行剪裁。用python的语法表示为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">score_pool4c = score_pool4[:, :, <span class="number">5</span>:<span class="number">5</span>+crop_h, <span class="number">5</span>:<span class="number">5</span>+crop_w]</span><br></pre></td></tr></table></figure>
+<h5 id="1-3-跳跃结构-Skip-Architecture"><a href="#1-3-跳跃结构-Skip-Architecture" class="headerlink" title="1.3 跳跃结构(Skip Architecture)"></a>1.3 跳跃结构(Skip Architecture)</h5><p>​    如果只用最后一层池化结果进行上采样的话得到的结果通常十分粗糙，所以FCN采用了将不同池化层的结果进行上采样最后叠加的结构来增加精确度。</p>
+<p><img src="/2020/04/13/FCN-note/2.png" style="zoom:80%;"></p>
+<p> 效果：FCN-32s &lt; FCN-16s &lt; FCN-8s，即<strong>使用多层feature融合有利于提高分割准确性</strong>。 </p>
+<p><img src="/2020/04/13/FCN-note/3.png" style="zoom:80%;"></p>
+<h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p><strong>FCN model代码</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FCN8s</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, caffe=False</span>):</span></span><br><span class="line">        super(FCN8s, self).__init__()</span><br><span class="line">        vgg = models.vgg16()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            <span class="keyword">if</span> caffe:</span><br><span class="line">                <span class="comment"># load the pretrained vgg16 used by the paper&#x27;s author</span></span><br><span class="line">                vgg.load_state_dict(torch.load(vgg16_caffe_path))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                vgg.load_state_dict(torch.load(vgg16_path))</span><br><span class="line">        features, classifier = list(vgg.features.children()), list(vgg.classifier.children())</span><br><span class="line"></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        100 padding for 2 reasons:</span></span><br><span class="line"><span class="string">            1) support very small input size</span></span><br><span class="line"><span class="string">            2) allow cropping in order to match size of different layers&#x27; feature maps</span></span><br><span class="line"><span class="string">        Note that the cropped part corresponds to a part of the 100 padding</span></span><br><span class="line"><span class="string">        Spatial information of different layers&#x27; feature maps cannot be align exactly because of cropping, which is bad</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        features[<span class="number">0</span>].padding = (<span class="number">100</span>, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> features:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;MaxPool&#x27;</span> <span class="keyword">in</span> f.__class__.__name__:</span><br><span class="line">                f.ceil_mode = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;ReLU&#x27;</span> <span class="keyword">in</span> f.__class__.__name__:</span><br><span class="line">                f.inplace = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        self.features3 = nn.Sequential(*features[: <span class="number">17</span>])</span><br><span class="line">        self.features4 = nn.Sequential(*features[<span class="number">17</span>: <span class="number">24</span>])</span><br><span class="line">        self.features5 = nn.Sequential(*features[<span class="number">24</span>:])</span><br><span class="line"></span><br><span class="line">        self.score_pool3 = nn.Conv2d(<span class="number">256</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        self.score_pool4 = nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        self.score_pool3.weight.data.zero_()</span><br><span class="line">        self.score_pool3.bias.data.zero_()</span><br><span class="line">        self.score_pool4.weight.data.zero_()</span><br><span class="line">        self.score_pool4.bias.data.zero_()</span><br><span class="line"></span><br><span class="line">        fc6 = nn.Conv2d(<span class="number">512</span>, <span class="number">4096</span>, kernel_size=<span class="number">7</span>)</span><br><span class="line">        fc6.weight.data.copy_(classifier[<span class="number">0</span>].weight.data.view(<span class="number">4096</span>, <span class="number">512</span>, <span class="number">7</span>, <span class="number">7</span>))</span><br><span class="line">        fc6.bias.data.copy_(classifier[<span class="number">0</span>].bias.data)</span><br><span class="line">        fc7 = nn.Conv2d(<span class="number">4096</span>, <span class="number">4096</span>, kernel_size=<span class="number">1</span>)</span><br><span class="line">        fc7.weight.data.copy_(classifier[<span class="number">3</span>].weight.data.view(<span class="number">4096</span>, <span class="number">4096</span>, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        fc7.bias.data.copy_(classifier[<span class="number">3</span>].bias.data)</span><br><span class="line">        score_fr = nn.Conv2d(<span class="number">4096</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        score_fr.weight.data.zero_()</span><br><span class="line">        score_fr.bias.data.zero_()</span><br><span class="line">        self.score_fr = nn.Sequential(</span><br><span class="line">            fc6, nn.ReLU(inplace=<span class="literal">True</span>), nn.Dropout(), fc7, nn.ReLU(inplace=<span class="literal">True</span>), nn.Dropout(), score_fr</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        self.upscore2 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=<span class="number">4</span>, stride=<span class="number">2</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        self.upscore_pool4 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=<span class="number">4</span>, stride=<span class="number">2</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        self.upscore8 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=<span class="number">16</span>, stride=<span class="number">8</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        self.upscore2.weight.data.copy_(get_upsampling_weight(num_classes, num_classes, <span class="number">4</span>))</span><br><span class="line">        self.upscore_pool4.weight.data.copy_(get_upsampling_weight(num_classes, num_classes, <span class="number">4</span>))</span><br><span class="line">        self.upscore8.weight.data.copy_(get_upsampling_weight(num_classes, num_classes, <span class="number">16</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        pool3 = self.features3(x)</span><br><span class="line">        pool4 = self.features4(pool3)</span><br><span class="line">        pool5 = self.features5(pool4)</span><br><span class="line"></span><br><span class="line">        score_fr = self.score_fr(pool5)</span><br><span class="line">        upscore2 = self.upscore2(score_fr)</span><br><span class="line"></span><br><span class="line">        score_pool4 = self.score_pool4(<span class="number">0.01</span> * pool4)</span><br><span class="line">        upscore_pool4 = self.upscore_pool4(score_pool4[:, :, <span class="number">5</span>: (<span class="number">5</span> + upscore2.size()[<span class="number">2</span>]), <span class="number">5</span>: (<span class="number">5</span> + upscore2.size()[<span class="number">3</span>])]</span><br><span class="line">                                           + upscore2)</span><br><span class="line"></span><br><span class="line">        score_pool3 = self.score_pool3(<span class="number">0.0001</span> * pool3)</span><br><span class="line">        upscore8 = self.upscore8(score_pool3[:, :, <span class="number">9</span>: (<span class="number">9</span> + upscore_pool4.size()[<span class="number">2</span>]), <span class="number">9</span>: (<span class="number">9</span> + upscore_pool4.size()[<span class="number">3</span>])]</span><br><span class="line">                                 + upscore_pool4)</span><br><span class="line">        <span class="keyword">return</span> upscore8[:, :, <span class="number">31</span>: (<span class="number">31</span> + x_size[<span class="number">2</span>]), <span class="number">31</span>: (<span class="number">31</span> + x_size[<span class="number">3</span>])].contiguous()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>语义分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django学习笔记（三）</title>
+    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
+<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Web学习</category>
@@ -705,6 +705,105 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Multimodel-Transformer</title>
+    <url>/2021/07/03/Multimodal-Transformer/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="Multimodel-Transformer"><a href="#Multimodel-Transformer" class="headerlink" title="Multimodel-Transformer"></a>Multimodel-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
+<p>图片来自<a href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
+<ol>
+<li>Region Feature</li>
+</ol>
+<p>利用faster rcnn提取bbox的region feature作为multimodel transformer的输入。</p>
+<p><a href="https://arxiv.org/abs/1908.02265">ViLBert</a>｜<a href="https://arxiv.org/abs/1908.07490">LXMERT</a>｜<a href="https://arxiv.org/abs/1908.08530">VL-BERT</a>｜<a href="https://arxiv.org/pdf/1908.03557.pdf">VisualBert</a>｜<a href="https://arxiv.org/pdf/1908.06066.pdf">Unicoder-VL</a>｜<a href="https://arxiv.org/pdf/1909.11740.pdf">UNITER</a>｜<a href="https://arxiv.org/pdf/2101.00529.pdf">VinVL</a></p>
+<ol>
+<li>Grid Feature</li>
+</ol>
+<p>直接利用CNN backbone提取出的grid feature</p>
+<p><a href="https://arxiv.org/pdf/2004.00849.pdf">Pixel-Bert</a>｜<a href="https://arxiv.org/pdf/2102.06183.pdf">CLIPBERT</a></p>
+<ol>
+<li>Patch Projection</li>
+</ol>
+<p>类似VIT将输入的图像分成多个patch直接输入transformer</p>
+<p>image：<a href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
+<p>video：<a href="https://arxiv.org/abs/2102.05095">TimeSformer</a>｜<a href="https://arxiv.org/pdf/2103.15691.pdf">ViViT</a>｜<a href="https://arxiv.org/pdf/2102.00719.pdf">VTN</a></p>
+<p>由于Region Feature方法对于视频数据不是很友好，主要介绍Grid Feature方法和Patch Projection方法</p>
+<h2 id="Grid-Feature"><a href="#Grid-Feature" class="headerlink" title="Grid Feature"></a>Grid Feature</h2><h3 id="Pixel-Bert"><a href="#Pixel-Bert" class="headerlink" title="Pixel-Bert"></a>Pixel-Bert</h3><p>pixel-bert提出是为了解决目前Region Feature方法的一些问题，这些方法只能提取到图片的部分目标的特征，对应的文本部分并不能完全和提取出来的特征相对应。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_2.png" alt></p>
+<p>论文提出了pixel-text levl语义对齐的end2end网络，可以有效的解决这个问题。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_3.png" alt></p>
+<p>模型由三个部分 CNN-based visual Encoder 基于bert的Sentence Encoder以及Joint-Transformer</p>
+<p>预训练有两个任务 MLM和ITM</p>
+<p><strong>文本部分</strong></p>
+<p>采用和Bert一样的处理方式 输出N个token</p>
+<p><strong>图像部分</strong></p>
+<p>提出了Pixel Feature Embedding，将图片过backbone然后平铺特征 ，k代表pixel的数量。然后对pixel特征加上一个区分于文字的semantic embedding作为transformer的输入。</p>
+<p>在pre-train阶段，论文还提出Pixel Random Sampling的方法来对backbone提取到的pixel feature map进行随机采样，增强网络的鲁棒性减缓过拟合。（感觉是用部分的pixel来学习到完整的visual特征，增强表征能力）</p>
+<p><strong>多模态融合部分</strong></p>
+<p>将1和2的输出作为transformer的输入</p>
+<p><strong>训练细节</strong></p>
+<p>利用COCO和VG数据集合进行预训练，不同分支利用不同的优化器，visual backbone用SGD，transformer用AdamW。</p>
+<h3 id="CLIPBERT"><a href="#CLIPBERT" class="headerlink" title="CLIPBERT"></a>CLIPBERT</h3><p>官方代码：<a href="https://github.com/jayleicn/ClipBERT">https://github.com/jayleicn/ClipBERT</a></p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_4.png" alt></p>
+<p>传统的video-text模型采用的模式是固定vision/text的backbone提取两种模态的特征输入到融合模型。这种传统的模式会有两个缺点：</p>
+<p>对不同任务/领域的数据集 feature提取器需要进行不同的预训练，才会有比较好的效果。</p>
+<p>不同模态的feature之间有可能是割裂的，比如在视频动作识别模型是靠纯视频特征进行学习的，并没有用到文本特征。端到端的finetune会有效的解决这一点。</p>
+<p>CLIPBERT借鉴了PixelBert中稀疏采样的方法，对视频的帧进行稀疏采样。在训练时将多个clip进行片段推理，最后将多个片段的推理结果合并作为整个视频总的结果。由于是稀疏采样视频帧进行训练，并且考虑到image-text预训练对video-text模型有一定的收益，模型采用2-D visual backbone提取视频特征，可以减小模型的计算量。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_5.png" alt></p>
+<p>每个CLIP代表随机采样视频中的某一个片段</p>
+<p>每个CLIP由该片段中随机采样T帧组成，将T帧的特征进行Fusion然后送入transformer，融合text特征。</p>
+<p>相当于model的visual部分输入为(B, N, T, H, W, D)，分别对应Batch_size，N个clip，每个clip包含T帧，图片被降采样为HxW，每帧图片过backbone得到D维特征。对降采样的特征做2D position embedding然后以(B, HxW, D)的token输入transformer。clip在我的理解是每个视频样本过N次模型得到N个结果，最后将N个结果进行融合然后传给video-level的下游任务。</p>
+<p>代码实现中在训练时打包数据集以(B, T=num_clips*num_frm, C, H, W)的shape打包，在训练时将reshape成(B, num_clips, num_frm, C, H, W)，然后分clip过model，组后将得出来的logits进行concat</p>
+<h2 id="Patch-Projection"><a href="#Patch-Projection" class="headerlink" title="Patch Projection"></a>Patch Projection</h2><h3 id="ViLT"><a href="#ViLT" class="headerlink" title="ViLT"></a>ViLT</h3><p>code：<a href="https://github.com/dandelin/vilt">https://github.com/dandelin/vilt</a></p>
+<p>论文提出了一种基于类似VIT中的Patch Projection方法的更轻量的多模态Transformer，没有使用常见的CNN backbone(不管是检测器还是ResNet)。</p>
+<p>基于CNN的模型有两个比较大的问题。一是计算量会很大，二是表征能力取决于视觉模型，以及预定义的视觉词汇（图像语义可能比文字表现得少很多）。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_6.png" alt></p>
+<p>论文提出的方法直接将图像分为patch和文字一起直接输入transformer进行联合训练</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_7.png" alt></p>
+<p><strong>训练细节</strong></p>
+<p>模型初始化为预训练的VIT，能够弥补没有图像特征提取的缺陷。</p>
+<p>预训练任务为MLM和ITM，在预训练时，利用了whole word masking的方法，whole word masking是将连续的子词tokens进行mask的技巧，避免了只通过单词上下文进行预测。比如将“giraffe”词tokenized成3个部分[“gi”, “##raf”, “##fe”]，可以mask成[“gi”, “[MASK]”, “##fe”]，模型会通过mask的上下文信息[“gi”，“##fe”]来预测mask的“##raf”，就会导致不利用图像信息。这样可以最大化的利用视觉特征来补全语言特征。</p>
+<p>在预训练时没有对图像做augmentation，在finetune时运用了除颜色改变和剪裁之外的random aug。</p>
+<h3 id="ViViT"><a href="#ViViT" class="headerlink" title="ViViT"></a>ViViT</h3><p>关于video的pathch projection方法</p>
+<p>整体上还是采取了VIT的思路</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_8.png" alt></p>
+<p><strong>Embedding Video Clips</strong></p>
+<ul>
+<li>Uniform frame sampling</li>
+</ul>
+<p>这种方法均匀采样n帧图片，采用和VIT一样的处理方法，分别对单张图片进行分patch操作，类似于对一张巨大的图片进行操作</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_9.png" alt></p>
+<ul>
+<li>Tubelet embedding</li>
+</ul>
+<p>在时空两个维度进行采样，可以更好利用video的时序信息</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_10.png" alt></p>
+<p><strong>Encoder 变体</strong></p>
+<p>由于随着视频帧数的增加，token数量是线性增加的，会带来很高的复杂度，所以论文中提出了一些模型的变体。</p>
+<ul>
+<li>Factorised Encoder</li>
+</ul>
+<p>采用两阶段的transformer，第一阶段transformer对每帧的图片进行处理，然后把cls输出作为下一阶段transformer的输入，第二阶段的transformer融合时序信息。类似于late-fusion的思路。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_11.png" alt></p>
+<p>PS：从FLOPs角度来看计算量是小于直接用全部token过transformer的</p>
+<ul>
+<li>Factorised self-attention</li>
+</ul>
+<p>直接在一个transformer中对时间和空间分开计算self-attention</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_12.png" alt></p>
+<ul>
+<li>Factorised dot-product attention</li>
+</ul>
+<p>将一个self attentin分为spatial和temporal两部分，K，V分成两 ，然后将两组output concat得到最终的输出。</p>
+<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_13.png" alt></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>Multimodel</tag>
       </tags>
   </entry>
   <entry>
@@ -829,105 +928,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>Linux编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Multimodel-Transformer</title>
-    <url>/2021/07/03/Multimodel-Transformer/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="Multimodel-Transformer"><a href="#Multimodel-Transformer" class="headerlink" title="Multimodel-Transformer"></a>Multimodel-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
-<p>图片来自<a href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
-<ol>
-<li>Region Feature</li>
-</ol>
-<p>利用faster rcnn提取bbox的region feature作为multimodel transformer的输入。</p>
-<p><a href="https://arxiv.org/abs/1908.02265">ViLBert</a>｜<a href="https://arxiv.org/abs/1908.07490">LXMERT</a>｜<a href="https://arxiv.org/abs/1908.08530">VL-BERT</a>｜<a href="https://arxiv.org/pdf/1908.03557.pdf">VisualBert</a>｜<a href="https://arxiv.org/pdf/1908.06066.pdf">Unicoder-VL</a>｜<a href="https://arxiv.org/pdf/1909.11740.pdf">UNITER</a>｜<a href="https://arxiv.org/pdf/2101.00529.pdf">VinVL</a></p>
-<ol>
-<li>Grid Feature</li>
-</ol>
-<p>直接利用CNN backbone提取出的grid feature</p>
-<p><a href="https://arxiv.org/pdf/2004.00849.pdf">Pixel-Bert</a>｜<a href="https://arxiv.org/pdf/2102.06183.pdf">CLIPBERT</a></p>
-<ol>
-<li>Patch Projection</li>
-</ol>
-<p>类似VIT将输入的图像分成多个patch直接输入transformer</p>
-<p>image：<a href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
-<p>video：<a href="https://arxiv.org/abs/2102.05095">TimeSformer</a>｜<a href="https://arxiv.org/pdf/2103.15691.pdf">ViViT</a>｜<a href="https://arxiv.org/pdf/2102.00719.pdf">VTN</a></p>
-<p>由于Region Feature方法对于视频数据不是很友好，主要介绍Grid Feature方法和Patch Projection方法</p>
-<h2 id="Grid-Feature"><a href="#Grid-Feature" class="headerlink" title="Grid Feature"></a>Grid Feature</h2><h3 id="Pixel-Bert"><a href="#Pixel-Bert" class="headerlink" title="Pixel-Bert"></a>Pixel-Bert</h3><p>pixel-bert提出是为了解决目前Region Feature方法的一些问题，这些方法只能提取到图片的部分目标的特征，对应的文本部分并不能完全和提取出来的特征相对应。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_2.png" alt></p>
-<p>论文提出了pixel-text levl语义对齐的end2end网络，可以有效的解决这个问题。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_3.png" alt></p>
-<p>模型由三个部分 CNN-based visual Encoder 基于bert的Sentence Encoder以及Joint-Transformer</p>
-<p>预训练有两个任务 MLM和ITM</p>
-<p><strong>文本部分</strong></p>
-<p>采用和Bert一样的处理方式 输出N个token</p>
-<p><strong>图像部分</strong></p>
-<p>提出了Pixel Feature Embedding，将图片过backbone然后平铺特征 ，k代表pixel的数量。然后对pixel特征加上一个区分于文字的semantic embedding作为transformer的输入。</p>
-<p>在pre-train阶段，论文还提出Pixel Random Sampling的方法来对backbone提取到的pixel feature map进行随机采样，增强网络的鲁棒性减缓过拟合。（感觉是用部分的pixel来学习到完整的visual特征，增强表征能力）</p>
-<p><strong>多模态融合部分</strong></p>
-<p>将1和2的输出作为transformer的输入</p>
-<p><strong>训练细节</strong></p>
-<p>利用COCO和VG数据集合进行预训练，不同分支利用不同的优化器，visual backbone用SGD，transformer用AdamW。</p>
-<h3 id="CLIPBERT"><a href="#CLIPBERT" class="headerlink" title="CLIPBERT"></a>CLIPBERT</h3><p>官方代码：<a href="https://github.com/jayleicn/ClipBERT">https://github.com/jayleicn/ClipBERT</a></p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_4.png" alt></p>
-<p>传统的video-text模型采用的模式是固定vision/text的backbone提取两种模态的特征输入到融合模型。这种传统的模式会有两个缺点：</p>
-<p>对不同任务/领域的数据集 feature提取器需要进行不同的预训练，才会有比较好的效果。</p>
-<p>不同模态的feature之间有可能是割裂的，比如在视频动作识别模型是靠纯视频特征进行学习的，并没有用到文本特征。端到端的finetune会有效的解决这一点。</p>
-<p>CLIPBERT借鉴了PixelBert中稀疏采样的方法，对视频的帧进行稀疏采样。在训练时将多个clip进行片段推理，最后将多个片段的推理结果合并作为整个视频总的结果。由于是稀疏采样视频帧进行训练，并且考虑到image-text预训练对video-text模型有一定的收益，模型采用2-D visual backbone提取视频特征，可以减小模型的计算量。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_5.png" alt></p>
-<p>每个CLIP代表随机采样视频中的某一个片段</p>
-<p>每个CLIP由该片段中随机采样T帧组成，将T帧的特征进行Fusion然后送入transformer，融合text特征。</p>
-<p>相当于model的visual部分输入为(B, N, T, H, W, D)，分别对应Batch_size，N个clip，每个clip包含T帧，图片被降采样为HxW，每帧图片过backbone得到D维特征。对降采样的特征做2D position embedding然后以(B, HxW, D)的token输入transformer。clip在我的理解是每个视频样本过N次模型得到N个结果，最后将N个结果进行融合然后传给video-level的下游任务。</p>
-<p>代码实现中在训练时打包数据集以(B, T=num_clips*num_frm, C, H, W)的shape打包，在训练时将reshape成(B, num_clips, num_frm, C, H, W)，然后分clip过model，组后将得出来的logits进行concat</p>
-<h2 id="Patch-Projection"><a href="#Patch-Projection" class="headerlink" title="Patch Projection"></a>Patch Projection</h2><h3 id="ViLT"><a href="#ViLT" class="headerlink" title="ViLT"></a>ViLT</h3><p>code：<a href="https://github.com/dandelin/vilt">https://github.com/dandelin/vilt</a></p>
-<p>论文提出了一种基于类似VIT中的Patch Projection方法的更轻量的多模态Transformer，没有使用常见的CNN backbone(不管是检测器还是ResNet)。</p>
-<p>基于CNN的模型有两个比较大的问题。一是计算量会很大，二是表征能力取决于视觉模型，以及预定义的视觉词汇（图像语义可能比文字表现得少很多）。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_6.png" alt></p>
-<p>论文提出的方法直接将图像分为patch和文字一起直接输入transformer进行联合训练</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_7.png" alt></p>
-<p><strong>训练细节</strong></p>
-<p>模型初始化为预训练的VIT，能够弥补没有图像特征提取的缺陷。</p>
-<p>预训练任务为MLM和ITM，在预训练时，利用了whole word masking的方法，whole word masking是将连续的子词tokens进行mask的技巧，避免了只通过单词上下文进行预测。比如将“giraffe”词tokenized成3个部分[“gi”, “##raf”, “##fe”]，可以mask成[“gi”, “[MASK]”, “##fe”]，模型会通过mask的上下文信息[“gi”，“##fe”]来预测mask的“##raf”，就会导致不利用图像信息。这样可以最大化的利用视觉特征来补全语言特征。</p>
-<p>在预训练时没有对图像做augmentation，在finetune时运用了除颜色改变和剪裁之外的random aug。</p>
-<h3 id="ViViT"><a href="#ViViT" class="headerlink" title="ViViT"></a>ViViT</h3><p>关于video的pathch projection方法</p>
-<p>整体上还是采取了VIT的思路</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_8.png" alt></p>
-<p><strong>Embedding Video Clips</strong></p>
-<ul>
-<li>Uniform frame sampling</li>
-</ul>
-<p>这种方法均匀采样n帧图片，采用和VIT一样的处理方法，分别对单张图片进行分patch操作，类似于对一张巨大的图片进行操作</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_9.png" alt></p>
-<ul>
-<li>Tubelet embedding</li>
-</ul>
-<p>在时空两个维度进行采样，可以更好利用video的时序信息</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_10.png" alt></p>
-<p><strong>Encoder 变体</strong></p>
-<p>由于随着视频帧数的增加，token数量是线性增加的，会带来很高的复杂度，所以论文中提出了一些模型的变体。</p>
-<ul>
-<li>Factorised Encoder</li>
-</ul>
-<p>采用两阶段的transformer，第一阶段transformer对每帧的图片进行处理，然后把cls输出作为下一阶段transformer的输入，第二阶段的transformer融合时序信息。类似于late-fusion的思路。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_11.png" alt></p>
-<p>PS：从FLOPs角度来看计算量是小于直接用全部token过transformer的</p>
-<ul>
-<li>Factorised self-attention</li>
-</ul>
-<p>直接在一个transformer中对时间和空间分开计算self-attention</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_12.png" alt></p>
-<ul>
-<li>Factorised dot-product attention</li>
-</ul>
-<p>将一个self attentin分为spatial和temporal两部分，K，V分成两 ，然后将两组output concat得到最终的输出。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_13.png" alt></p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>Multimodel</tag>
       </tags>
   </entry>
   <entry>
@@ -1081,6 +1081,64 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
+    <title>Vision Representation From Textual</title>
+    <url>/2021/12/09/Vision-Representation-From-Textual/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="Vision-Representation-From-Textual"><a href="#Vision-Representation-From-Textual" class="headerlink" title="Vision Representation From Textual"></a>Vision Representation From Textual</h1><p>大多数的视觉特征表示都是通过有有监督的有标图像预训练得到的，最近有一种新方法是利用图像的caption信息对视觉特征进行监督学习。</p>
+<h2 id="Virtex"><a href="#Virtex" class="headerlink" title="Virtex"></a>Virtex</h2><p><a href="https://arxiv.org/abs/2006.06666">paper</a> | <a href="https://github.com/kdexd/virtex">code</a></p>
+<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a><strong>Motivation</strong></h3><ol>
+<li>最近的文章很多都是在探索无标签自监督的对比学习方法对视觉表征进行提升，作者致力于用更少的图像学习更好的视觉表征。</li>
+<li>作者利用语义密集的caption对图像进行监督，可以达到很好的效果，自监督的对比学习是用语义稀疏的信号使经过不同变换的图像具有相似的特征。</li>
+</ol>
+<p><img src="https://akw2f3ita2.feishu.cn/space/api/box/stream/download/asynccode/?code=MzI0ZDhlYTk2MDdjNDMxNzQ5Y2U2ZGU2MWRhZmQ4ZDJfa3d6bDNhQjJPRkNiQTlmZ1lseUxtbFRNSlVucnZZQmtfVG9rZW46Ym94Y25kam9hNHVUek51T051MGg4TXVnRzhmXzE2MzkwNDcyMTM6MTYzOTA1MDgxM19WNA" alt="img"></p>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a><strong>Contribution</strong></h3><p>验证了自然语言能够对可迁移的视觉图像特征学习提供很好的监督，能够在用更少的图片的情况下学习到更好的表征能力</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a><strong>Method</strong></h3><p>由visual backbone和textual head组成</p>
+<p>在预训练过程中，language modeling部分任务是image caption，论文参考BERT的设计，并且考虑到计算量限制，没有采用MLM预训练任务。visual backbone部分，作者采用的是标准的REsNet-50网络，使用的特征为经过最后一层conv的7x7x2048维的特征，经过一层linear projection输入到textual head中进行caption预测输出。Textual head部分采用两个transformers，一个正向transformers，一个反向transformers。</p>
+<p><img src="https://akw2f3ita2.feishu.cn/space/api/box/stream/download/asynccode/?code=YmM3NDNhZTljNDZiMWJiYTBkNGFkM2JhYTVjYzA4NjFfZ3dvYWxKczlsTDR0VTZLc2gwdDJGcVhzZTh5dEl4WWFfVG9rZW46Ym94Y25aaEFNYmNockV2ckZvSlA1dG5KZWdlXzE2MzkwNDcyMTM6MTYzOTA1MDgxM19WNA" alt="img"></p>
+<h3 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a><strong>Experiment</strong></h3><p><img src="https://akw2f3ita2.feishu.cn/space/api/box/stream/download/asynccode/?code=OTNmYjcxZmVkMGQ4MzJjNzMzMzcyZjE0OTc4ZTM5OTlfYUVoNFpQcE5qNktQVzRhZGFTc0Z3eVBjMk1PczU4eGVfVG9rZW46Ym94Y25tc3JHc0Q5Y0hMUnhUdGxBT1hYQ01iXzE2MzkwNDcyMTM6MTYzOTA1MDgxM19WNA" alt="img"></p>
+<h2 id="LocTex：Learning-Data-Efficient-Visual-Representations-from-Localized-Textual-Supervision"><a href="#LocTex：Learning-Data-Efficient-Visual-Representations-from-Localized-Textual-Supervision" class="headerlink" title="LocTex：Learning Data-Efficient Visual Representations from Localized Textual Supervision"></a>LocTex：Learning Data-Efficient Visual Representations from Localized Textual Supervision</h2><p><a href="https://arxiv.org/abs/2108.11950">paper</a></p>
+<h3 id="Motivation-1"><a href="#Motivation-1" class="headerlink" title="Motivation"></a><strong>Motivation</strong></h3><ol>
+<li>核心思想还是利用caption和synchronized mouse-over gestures对图像进行监督训练得到更好的图像表征。</li>
+<li>利用caption获取更多的图像语义信息，利用mouse-over gesture获取更准确的位置信息，可以很好的迁移到分割/检测等下游任务中。</li>
+</ol>
+<p><img src="https://akw2f3ita2.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWI5N2VmMmNkODg2N2UxNDJlNDdmMjJmOWU4N2UyMmVfZWtFTWY4R3JySDN1YnBtVEF5QllmVlZJNVlFRWZxSUhfVG9rZW46Ym94Y25JNjJ4aFBwSEd5aTY3RDBIMUpQN1lmXzE2MzkwNDcyMTM6MTYzOTA1MDgxM19WNA" alt="img"></p>
+<h3 id="Contribution-1"><a href="#Contribution-1" class="headerlink" title="Contribution"></a><strong>Contribution</strong></h3><p>可以简化图像的标签过程，并且利用mouse-trace可以更好地对目标进行定位，减小预训练特征和下游任务中的gap，并且训练消耗的资源也不多。</p>
+<h3 id="Method-1"><a href="#Method-1" class="headerlink" title="Method"></a><strong>Method</strong></h3><p><img src="https://akw2f3ita2.feishu.cn/space/api/box/stream/download/asynccode/?code=OTk0NGYzYWM4MTNiMjg5ZDg5NGMzMzI4NWY3MjBlNzFfSUh3U2o1OHJocmtPS2t6bTdMZ1lOTEVka1djVGNLOTFfVG9rZW46Ym94Y240TUpjOVloRWVodHI4MHFlTFhRN09nXzE2MzkwNDcyMTM6MTYzOTA1MDgxM19WNA" alt="img"></p>
+<p>模型主体分为两部分，一部分是利用对比学习对visual backbone和textual backbone进行学习(类似图文匹配)，另一部分利用mouse-trace对对象的位置进行粗略的学习。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>Multimodal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫框架Scrapy(二)</title>
+    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
+<li><p>item读取数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造Request对象实现翻页</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
+</li>
+<li><p>构造Request对象实现详情页爬取</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>python爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python爬虫框架Scrapy(一)</title>
     <url>/2019/04/07/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%B8%80/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -1117,31 +1175,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>即可以打印输出内容的时间，文件来源，等级，内容</p>
 <p>在settings.py中加入<code>LOG_FILE = ./XXX.log</code>即可把日志内容保存在文件中</p>
-]]></content>
-      <categories>
-        <category>python爬虫</category>
-      </categories>
-      <tags>
-        <tag>scrapy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫框架Scrapy(二)</title>
-    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
-<li><p>item读取数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构造Request对象实现翻页</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
-</li>
-<li><p>构造Request对象实现详情页爬取</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>python爬虫</category>
