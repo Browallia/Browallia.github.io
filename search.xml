@@ -435,6 +435,20 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
+    <title>Django学习笔记（三）</title>
+    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
+<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Web学习</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Django学习笔记（一）</title>
     <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -597,20 +611,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Django学习笔记（三）</title>
-    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
-<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Web学习</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FPN-note</title>
     <url>/2020/05/06/FPN-note/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -708,10 +708,90 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Multimodel-Transformer</title>
+    <title>Linux下的信号量机制与编程</title>
+    <url>/2019/04/22/Linux%E4%B8%8B%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h1><p>当我们在多用户系统，多进程系统，或是两者混合的系统中使用线程操作编写程序时，我们经常会发现我们有段临界代码，在此处我们需要保证一个进程（或是一个线程的执行）需要排他的访问一个资源。</p>
+<p>为了解决这个问题，引用了信号量机制，我们可以使用互斥或信号量来控制一个多线程程序对于临界区的访问。</p>
+<p>信号量是一个特殊的变量，他是一个整数，并且只有两个操 作可以使得其值增加：等待(wait)与信号(signal)。</p>
+<p><strong>用于等待(wait)的P(信号量变量)</strong><br><strong>用于信号(signal)的V(信号量变量)</strong></p>
+<h2 id="二值信号量"><a href="#二值信号量" class="headerlink" title="二值信号量"></a>二值信号量</h2><p>二值信号量使是只有0和1两个值的变量</p>
+<p>假如有一个信号量为mutex，有如下两个操作</p>
+<ul>
+<li>P(mutex)/wait(mutex)    若mutex大于0,mutex减为0;若mutex等于0,则挂起该进程</li>
+<li>V(mutex)/signal(mutex)     若有进程被挂起等待mutex则释放mutex使被挂起的进程执行,若没有,则mutex加到1</li>
+</ul>
+<font color="red">**mutex取值只能为1/0**</font>
+
+<p>也叫互斥信号量,可以用其管理临界区资源的控制权</p>
+<h1 id="Linux中的信号量工具"><a href="#Linux中的信号量工具" class="headerlink" title="Linux中的信号量工具"></a>Linux中的信号量工具</h1><h2 id="信号量函数"><a href="#信号量函数" class="headerlink" title="信号量函数"></a>信号量函数</h2><p>信号量函数定义:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;/*有可能还需要包含sys/types.h与sys/ipc.h文件*/</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> sem_num, <span class="keyword">int</span> command, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> num_sems, <span class="keyword">int</span> sem_flags)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> sem_id, struct sembuf *sem_ops, <span class="keyword">size_t</span> num_sem_ops)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这些函数用于操作信号量值数组</p>
+<h3 id="semget函数"><a href="#semget函数" class="headerlink" title="semget函数"></a>semget函数</h3><p><strong>semget的作用： 创建一个新信号量 或者 取得一个已有的信号量</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> num_sems, <span class="keyword">int</span> sem_flags)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>key</strong>是整数值(唯一非零),可以任意指定一个正整数,semget可以根据key,<strong>新创建一个信号量</strong>,返回改信号量的标识,不相关的进程可以通过它访问这个创建的信号量,代表程序可能会使用某个资源.如果在两个进程中使用相同的key则key将负责两个进程的协调工作.</p>
+<p><strong>PS:</strong></p>
+<p>​    同一个key值返回的信号量标识相同</p>
+<p>​    不同的key值会创建不同的信号量,且信号量之间没有任何关系</p>
+</li>
+<li><p><strong>num_sems</strong>表示需要的信号量数目,一般为1</p>
+</li>
+<li><p><strong>sem_flags</strong>是一组标志,与fopen函数的 “w” “b” “r”类似,最低的9位二进制数字代表了这个信号量的权限信息.如IPC_CREATE | 0666,这些标记可以与 IPC_CREAT进行或操作来创建新的信号量,同时又可以用于取一个已有的信号量,使用IPC_CREAT | IPC_EXCL 来确保新建信号量，如果信号量已经有了会返回错误。</p>
+<p><strong>PS:</strong></p>
+<p>​    IPC_CREAT   如果共享内存不存在，则创建一个共享内存，否则打开操作。</p>
+<p>​    IPC_EXCL     只有在共享内存不存在的时候，新的共享内存才建立，否则就产生错误。</p>
+</li>
+</ul>
+<p>semget函数成功返回一个相应信号量标识符(非0),失败返回-1.</p>
+<h3 id="semop函数"><a href="#semop函数" class="headerlink" title="semop函数"></a>semop函数</h3><p><strong>semop函数用于对信号量进行操作。</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> sem_id, struct sembuf *sem_opa, <span class="keyword">size_t</span> num_sem_ops)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>sem_id</strong>,表示对哪一个信号量进行操作,由semget函数返回</li>
+<li><strong>sembuf *sem_ops</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> sem_num;  <span class="comment">//要处理的信号量的下标,即指定对哪个信号灯进行操作(0,1,2...)若为二值信号量则为0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> sem_op;     <span class="comment">//要执行的操作,1表示加一,-1表示减一</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> sem_flg;     <span class="comment">//操作标志,通常设置为SEM_UNDO。这会使得操作系统跟踪当前进程对信号量所					  //做的改变，而且如果进程终止而没有释放这个信号量， 如果信号量为这个进					 //程所占有，这个标记可以使得操作系统自动释放这个信号量。</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>size_t num_sem_ops</strong>表示操作次数一般为1</li>
+</ul>
+<h3 id="semctl函数"><a href="#semctl函数" class="headerlink" title="semctl函数"></a>semctl函数</h3><p><strong>semctl用于直接控制信号量的信息，例如初始化一个值或删除信号量。</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> sem_num, <span class="keyword">int</span> command, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>sem_id</strong>,表示对哪一个信号量进行操作,由semget函数返回</p>
+</li>
+<li><p><strong>sem_num</strong>,要处理的信号量的下标,即指定对哪个信号灯进行操作(0,1,2…)若为二值信号量则为0</p>
+</li>
+<li><p><strong>command</strong>,表示要执行的动作</p>
+<ul>
+<li>SETVAL：用于初始化信号量为一个已知的值。所需要的值作为联合semun.val成员来传递。在信号量第一次使用之前需要设置信号量。</li>
+<li>IPC_RMID：当信号量不再需要时用于删除一个信号量标识。</li>
+</ul>
+</li>
+<li><p><strong>union semun</strong> </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">union</span> semun&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> val;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">semid_ds</span> *<span class="title">buf</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> *<span class="built_in">array</span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个声明一般包含在sem.h里面，也有可能没有，没有的话需要自己声明。</p>
+</li>
+</ul>
+<p>根据command的不同，返回值也不同。对于 SETVAL和IPC_RMID 成功返回0 失败返回-1</p>
+<h2 id="信号量的使用"><a href="#信号量的使用" class="headerlink" title="信号量的使用"></a>信号量的使用</h2><h3 id="创建信号量"><a href="#创建信号量" class="headerlink" title="创建信号量"></a>创建信号量</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> sem_id;</span><br><span class="line">sem_id = semget((<span class="keyword">key_t</span>)<span class="number">1234</span>, <span class="number">2</span>, <span class="number">0666</span> | IPC_CREAT);</span><br><span class="line"><span class="keyword">if</span> (sem_id == <span class="number">-1</span>)</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Failed to create semapore\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="设置信号量初值"><a href="#设置信号量初值" class="headerlink" title="设置信号量初值"></a>设置信号量初值</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">set_semvalue</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> index, <span class="keyword">int</span> value)</span><span class="comment">//index为信号量中的第几个信号灯</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="keyword">union</span> semun sem_union;</span><br><span class="line">		sem_union.val = value;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (semctl(sem_id, index, SETVAL, sem_union) == <span class="number">-1</span>) </span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除信号量"><a href="#删除信号量" class="headerlink" title="删除信号量"></a>删除信号量</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del_semvalue</span><span class="params">(<span class="keyword">int</span> sem_id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (semctl(sem_id, <span class="number">0</span>, IPC_RMID) == <span class="number">-1</span>)</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Failed to delete semapore\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="P操作"><a href="#P操作" class="headerlink" title="P操作"></a>P操作</h3><p>P操作是通过调用<strong>semop</strong>函数实现的。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">P</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> <span class="title">sem_b</span>;</span></span><br><span class="line"></span><br><span class="line">	sem_b.sem_num = index;</span><br><span class="line">	sem_b.sem_op = <span class="number">-1</span>;</span><br><span class="line">	sem_b.sem_flg = SEM_UNDO;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (semop(sem_id, &amp;sem_b, <span class="number">1</span>) == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;semapore_p failed\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="V操作"><a href="#V操作" class="headerlink" title="V操作"></a>V操作</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">V</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> <span class="title">sem_b</span>;</span></span><br><span class="line"></span><br><span class="line">		sem_b.sem_num = index;</span><br><span class="line">		sem_b.sem_op = <span class="number">1</span>;</span><br><span class="line">		sem_b.sem_flg = SEM_UNDO;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (semop(sem_id, &amp;sem_b, <span class="number">1</span>) == <span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">				<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;semapore_v failed\n&quot;</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Multimodal-Transformer</title>
     <url>/2021/07/03/Multimodal-Transformer/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="Multimodel-Transformer"><a href="#Multimodel-Transformer" class="headerlink" title="Multimodel-Transformer"></a>Multimodel-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
+<h1 id="Multimodal-Transformer"><a href="#Multimodal-Transformer" class="headerlink" title="Multimodal-Transformer"></a>Multimodal-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
 <p>图片来自<a href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
 <ol>
 <li>Region Feature</li>
@@ -803,87 +883,48 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
         <category>深度学习</category>
       </categories>
       <tags>
-        <tag>Multimodel</tag>
+        <tag>Multimodal</tag>
       </tags>
   </entry>
   <entry>
-    <title>Linux下的信号量机制与编程</title>
-    <url>/2019/04/22/Linux%E4%B8%8B%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A8%8B/</url>
+    <title>OCR手写识别_NoTe1</title>
+    <url>/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h1><p>当我们在多用户系统，多进程系统，或是两者混合的系统中使用线程操作编写程序时，我们经常会发现我们有段临界代码，在此处我们需要保证一个进程（或是一个线程的执行）需要排他的访问一个资源。</p>
-<p>为了解决这个问题，引用了信号量机制，我们可以使用互斥或信号量来控制一个多线程程序对于临界区的访问。</p>
-<p>信号量是一个特殊的变量，他是一个整数，并且只有两个操 作可以使得其值增加：等待(wait)与信号(signal)。</p>
-<p><strong>用于等待(wait)的P(信号量变量)</strong><br><strong>用于信号(signal)的V(信号量变量)</strong></p>
-<h2 id="二值信号量"><a href="#二值信号量" class="headerlink" title="二值信号量"></a>二值信号量</h2><p>二值信号量使是只有0和1两个值的变量</p>
-<p>假如有一个信号量为mutex，有如下两个操作</p>
-<ul>
-<li>P(mutex)/wait(mutex)    若mutex大于0,mutex减为0;若mutex等于0,则挂起该进程</li>
-<li>V(mutex)/signal(mutex)     若有进程被挂起等待mutex则释放mutex使被挂起的进程执行,若没有,则mutex加到1</li>
-</ul>
-<font color="red">**mutex取值只能为1/0**</font>
-
-<p>也叫互斥信号量,可以用其管理临界区资源的控制权</p>
-<h1 id="Linux中的信号量工具"><a href="#Linux中的信号量工具" class="headerlink" title="Linux中的信号量工具"></a>Linux中的信号量工具</h1><h2 id="信号量函数"><a href="#信号量函数" class="headerlink" title="信号量函数"></a>信号量函数</h2><p>信号量函数定义:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;/*有可能还需要包含sys/types.h与sys/ipc.h文件*/</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> sem_num, <span class="keyword">int</span> command, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> num_sems, <span class="keyword">int</span> sem_flags)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> sem_id, struct sembuf *sem_ops, <span class="keyword">size_t</span> num_sem_ops)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>这些函数用于操作信号量值数组</p>
-<h3 id="semget函数"><a href="#semget函数" class="headerlink" title="semget函数"></a>semget函数</h3><p><strong>semget的作用： 创建一个新信号量 或者 取得一个已有的信号量</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> num_sems, <span class="keyword">int</span> sem_flags)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><strong>key</strong>是整数值(唯一非零),可以任意指定一个正整数,semget可以根据key,<strong>新创建一个信号量</strong>,返回改信号量的标识,不相关的进程可以通过它访问这个创建的信号量,代表程序可能会使用某个资源.如果在两个进程中使用相同的key则key将负责两个进程的协调工作.</p>
-<p><strong>PS:</strong></p>
-<p>​    同一个key值返回的信号量标识相同</p>
-<p>​    不同的key值会创建不同的信号量,且信号量之间没有任何关系</p>
-</li>
-<li><p><strong>num_sems</strong>表示需要的信号量数目,一般为1</p>
-</li>
-<li><p><strong>sem_flags</strong>是一组标志,与fopen函数的 “w” “b” “r”类似,最低的9位二进制数字代表了这个信号量的权限信息.如IPC_CREATE | 0666,这些标记可以与 IPC_CREAT进行或操作来创建新的信号量,同时又可以用于取一个已有的信号量,使用IPC_CREAT | IPC_EXCL 来确保新建信号量，如果信号量已经有了会返回错误。</p>
-<p><strong>PS:</strong></p>
-<p>​    IPC_CREAT   如果共享内存不存在，则创建一个共享内存，否则打开操作。</p>
-<p>​    IPC_EXCL     只有在共享内存不存在的时候，新的共享内存才建立，否则就产生错误。</p>
-</li>
-</ul>
-<p>semget函数成功返回一个相应信号量标识符(非0),失败返回-1.</p>
-<h3 id="semop函数"><a href="#semop函数" class="headerlink" title="semop函数"></a>semop函数</h3><p><strong>semop函数用于对信号量进行操作。</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> sem_id, struct sembuf *sem_opa, <span class="keyword">size_t</span> num_sem_ops)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>sem_id</strong>,表示对哪一个信号量进行操作,由semget函数返回</li>
-<li><strong>sembuf *sem_ops</strong></li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> sem_num;  <span class="comment">//要处理的信号量的下标,即指定对哪个信号灯进行操作(0,1,2...)若为二值信号量则为0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> sem_op;     <span class="comment">//要执行的操作,1表示加一,-1表示减一</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> sem_flg;     <span class="comment">//操作标志,通常设置为SEM_UNDO。这会使得操作系统跟踪当前进程对信号量所					  //做的改变，而且如果进程终止而没有释放这个信号量， 如果信号量为这个进					 //程所占有，这个标记可以使得操作系统自动释放这个信号量。</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>size_t num_sem_ops</strong>表示操作次数一般为1</li>
-</ul>
-<h3 id="semctl函数"><a href="#semctl函数" class="headerlink" title="semctl函数"></a>semctl函数</h3><p><strong>semctl用于直接控制信号量的信息，例如初始化一个值或删除信号量。</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> sem_num, <span class="keyword">int</span> command, ...)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><strong>sem_id</strong>,表示对哪一个信号量进行操作,由semget函数返回</p>
-</li>
-<li><p><strong>sem_num</strong>,要处理的信号量的下标,即指定对哪个信号灯进行操作(0,1,2…)若为二值信号量则为0</p>
-</li>
-<li><p><strong>command</strong>,表示要执行的动作</p>
-<ul>
-<li>SETVAL：用于初始化信号量为一个已知的值。所需要的值作为联合semun.val成员来传递。在信号量第一次使用之前需要设置信号量。</li>
-<li>IPC_RMID：当信号量不再需要时用于删除一个信号量标识。</li>
-</ul>
-</li>
-<li><p><strong>union semun</strong> </p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">union</span> semun&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> val;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">semid_ds</span> *<span class="title">buf</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> *<span class="built_in">array</span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这个声明一般包含在sem.h里面，也有可能没有，没有的话需要自己声明。</p>
-</li>
-</ul>
-<p>根据command的不同，返回值也不同。对于 SETVAL和IPC_RMID 成功返回0 失败返回-1</p>
-<h2 id="信号量的使用"><a href="#信号量的使用" class="headerlink" title="信号量的使用"></a>信号量的使用</h2><h3 id="创建信号量"><a href="#创建信号量" class="headerlink" title="创建信号量"></a>创建信号量</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> sem_id;</span><br><span class="line">sem_id = semget((<span class="keyword">key_t</span>)<span class="number">1234</span>, <span class="number">2</span>, <span class="number">0666</span> | IPC_CREAT);</span><br><span class="line"><span class="keyword">if</span> (sem_id == <span class="number">-1</span>)</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Failed to create semapore\n&quot;</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="设置信号量初值"><a href="#设置信号量初值" class="headerlink" title="设置信号量初值"></a>设置信号量初值</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">set_semvalue</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> index, <span class="keyword">int</span> value)</span><span class="comment">//index为信号量中的第几个信号灯</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="keyword">union</span> semun sem_union;</span><br><span class="line">		sem_union.val = value;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (semctl(sem_id, index, SETVAL, sem_union) == <span class="number">-1</span>) </span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="删除信号量"><a href="#删除信号量" class="headerlink" title="删除信号量"></a>删除信号量</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del_semvalue</span><span class="params">(<span class="keyword">int</span> sem_id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (semctl(sem_id, <span class="number">0</span>, IPC_RMID) == <span class="number">-1</span>)</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Failed to delete semapore\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="P操作"><a href="#P操作" class="headerlink" title="P操作"></a>P操作</h3><p>P操作是通过调用<strong>semop</strong>函数实现的。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">P</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> <span class="title">sem_b</span>;</span></span><br><span class="line"></span><br><span class="line">	sem_b.sem_num = index;</span><br><span class="line">	sem_b.sem_op = <span class="number">-1</span>;</span><br><span class="line">	sem_b.sem_flg = SEM_UNDO;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (semop(sem_id, &amp;sem_b, <span class="number">1</span>) == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;semapore_p failed\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="V操作"><a href="#V操作" class="headerlink" title="V操作"></a>V操作</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">V</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">		<span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> <span class="title">sem_b</span>;</span></span><br><span class="line"></span><br><span class="line">		sem_b.sem_num = index;</span><br><span class="line">		sem_b.sem_op = <span class="number">1</span>;</span><br><span class="line">		sem_b.sem_flg = SEM_UNDO;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (semop(sem_id, &amp;sem_b, <span class="number">1</span>) == <span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">				<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;semapore_v failed\n&quot;</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>操作系统</category>
+        <category>深度学习</category>
       </categories>
       <tags>
-        <tag>Linux编程</tag>
+        <tag>OCR手写识别</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PSPNet-note</title>
+    <url>/2020/04/15/PSPNet-note/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h3 id="Pyramid-Scene-Parseing-Network-Note"><a href="#Pyramid-Scene-Parseing-Network-Note" class="headerlink" title="Pyramid Scene Parseing Network  Note"></a>Pyramid Scene Parseing Network  Note</h3><p>​    PSPNet 采用金字塔池化模块搭建的场景分析网络 ， <strong>基于语义分割的场景解析，其目的是赋予图像中每个像素一个类别标签</strong>。 </p>
+<h4 id="1-PSPNet介绍"><a href="#1-PSPNet介绍" class="headerlink" title="1 PSPNet介绍"></a>1 PSPNet介绍</h4><p>由于传统的FCN存在缺陷：</p>
+<p><img src="/2020/04/15/PSPNet-note/1.png" alt></p>
+<ol>
+<li>不匹配上下文关系， <strong>FCN将水中的“boat”预测为“car”</strong> 。</li>
+<li>类别混淆，将摩天大楼一部分识别成了其他。</li>
+<li><p>不显著的类别难以预测，可能会忽略小的东西。</p>
+<p>基于对FCN的透彻分析，作者提出了能够获取全局场景的深度网络PSPNet，可以融合局部特征和全局特征，有较好的效果。</p>
+</li>
+</ol>
+<h5 id="1-1-Pyramid-Pooling-Module（金字塔池化模块）"><a href="#1-1-Pyramid-Pooling-Module（金字塔池化模块）" class="headerlink" title="1.1  Pyramid Pooling Module（金字塔池化模块）"></a>1.1  <strong>Pyramid Pooling Module</strong>（金字塔池化模块）</h5><p>​     金字塔池化模块Pyramid Pooling Module由一组不同尺度的池化块组成 </p>
+<p><img src="/2020/04/15/PSPNet-note/2.png" alt></p>
+<p>​    该模块融合了4种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个bin输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有N个级别，则在每个级别后使用1X1的卷积将对于级别通道降为原本的1/N。再通过双线性插值获得未池化前的大小，最终concat到一起。<br>​    在POOL过程中，论文一共采用了$1X1,2X2,3X3,6X6$ 4个等级的池化尺寸(即<strong>输出尺寸</strong>)进行池化。</p>
+<h5 id="1-2-基于ResNet的预训练辅助损失函数"><a href="#1-2-基于ResNet的预训练辅助损失函数" class="headerlink" title="1.2 基于ResNet的预训练辅助损失函数"></a>1.2 基于ResNet的预训练辅助损失函数</h5><p><img src="/2020/04/15/PSPNet-note/3.png" alt></p>
+<pre><code> 在ResNet101的基础上做了改进，除了使用后面的softmax分类做loss，额外的在第四阶段添加了一个辅助的loss， 叫做**auxiliary loss**， 两个loss一起传播，使用不同的权重，共同优化参数。后续的实验证明这样做有利于快速收敛。 
+</code></pre><h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p>金字塔池化以及PSPNet网络架构</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_PyramidPoolingModule</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, in_dim, reduction_dim, setting</span>):</span></span><br><span class="line">        super(_PyramidPoolingModule, self).__init__()</span><br><span class="line">        self.features = []</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> setting:</span><br><span class="line">            self.features.append(nn.Sequential(</span><br><span class="line">                nn.AdaptiveAvgPool2d(s),</span><br><span class="line">                nn.Conv2d(in_dim, reduction_dim, kernel_size=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(reduction_dim, momentum=<span class="number">.95</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">            ))</span><br><span class="line">        self.features = nn.ModuleList(self.features)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        out = [x]</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.features:</span><br><span class="line">            out.append(F.upsample(f(x), x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>))</span><br><span class="line">        out = torch.cat(out, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSPNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, use_aux=True</span>):</span></span><br><span class="line">        super(PSPNet, self).__init__()</span><br><span class="line">        self.use_aux = use_aux</span><br><span class="line">        resnet = models.resnet101()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            resnet.load_state_dict(torch.load(res101_path))</span><br><span class="line">        self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)</span><br><span class="line">        self.layer1, self.layer2, self.layer3, self.layer4 = resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer3.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer4.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.ppm = _PyramidPoolingModule(<span class="number">2048</span>, <span class="number">512</span>, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>))</span><br><span class="line">        self.final = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">4096</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>, momentum=<span class="number">.95</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.1</span>),</span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_aux:</span><br><span class="line">            self.aux_logits = nn.Conv2d(<span class="number">1024</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">            initialize_weights(self.aux_logits)</span><br><span class="line"></span><br><span class="line">        initialize_weights(self.ppm, self.final)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        x = self.layer0(x)</span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            aux = self.aux_logits(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line">        x = self.ppm(x)</span><br><span class="line">        x = self.final(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>), F.upsample(aux, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>语义分割</tag>
       </tags>
   </entry>
   <entry>
@@ -928,47 +969,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>Linux编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OCR手写识别_NoTe1</title>
-    <url>/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>OCR手写识别</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PSPNet-note</title>
-    <url>/2020/04/15/PSPNet-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h3 id="Pyramid-Scene-Parseing-Network-Note"><a href="#Pyramid-Scene-Parseing-Network-Note" class="headerlink" title="Pyramid Scene Parseing Network  Note"></a>Pyramid Scene Parseing Network  Note</h3><p>​    PSPNet 采用金字塔池化模块搭建的场景分析网络 ， <strong>基于语义分割的场景解析，其目的是赋予图像中每个像素一个类别标签</strong>。 </p>
-<h4 id="1-PSPNet介绍"><a href="#1-PSPNet介绍" class="headerlink" title="1 PSPNet介绍"></a>1 PSPNet介绍</h4><p>由于传统的FCN存在缺陷：</p>
-<p><img src="/2020/04/15/PSPNet-note/1.png" alt></p>
-<ol>
-<li>不匹配上下文关系， <strong>FCN将水中的“boat”预测为“car”</strong> 。</li>
-<li>类别混淆，将摩天大楼一部分识别成了其他。</li>
-<li><p>不显著的类别难以预测，可能会忽略小的东西。</p>
-<p>基于对FCN的透彻分析，作者提出了能够获取全局场景的深度网络PSPNet，可以融合局部特征和全局特征，有较好的效果。</p>
-</li>
-</ol>
-<h5 id="1-1-Pyramid-Pooling-Module（金字塔池化模块）"><a href="#1-1-Pyramid-Pooling-Module（金字塔池化模块）" class="headerlink" title="1.1  Pyramid Pooling Module（金字塔池化模块）"></a>1.1  <strong>Pyramid Pooling Module</strong>（金字塔池化模块）</h5><p>​     金字塔池化模块Pyramid Pooling Module由一组不同尺度的池化块组成 </p>
-<p><img src="/2020/04/15/PSPNet-note/2.png" alt></p>
-<p>​    该模块融合了4种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个bin输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有N个级别，则在每个级别后使用1X1的卷积将对于级别通道降为原本的1/N。再通过双线性插值获得未池化前的大小，最终concat到一起。<br>​    在POOL过程中，论文一共采用了$1X1,2X2,3X3,6X6$ 4个等级的池化尺寸(即<strong>输出尺寸</strong>)进行池化。</p>
-<h5 id="1-2-基于ResNet的预训练辅助损失函数"><a href="#1-2-基于ResNet的预训练辅助损失函数" class="headerlink" title="1.2 基于ResNet的预训练辅助损失函数"></a>1.2 基于ResNet的预训练辅助损失函数</h5><p><img src="/2020/04/15/PSPNet-note/3.png" alt></p>
-<pre><code> 在ResNet101的基础上做了改进，除了使用后面的softmax分类做loss，额外的在第四阶段添加了一个辅助的loss， 叫做**auxiliary loss**， 两个loss一起传播，使用不同的权重，共同优化参数。后续的实验证明这样做有利于快速收敛。 
-</code></pre><h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h4><p>金字塔池化以及PSPNet网络架构</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_PyramidPoolingModule</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, in_dim, reduction_dim, setting</span>):</span></span><br><span class="line">        super(_PyramidPoolingModule, self).__init__()</span><br><span class="line">        self.features = []</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> setting:</span><br><span class="line">            self.features.append(nn.Sequential(</span><br><span class="line">                nn.AdaptiveAvgPool2d(s),</span><br><span class="line">                nn.Conv2d(in_dim, reduction_dim, kernel_size=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(reduction_dim, momentum=<span class="number">.95</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">            ))</span><br><span class="line">        self.features = nn.ModuleList(self.features)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        out = [x]</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.features:</span><br><span class="line">            out.append(F.upsample(f(x), x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>))</span><br><span class="line">        out = torch.cat(out, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PSPNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_classes, pretrained=True, use_aux=True</span>):</span></span><br><span class="line">        super(PSPNet, self).__init__()</span><br><span class="line">        self.use_aux = use_aux</span><br><span class="line">        resnet = models.resnet101()</span><br><span class="line">        <span class="keyword">if</span> pretrained:</span><br><span class="line">            resnet.load_state_dict(torch.load(res101_path))</span><br><span class="line">        self.layer0 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)</span><br><span class="line">        self.layer1, self.layer2, self.layer3, self.layer4 = resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer3.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> n, m <span class="keyword">in</span> self.layer4.named_modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;conv2&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.dilation, m.padding, m.stride = (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">&#x27;downsample.0&#x27;</span> <span class="keyword">in</span> n:</span><br><span class="line">                m.stride = (<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.ppm = _PyramidPoolingModule(<span class="number">2048</span>, <span class="number">512</span>, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>))</span><br><span class="line">        self.final = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">4096</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>, momentum=<span class="number">.95</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">            nn.Dropout(<span class="number">0.1</span>),</span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_aux:</span><br><span class="line">            self.aux_logits = nn.Conv2d(<span class="number">1024</span>, num_classes, kernel_size=<span class="number">1</span>)</span><br><span class="line">            initialize_weights(self.aux_logits)</span><br><span class="line"></span><br><span class="line">        initialize_weights(self.ppm, self.final)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x_size = x.size()</span><br><span class="line">        x = self.layer0(x)</span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            aux = self.aux_logits(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line">        x = self.ppm(x)</span><br><span class="line">        x = self.final(x)</span><br><span class="line">        <span class="keyword">if</span> self.training <span class="keyword">and</span> self.use_aux:</span><br><span class="line">            <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>), F.upsample(aux, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> F.upsample(x, x_size[<span class="number">2</span>:], mode=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>语义分割</tag>
       </tags>
   </entry>
   <entry>
@@ -1058,29 +1058,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Retinanet&amp;focal-loss</title>
-    <url>/2020/05/12/Retinanet-focal-loss/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
-<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
-<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
-<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
-<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
-<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
-<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
-<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
-<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>目标检测</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vision Representation From Textual</title>
     <url>/2021/12/09/Vision-Representation-From-Textual/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -1114,28 +1091,26 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>python爬虫框架Scrapy(二)</title>
-    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
+    <title>Retinanet&amp;focal-loss</title>
+    <url>/2020/05/12/Retinanet-focal-loss/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
-<li><p>item读取数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构造Request对象实现翻页</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
-</li>
-<li><p>构造Request对象实现详情页爬取</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
+<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
+<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
+<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
+<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
+<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
+<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
+<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
+<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
 ]]></content>
       <categories>
-        <category>python爬虫</category>
+        <category>深度学习</category>
       </categories>
       <tags>
-        <tag>scrapy</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -1175,6 +1150,31 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.spiders.pixvi] WARNING: &#123;<span class="string">&#x27;come_from&#x27;</span>: <span class="string">&#x27;pixvi&#x27;</span>&#125;</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-08</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">19</span> [test1.pipelines] WARNING: ----------</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>即可以打印输出内容的时间，文件来源，等级，内容</p>
 <p>在settings.py中加入<code>LOG_FILE = ./XXX.log</code>即可把日志内容保存在文件中</p>
+]]></content>
+      <categories>
+        <category>python爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫框架Scrapy(二)</title>
+    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
+<li><p>item读取数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造Request对象实现翻页</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
+</li>
+<li><p>构造Request对象实现详情页爬取</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>python爬虫</category>
