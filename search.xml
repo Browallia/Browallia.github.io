@@ -1,63 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CS231n note-1</title>
-    <url>/2019/07/25/CS231n-note-1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="图像分类"><a href="#图像分类" class="headerlink" title="图像分类"></a>图像分类</h1><p><strong>目标</strong>：所谓图像分类问题，就是已有固定的分类标签集合，然后对于输入的图像，从分类标签集合中找出一个分类标签，最后把分类标签分配给该输入图像。虽然看起来挺简单的，但这可是计算机视觉领域的核心问题之一，并且有着各种各样的实际应用。在后面的课程中，我们可以看到计算机视觉领域中很多看似不同的问题（比如物体检测和分割），都可以被归结为图像分类问题。</p>
-<p><img src="https://pic2.zhimg.com/baab9e4b97aceb77ec70abeda6be022d_r.jpg" alt="preview"></p>
-<p><strong>图像分类流程</strong>。在课程视频中已经学习过，<strong>图像分类</strong>就是输入一个元素为像素值的数组，然后给它分配一个分类标签。完整流程如下：</p>
-<ul>
-<li><strong>输入</strong>：输入是包含N个图像的集合，每个图像的标签是K种分类标签中的一种。这个集合称为<em>训练集。</em></li>
-<li><strong>学习</strong>：这一步的任务是使用训练集来学习每个类到底长什么样。一般该步骤叫做<em>训练分类器</em>或者<em>学习一个模型</em>。</li>
-<li><strong>评价</strong>：让分类器来预测它未曾见过的图像的分类标签，并以此来评价分类器的质量。我们会把分类器预测的标签和图像真正的分类标签对比。毫无疑问，分类器预测的分类标签和图像真正的分类标签如果一致，那就是好事，这样的情况越多越好。</li>
-</ul>
-<h2 id="K-nearest算法（KNN）"><a href="#K-nearest算法（KNN）" class="headerlink" title="K-nearest算法（KNN）"></a>K-nearest算法（KNN）</h2><p>需要样本尽量高密度占据样本空间</p>
-<p><strong>曼哈顿距离（L1）</strong></p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_1%28I_1%2CI_2%29%3D%5Csum_p%7CI%5Ep_1-I%5Ep_2%7C" alt="[公式]"></p>
-<p>适合样本空间向量属性已知的情况，虽坐标轴变化值不同</p>
-<p><strong>欧式距离（L2）</strong></p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_2%28I_1%2CI_2%29%3D%5Csqrt%7B+%5Csum_p%28I%5Ep_1-I%5Ep_2%29%5E2%7D" alt="[公式]"></p>
-<p>适合样本向量为一般的通用向量</p>
-<h3 id="超参数选择"><a href="#超参数选择" class="headerlink" title="超参数选择"></a><strong>超参数选择</strong></h3><p>选取超参数的正确方法是：将原始训练集分为训练集和<strong>验证集</strong>，我们在验证集上尝试不同的超参数，最后保留表现最好那个。如果训练数据量不够，使用<strong>交叉验证</strong>方法，它能帮助我们在选取最优超参数的时候减少噪声。</p>
-<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a><strong>交叉验证</strong></h3><p>有时候，训练集数量较小（因此验证集的数量更小），可以将训练集平均分成5份，其中4份用来训练，1份用来验证。然后我们循环着取其中4份来训练，其中1份来验证，最后取所有5次验证结果的平均值作为算法验证结果。</p>
-<h1 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h1><p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+f%28x_i%2CW%2Cb%29%3DWx_i%2Bb" alt="[å¬å¼]"></p>
-<p><img src="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_hd.jpg" alt="img"></p>
-<h2 id="图像数据预处理"><a href="#图像数据预处理" class="headerlink" title="图像数据预处理"></a><strong>图像数据预处理</strong></h2><p>对输入的特征作归一化(normalization),对每个特征减去平均值去中心化，然后将数值分布区间变为[-1,1]，称为零均值中心化。</p>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss"><a href="#多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss" class="headerlink" title="多类支持向量机损失 Multiclass Support Vector Machine Loss"></a>多类支持向量机损失 Multiclass Support Vector Machine Loss</h3><p>针对第j个类别的得分就是第j个元素：<img src="https://www.zhihu.com/equation?tex=s_j%3Df%28x_i%2CW%29_j" alt="[公式]">。针对第i个数据的多类SVM的损失函数定义如下：</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+L_i%3D%5Csum_%7Bj%5Cnot%3Dy_i%7Dmax%280%2Cs_j-s_%7By_i%7D%2B%5CDelta%29" alt="[å¬å¼]"></p>
-<p>在线性分类模型中，我们面对的是线性评分函数（<img src="https://www.zhihu.com/equation?tex=f%28x_i%2CW%29%3DWx_i" alt="[公式]">），可以将损失函数的公式稍微改写一下：</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+L_i%3D%5Csum_%7Bj%5Cnot%3Dy_i%7Dmax%280%2Cw%5ET_jx_i-w%5ET_%7By_i%7Dx_i%2B%5CDelta%29" alt="[å¬å¼]"></p>
-<p>其中$w_j$是权重$W$的第j行，被变形为列向量。然而，一旦开始考虑更复杂的评分函数$f$公式，这样做就不是必须的了。</p>
-<p><img src="/2019/07/25/CS231n-note-1/1.png" alt></p>
-<p>$max(0,-)$称为折叶损失函数，但也会有平方折叶损失SVM，如何选择这两种可以通过交叉验证来进行选择。</p>
-<p><strong>损失函数的正则化(Regularization)</strong></p>
-<p>为了防止过拟合，需要对损失函数进行正则化操作。不是为了拟合数据而是为了减轻模型的复杂度。</p>
-<p>正则项</p>
-<p>$\lambda R(W)$</p>
-<p>超参数$\lambda$用来平衡Data loss项和Regularization</p>
-<p><strong>常见的正则化</strong></p>
-<p>批量归一化，随机深度</p>
-<p><img src="/2019/07/25/CS231n-note-1/2.png" style="zoom:50%;"></p>
-<p>L1 更倾向于稀疏解</p>
-<p>L2 更倾向于鲁棒性更强的解（鲁棒性：鲁棒性是指异常样本对于算法的整体性能影响不大）</p>
-<h3 id="多项式逻辑斯蒂克损失-softmax-loss"><a href="#多项式逻辑斯蒂克损失-softmax-loss" class="headerlink" title="多项式逻辑斯蒂克损失(softmax loss)"></a>多项式逻辑斯蒂克损失(softmax loss)</h3><p> 在Softmax分类器中，函数映射<img src="https://www.zhihu.com/equation?tex=f%28x_i%3BW%29%3DWx_i" alt="[公式]">保持不变，但将这些评分值视为每个分类的未归一化的对数概率，并且将折叶损失（hinge loss）替换为<strong>交叉熵损失</strong>（<strong>cross-entropy loss）</strong>。公式如下： </p>
-<p> <img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+Li%3D-log%28%5Cfrac%7Be%5E%7Bf_%7By_i%7D%7D%7D%7B%5Csum_je%5E%7Bf_j%7D%7D%29" alt="[公式]"> 或者 <img src="https://www.zhihu.com/equation?tex=L_i%3D-f_%7By_i%7D%2Blog%28%5Csum_je%5E%7Bf_j%7D%29" alt="[公式]"> </p>
-<p> 在上式中，使用$f_j$来表示分类评分向量$f$中的第j个元素。和之前一样，整个数据集的损失值是数据集中所有样本数据的损失值$L_i$的均值与正则化损失$R(W)$之和。其中函数$f_j(z)=\frac{e^zj}{\sum_ke^zk}$被称作<strong>softmax 函数</strong>：其输入值是一个向量，向量中元素为任意实数的评分值（$z$中的)，函数对</p>
-<p>其进行压缩，输出一个向量，其中每个元</p>
-<p>素值在0到1之间，且所有元素之和为1。 </p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>​    在权重空间中找到一个方向，沿着该方向能降低损失函数的损失值。其实不需要随机寻找方向，因为可以直接计算出最好的方向，这就是从数学上计算出最陡峭的方向。这个方向就是损失函数的<strong>梯度（gradient）</strong> </p>
-<h3 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a><strong>梯度下降</strong></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 普通的梯度下降</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  weights_grad = evaluate_gradient(loss_fun, data, weights)</span><br><span class="line">  weights += - step_size * weights_grad <span class="comment"># 进行梯度更新</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 普通的小批量数据梯度下降</span></span><br><span class="line"><span class="comment">#可以减少运算成本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  data_batch = sample_training_data(data, <span class="number">256</span>) <span class="comment"># 256个数据</span></span><br><span class="line">  weights_grad = evaluate_gradient(loss_fun, data_batch, weights)</span><br><span class="line">  weights += - step_size * weights_grad <span class="comment"># 参数更新</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>计算机视觉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CS231n-note-2</title>
     <url>/2019/10/15/CS231n-note-2/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -127,6 +70,63 @@ x  & &  x\geq0\\
 <h3 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h3><script type="math/tex; mode=display">
 max(w_1^Tx+b_1,w_2^T+b_2)</script><p> ReLU和Leaky ReLU都是这个公式的特殊情况 。 这样Maxout神经元就拥有ReLU单元的所有优点（线性操作和不饱和），而没有它的缺点（死亡的ReLU单元）。然而和ReLU对比，它每个神经元的参数数量增加了一倍，这就导致整体参数的数量激增。 </p>
 <h3 id="Summury"><a href="#Summury" class="headerlink" title="Summury"></a>Summury</h3><p><img src="/2019/10/15/CS231n-note-2/6.png" alt></p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS231n note-1</title>
+    <url>/2019/07/25/CS231n-note-1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="图像分类"><a href="#图像分类" class="headerlink" title="图像分类"></a>图像分类</h1><p><strong>目标</strong>：所谓图像分类问题，就是已有固定的分类标签集合，然后对于输入的图像，从分类标签集合中找出一个分类标签，最后把分类标签分配给该输入图像。虽然看起来挺简单的，但这可是计算机视觉领域的核心问题之一，并且有着各种各样的实际应用。在后面的课程中，我们可以看到计算机视觉领域中很多看似不同的问题（比如物体检测和分割），都可以被归结为图像分类问题。</p>
+<p><img src="https://pic2.zhimg.com/baab9e4b97aceb77ec70abeda6be022d_r.jpg" alt="preview"></p>
+<p><strong>图像分类流程</strong>。在课程视频中已经学习过，<strong>图像分类</strong>就是输入一个元素为像素值的数组，然后给它分配一个分类标签。完整流程如下：</p>
+<ul>
+<li><strong>输入</strong>：输入是包含N个图像的集合，每个图像的标签是K种分类标签中的一种。这个集合称为<em>训练集。</em></li>
+<li><strong>学习</strong>：这一步的任务是使用训练集来学习每个类到底长什么样。一般该步骤叫做<em>训练分类器</em>或者<em>学习一个模型</em>。</li>
+<li><strong>评价</strong>：让分类器来预测它未曾见过的图像的分类标签，并以此来评价分类器的质量。我们会把分类器预测的标签和图像真正的分类标签对比。毫无疑问，分类器预测的分类标签和图像真正的分类标签如果一致，那就是好事，这样的情况越多越好。</li>
+</ul>
+<h2 id="K-nearest算法（KNN）"><a href="#K-nearest算法（KNN）" class="headerlink" title="K-nearest算法（KNN）"></a>K-nearest算法（KNN）</h2><p>需要样本尽量高密度占据样本空间</p>
+<p><strong>曼哈顿距离（L1）</strong></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_1%28I_1%2CI_2%29%3D%5Csum_p%7CI%5Ep_1-I%5Ep_2%7C" alt="[公式]"></p>
+<p>适合样本空间向量属性已知的情况，虽坐标轴变化值不同</p>
+<p><strong>欧式距离（L2）</strong></p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_2%28I_1%2CI_2%29%3D%5Csqrt%7B+%5Csum_p%28I%5Ep_1-I%5Ep_2%29%5E2%7D" alt="[公式]"></p>
+<p>适合样本向量为一般的通用向量</p>
+<h3 id="超参数选择"><a href="#超参数选择" class="headerlink" title="超参数选择"></a><strong>超参数选择</strong></h3><p>选取超参数的正确方法是：将原始训练集分为训练集和<strong>验证集</strong>，我们在验证集上尝试不同的超参数，最后保留表现最好那个。如果训练数据量不够，使用<strong>交叉验证</strong>方法，它能帮助我们在选取最优超参数的时候减少噪声。</p>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a><strong>交叉验证</strong></h3><p>有时候，训练集数量较小（因此验证集的数量更小），可以将训练集平均分成5份，其中4份用来训练，1份用来验证。然后我们循环着取其中4份来训练，其中1份来验证，最后取所有5次验证结果的平均值作为算法验证结果。</p>
+<h1 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h1><p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+f%28x_i%2CW%2Cb%29%3DWx_i%2Bb" alt="[å¬å¼]"></p>
+<p><img src="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_hd.jpg" alt="img"></p>
+<h2 id="图像数据预处理"><a href="#图像数据预处理" class="headerlink" title="图像数据预处理"></a><strong>图像数据预处理</strong></h2><p>对输入的特征作归一化(normalization),对每个特征减去平均值去中心化，然后将数值分布区间变为[-1,1]，称为零均值中心化。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss"><a href="#多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss" class="headerlink" title="多类支持向量机损失 Multiclass Support Vector Machine Loss"></a>多类支持向量机损失 Multiclass Support Vector Machine Loss</h3><p>针对第j个类别的得分就是第j个元素：<img src="https://www.zhihu.com/equation?tex=s_j%3Df%28x_i%2CW%29_j" alt="[公式]">。针对第i个数据的多类SVM的损失函数定义如下：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+L_i%3D%5Csum_%7Bj%5Cnot%3Dy_i%7Dmax%280%2Cs_j-s_%7By_i%7D%2B%5CDelta%29" alt="[å¬å¼]"></p>
+<p>在线性分类模型中，我们面对的是线性评分函数（<img src="https://www.zhihu.com/equation?tex=f%28x_i%2CW%29%3DWx_i" alt="[公式]">），可以将损失函数的公式稍微改写一下：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+L_i%3D%5Csum_%7Bj%5Cnot%3Dy_i%7Dmax%280%2Cw%5ET_jx_i-w%5ET_%7By_i%7Dx_i%2B%5CDelta%29" alt="[å¬å¼]"></p>
+<p>其中$w_j$是权重$W$的第j行，被变形为列向量。然而，一旦开始考虑更复杂的评分函数$f$公式，这样做就不是必须的了。</p>
+<p><img src="/2019/07/25/CS231n-note-1/1.png" alt></p>
+<p>$max(0,-)$称为折叶损失函数，但也会有平方折叶损失SVM，如何选择这两种可以通过交叉验证来进行选择。</p>
+<p><strong>损失函数的正则化(Regularization)</strong></p>
+<p>为了防止过拟合，需要对损失函数进行正则化操作。不是为了拟合数据而是为了减轻模型的复杂度。</p>
+<p>正则项</p>
+<p>$\lambda R(W)$</p>
+<p>超参数$\lambda$用来平衡Data loss项和Regularization</p>
+<p><strong>常见的正则化</strong></p>
+<p>批量归一化，随机深度</p>
+<p><img src="/2019/07/25/CS231n-note-1/2.png" style="zoom:50%;"></p>
+<p>L1 更倾向于稀疏解</p>
+<p>L2 更倾向于鲁棒性更强的解（鲁棒性：鲁棒性是指异常样本对于算法的整体性能影响不大）</p>
+<h3 id="多项式逻辑斯蒂克损失-softmax-loss"><a href="#多项式逻辑斯蒂克损失-softmax-loss" class="headerlink" title="多项式逻辑斯蒂克损失(softmax loss)"></a>多项式逻辑斯蒂克损失(softmax loss)</h3><p> 在Softmax分类器中，函数映射<img src="https://www.zhihu.com/equation?tex=f%28x_i%3BW%29%3DWx_i" alt="[公式]">保持不变，但将这些评分值视为每个分类的未归一化的对数概率，并且将折叶损失（hinge loss）替换为<strong>交叉熵损失</strong>（<strong>cross-entropy loss）</strong>。公式如下： </p>
+<p> <img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+Li%3D-log%28%5Cfrac%7Be%5E%7Bf_%7By_i%7D%7D%7D%7B%5Csum_je%5E%7Bf_j%7D%7D%29" alt="[公式]"> 或者 <img src="https://www.zhihu.com/equation?tex=L_i%3D-f_%7By_i%7D%2Blog%28%5Csum_je%5E%7Bf_j%7D%29" alt="[公式]"> </p>
+<p> 在上式中，使用$f_j$来表示分类评分向量$f$中的第j个元素。和之前一样，整个数据集的损失值是数据集中所有样本数据的损失值$L_i$的均值与正则化损失$R(W)$之和。其中函数$f_j(z)=\frac{e^zj}{\sum_ke^zk}$被称作<strong>softmax 函数</strong>：其输入值是一个向量，向量中元素为任意实数的评分值（$z$中的)，函数对</p>
+<p>其进行压缩，输出一个向量，其中每个元</p>
+<p>素值在0到1之间，且所有元素之和为1。 </p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>​    在权重空间中找到一个方向，沿着该方向能降低损失函数的损失值。其实不需要随机寻找方向，因为可以直接计算出最好的方向，这就是从数学上计算出最陡峭的方向。这个方向就是损失函数的<strong>梯度（gradient）</strong> </p>
+<h3 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a><strong>梯度下降</strong></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 普通的梯度下降</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  weights_grad = evaluate_gradient(loss_fun, data, weights)</span><br><span class="line">  weights += - step_size * weights_grad <span class="comment"># 进行梯度更新</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 普通的小批量数据梯度下降</span></span><br><span class="line"><span class="comment">#可以减少运算成本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  data_batch = sample_training_data(data, <span class="number">256</span>) <span class="comment"># 256个数据</span></span><br><span class="line">  weights_grad = evaluate_gradient(loss_fun, data_batch, weights)</span><br><span class="line">  weights += - step_size * weights_grad <span class="comment"># 参数更新</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>深度学习</category>
@@ -435,20 +435,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Django学习笔记（三）</title>
-    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
-<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Web学习</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Django学习笔记（一）</title>
     <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -473,6 +459,20 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <p><strong>lsvirtualenv</strong>: 列出可用的运行环境</p>
 <p><strong>lssitepackages</strong>: 列出当前环境安装了的包</p>
 <p>创建的环境是独立的，互不干扰，无需sudo权限即可使用 pip 来进行包的管理。</p>
+]]></content>
+      <categories>
+        <category>Web学习</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django学习笔记（三）</title>
+    <url>/2019/03/12/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="初试API"><a href="#初试API" class="headerlink" title="初试API"></a>初试API</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py shell</span><br></pre></td></tr></table></figure>
+<h1 id="创建一个管理员账号"><a href="#创建一个管理员账号" class="headerlink" title="创建一个管理员账号"></a>创建一个管理员账号</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Web学习</category>
@@ -611,33 +611,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>FPN-note</title>
-    <url>/2020/05/06/FPN-note/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="FPN-Feature-Pyramid-Networks-for-Object-Detection"><a href="#FPN-Feature-Pyramid-Networks-for-Object-Detection" class="headerlink" title="FPN(Feature Pyramid Networks for Object Detection)"></a>FPN(Feature Pyramid Networks for Object Detection)</h1><p>FPN解决的主要问题是检测算法在处理多尺度变化问题时的不足以及对小物体检测不友好的问题。传统的方法是构造图像特征金字塔，但是计算量很大，FPN通过独特的构造避免了计算量过高的问题，并且有良好的多尺度处理性能。</p>
-<p><img src="/2020/05/06/FPN-note/1.png" alt></p>
-<p>图a为传统的多尺度特征提取方法，计算量极大。</p>
-<p>图b为单一特征的检测系统，有很大的局限性。</p>
-<p>图c为网络多层次结构提取特征，但是存在底层语义较弱的问题。</p>
-<p>图d为FPN金字塔特征提取，能够让各个不同尺度的特征都拥有较强的语义信息。</p>
-<h2 id="FPN算法"><a href="#FPN算法" class="headerlink" title="FPN算法"></a>FPN算法</h2><p> FPN包含两个部分：第一部分是自底向上的过程，第二部分是自顶向下和侧向连接的融合过程。 </p>
-<h3 id="自底向上过程"><a href="#自底向上过程" class="headerlink" title="自底向上过程"></a>自底向上过程</h3><p> 自底向上的过程和普通的CNN没有区别。现代的CNN网络一般都是按照特征图大小划分为不同的stage，每个stage之间特征图的尺度比例相差为2。在FPN中，每个stage对应了一个特征金字塔的级别（level），并且每个stage的最后一层特征被选为对应FPN中相应级别的特征。以ResNet为例，选取conv2、conv3、conv4、conv5层的最后一个残差block层特征作为FPN的特征，记为{C2、C3、C4、C5}。这几个特征层相对于原图的步长分别为4、8、16、32。 </p>
-<h3 id="自顶向下过程"><a href="#自顶向下过程" class="headerlink" title="自顶向下过程"></a>自顶向下过程</h3><p>自顶向下的过程通过上采样（up-sampling）的方式将顶层的小特征图（例如20）放大到上一个stage的特征图一样的大小（例如40）。这样的好处是既利用了顶层较强的语义特征（利于分类），又利用了底层的高分辨率信息（利于定位）。上采样的方法可以用最近邻差值实现。为了将高层语义特征和底层的精确定位能力结合，作者提出类似于残差网络的侧向连接结构。侧向连接将上一层经过上采样后和当前层分辨率一致的特征，通过相加的方法进行融合。（这里为了修正通道数量，将当前层先经过1x1卷积操作。）如图所示。</p>
-<p><img src="/2020/05/06/FPN-note/2.png" style="zoom:80%;"></p>
-<p>具体的，C5层先经过1x1卷积，得到M5特征。M5通过上采样，再加上C4经过1x1卷积后的特征，得到M4。这个过程再做两次，分别得到M3和M2。M层特征再经过3x3卷积，得到最终的P2、P3、P4、P5层特征。另外，和传统的图像金字塔方式一样，所有M层的通道数都设计成一样的，本文都用d=256。细节图如下所示（以ResNet为例）： </p>
-<p><img src="/2020/05/06/FPN-note/3.png" style="zoom:67%;"></p>
-<p> FPN本身不是检测算法，只是一个特征提取器。它需要和其他检测算法结合才能使用。 RetinaNet就是一个运用了FPN的网络。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>以Resnet为Backbone</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PyramidFeatures</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, C3_size, C4_size, C5_size, feature_size=<span class="number">256</span></span>):</span></span><br><span class="line">        super(PyramidFeatures, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upsample C5 to get P5 from the FPN paper</span></span><br><span class="line">        self.P5_1 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P5_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P5_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P5 elementwise to C4</span></span><br><span class="line">        self.P4_1 = nn.Conv2d(C4_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P4_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P4_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P4 elementwise to C3</span></span><br><span class="line">        self.P3_1 = nn.Conv2d(C3_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P3_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P6 is obtained via a 3x3 stride-2 conv on C5&quot;</span></span><br><span class="line">        self.P6 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P7 is computed by applying ReLU followed by a 3x3 stride-2 conv on P6&quot;</span></span><br><span class="line">        self.P7_1 = nn.ReLU()</span><br><span class="line">        self.P7_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, inputs</span>):</span></span><br><span class="line">        C3, C4, C5 = inputs</span><br><span class="line"></span><br><span class="line">        P5_x = self.P5_1(C5)</span><br><span class="line">        P5_upsampled_x = self.P5_upsampled(P5_x)</span><br><span class="line">        P5_x = self.P5_2(P5_x)</span><br><span class="line"></span><br><span class="line">        P4_x = self.P4_1(C4)</span><br><span class="line">        P4_x = P5_upsampled_x + P4_x</span><br><span class="line">        P4_upsampled_x = self.P4_upsampled(P4_x)</span><br><span class="line">        P4_x = self.P4_2(P4_x)</span><br><span class="line"></span><br><span class="line">        P3_x = self.P3_1(C3)</span><br><span class="line">        P3_x = P3_x + P4_upsampled_x</span><br><span class="line">        P3_x = self.P3_2(P3_x)</span><br><span class="line"></span><br><span class="line">        P6_x = self.P6(C5)</span><br><span class="line"></span><br><span class="line">        P7_x = self.P7_1(P6_x)</span><br><span class="line">        P7_x = self.P7_2(P7_x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [P3_x, P4_x, P5_x, P6_x, P7_x]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>目标检测</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Faster_RCNN 笔记</title>
     <url>/2020/04/11/Faster-RCNN-%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -705,6 +678,45 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FPN-note</title>
+    <url>/2020/05/06/FPN-note/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<h1 id="FPN-Feature-Pyramid-Networks-for-Object-Detection"><a href="#FPN-Feature-Pyramid-Networks-for-Object-Detection" class="headerlink" title="FPN(Feature Pyramid Networks for Object Detection)"></a>FPN(Feature Pyramid Networks for Object Detection)</h1><p>FPN解决的主要问题是检测算法在处理多尺度变化问题时的不足以及对小物体检测不友好的问题。传统的方法是构造图像特征金字塔，但是计算量很大，FPN通过独特的构造避免了计算量过高的问题，并且有良好的多尺度处理性能。</p>
+<p><img src="/2020/05/06/FPN-note/1.png" alt></p>
+<p>图a为传统的多尺度特征提取方法，计算量极大。</p>
+<p>图b为单一特征的检测系统，有很大的局限性。</p>
+<p>图c为网络多层次结构提取特征，但是存在底层语义较弱的问题。</p>
+<p>图d为FPN金字塔特征提取，能够让各个不同尺度的特征都拥有较强的语义信息。</p>
+<h2 id="FPN算法"><a href="#FPN算法" class="headerlink" title="FPN算法"></a>FPN算法</h2><p> FPN包含两个部分：第一部分是自底向上的过程，第二部分是自顶向下和侧向连接的融合过程。 </p>
+<h3 id="自底向上过程"><a href="#自底向上过程" class="headerlink" title="自底向上过程"></a>自底向上过程</h3><p> 自底向上的过程和普通的CNN没有区别。现代的CNN网络一般都是按照特征图大小划分为不同的stage，每个stage之间特征图的尺度比例相差为2。在FPN中，每个stage对应了一个特征金字塔的级别（level），并且每个stage的最后一层特征被选为对应FPN中相应级别的特征。以ResNet为例，选取conv2、conv3、conv4、conv5层的最后一个残差block层特征作为FPN的特征，记为{C2、C3、C4、C5}。这几个特征层相对于原图的步长分别为4、8、16、32。 </p>
+<h3 id="自顶向下过程"><a href="#自顶向下过程" class="headerlink" title="自顶向下过程"></a>自顶向下过程</h3><p>自顶向下的过程通过上采样（up-sampling）的方式将顶层的小特征图（例如20）放大到上一个stage的特征图一样的大小（例如40）。这样的好处是既利用了顶层较强的语义特征（利于分类），又利用了底层的高分辨率信息（利于定位）。上采样的方法可以用最近邻差值实现。为了将高层语义特征和底层的精确定位能力结合，作者提出类似于残差网络的侧向连接结构。侧向连接将上一层经过上采样后和当前层分辨率一致的特征，通过相加的方法进行融合。（这里为了修正通道数量，将当前层先经过1x1卷积操作。）如图所示。</p>
+<p><img src="/2020/05/06/FPN-note/2.png" style="zoom:80%;"></p>
+<p>具体的，C5层先经过1x1卷积，得到M5特征。M5通过上采样，再加上C4经过1x1卷积后的特征，得到M4。这个过程再做两次，分别得到M3和M2。M层特征再经过3x3卷积，得到最终的P2、P3、P4、P5层特征。另外，和传统的图像金字塔方式一样，所有M层的通道数都设计成一样的，本文都用d=256。细节图如下所示（以ResNet为例）： </p>
+<p><img src="/2020/05/06/FPN-note/3.png" style="zoom:67%;"></p>
+<p> FPN本身不是检测算法，只是一个特征提取器。它需要和其他检测算法结合才能使用。 RetinaNet就是一个运用了FPN的网络。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>以Resnet为Backbone</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PyramidFeatures</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, C3_size, C4_size, C5_size, feature_size=<span class="number">256</span></span>):</span></span><br><span class="line">        super(PyramidFeatures, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upsample C5 to get P5 from the FPN paper</span></span><br><span class="line">        self.P5_1 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P5_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P5_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P5 elementwise to C4</span></span><br><span class="line">        self.P4_1 = nn.Conv2d(C4_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P4_upsampled = nn.Upsample(scale_factor=<span class="number">2</span>, mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">        self.P4_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add P4 elementwise to C3</span></span><br><span class="line">        self.P3_1 = nn.Conv2d(C3_size, feature_size, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.P3_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P6 is obtained via a 3x3 stride-2 conv on C5&quot;</span></span><br><span class="line">        self.P6 = nn.Conv2d(C5_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># &quot;P7 is computed by applying ReLU followed by a 3x3 stride-2 conv on P6&quot;</span></span><br><span class="line">        self.P7_1 = nn.ReLU()</span><br><span class="line">        self.P7_2 = nn.Conv2d(feature_size, feature_size, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, inputs</span>):</span></span><br><span class="line">        C3, C4, C5 = inputs</span><br><span class="line"></span><br><span class="line">        P5_x = self.P5_1(C5)</span><br><span class="line">        P5_upsampled_x = self.P5_upsampled(P5_x)</span><br><span class="line">        P5_x = self.P5_2(P5_x)</span><br><span class="line"></span><br><span class="line">        P4_x = self.P4_1(C4)</span><br><span class="line">        P4_x = P5_upsampled_x + P4_x</span><br><span class="line">        P4_upsampled_x = self.P4_upsampled(P4_x)</span><br><span class="line">        P4_x = self.P4_2(P4_x)</span><br><span class="line"></span><br><span class="line">        P3_x = self.P3_1(C3)</span><br><span class="line">        P3_x = P3_x + P4_upsampled_x</span><br><span class="line">        P3_x = self.P3_2(P3_x)</span><br><span class="line"></span><br><span class="line">        P6_x = self.P6(C5)</span><br><span class="line"></span><br><span class="line">        P7_x = self.P7_1(P6_x)</span><br><span class="line">        P7_x = self.P7_2(P7_x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [P3_x, P4_x, P5_x, P6_x, P7_x]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OCR手写识别_NoTe1</title>
+    <url>/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>OCR手写识别</tag>
       </tags>
   </entry>
   <entry>
@@ -791,7 +803,7 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
     <title>Multimodal-Transformer</title>
     <url>/2021/07/03/Multimodal-Transformer/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="Multimodal-Transformer"><a href="#Multimodal-Transformer" class="headerlink" title="Multimodal-Transformer"></a>Multimodal-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
+<h1 id="Multimodal-Transformer"><a href="#Multimodal-Transformer" class="headerlink" title="Multimodal-Transformer"></a>Multimodal-Transformer</h1><h2 id="Visual-Embedding-Schema"><a href="#Visual-Embedding-Schema" class="headerlink" title="Visual Embedding Schema"></a>Visual Embedding Schema</h2><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/WYXPN6E8A%J_1GX~5{FG_R9.png" alt></p>
 <p>图片来自<a href="https://arxiv.org/pdf/2102.03334.pdf">ViLT</a></p>
 <ol>
 <li>Region Feature</li>
@@ -811,9 +823,9 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <p>video：<a href="https://arxiv.org/abs/2102.05095">TimeSformer</a>｜<a href="https://arxiv.org/pdf/2103.15691.pdf">ViViT</a>｜<a href="https://arxiv.org/pdf/2102.00719.pdf">VTN</a></p>
 <p>由于Region Feature方法对于视频数据不是很友好，主要介绍Grid Feature方法和Patch Projection方法</p>
 <h2 id="Grid-Feature"><a href="#Grid-Feature" class="headerlink" title="Grid Feature"></a>Grid Feature</h2><h3 id="Pixel-Bert"><a href="#Pixel-Bert" class="headerlink" title="Pixel-Bert"></a>Pixel-Bert</h3><p>pixel-bert提出是为了解决目前Region Feature方法的一些问题，这些方法只能提取到图片的部分目标的特征，对应的文本部分并不能完全和提取出来的特征相对应。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_2.png" alt></p>
-<p>论文提出了pixel-text levl语义对齐的end2end网络，可以有效的解决这个问题。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_3.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_2.png" alt></p>
+<p>论文提出了pixel-text level语义对齐的end2end网络，可以有效的解决这个问题。</p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_3.png" alt></p>
 <p>模型由三个部分 CNN-based visual Encoder 基于bert的Sentence Encoder以及Joint-Transformer</p>
 <p>预训练有两个任务 MLM和ITM</p>
 <p><strong>文本部分</strong></p>
@@ -826,12 +838,12 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <p><strong>训练细节</strong></p>
 <p>利用COCO和VG数据集合进行预训练，不同分支利用不同的优化器，visual backbone用SGD，transformer用AdamW。</p>
 <h3 id="CLIPBERT"><a href="#CLIPBERT" class="headerlink" title="CLIPBERT"></a>CLIPBERT</h3><p>官方代码：<a href="https://github.com/jayleicn/ClipBERT">https://github.com/jayleicn/ClipBERT</a></p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_4.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_4.png" alt></p>
 <p>传统的video-text模型采用的模式是固定vision/text的backbone提取两种模态的特征输入到融合模型。这种传统的模式会有两个缺点：</p>
 <p>对不同任务/领域的数据集 feature提取器需要进行不同的预训练，才会有比较好的效果。</p>
 <p>不同模态的feature之间有可能是割裂的，比如在视频动作识别模型是靠纯视频特征进行学习的，并没有用到文本特征。端到端的finetune会有效的解决这一点。</p>
 <p>CLIPBERT借鉴了PixelBert中稀疏采样的方法，对视频的帧进行稀疏采样。在训练时将多个clip进行片段推理，最后将多个片段的推理结果合并作为整个视频总的结果。由于是稀疏采样视频帧进行训练，并且考虑到image-text预训练对video-text模型有一定的收益，模型采用2-D visual backbone提取视频特征，可以减小模型的计算量。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_5.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_5.png" alt></p>
 <p>每个CLIP代表随机采样视频中的某一个片段</p>
 <p>每个CLIP由该片段中随机采样T帧组成，将T帧的特征进行Fusion然后送入transformer，融合text特征。</p>
 <p>相当于model的visual部分输入为(B, N, T, H, W, D)，分别对应Batch_size，N个clip，每个clip包含T帧，图片被降采样为HxW，每帧图片过backbone得到D维特征。对降采样的特征做2D position embedding然后以(B, HxW, D)的token输入transformer。clip在我的理解是每个视频样本过N次模型得到N个结果，最后将N个结果进行融合然后传给video-level的下游任务。</p>
@@ -839,63 +851,51 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
 <h2 id="Patch-Projection"><a href="#Patch-Projection" class="headerlink" title="Patch Projection"></a>Patch Projection</h2><h3 id="ViLT"><a href="#ViLT" class="headerlink" title="ViLT"></a>ViLT</h3><p>code：<a href="https://github.com/dandelin/vilt">https://github.com/dandelin/vilt</a></p>
 <p>论文提出了一种基于类似VIT中的Patch Projection方法的更轻量的多模态Transformer，没有使用常见的CNN backbone(不管是检测器还是ResNet)。</p>
 <p>基于CNN的模型有两个比较大的问题。一是计算量会很大，二是表征能力取决于视觉模型，以及预定义的视觉词汇（图像语义可能比文字表现得少很多）。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_6.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_6.png" alt></p>
 <p>论文提出的方法直接将图像分为patch和文字一起直接输入transformer进行联合训练</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_7.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_7.png" alt></p>
 <p><strong>训练细节</strong></p>
 <p>模型初始化为预训练的VIT，能够弥补没有图像特征提取的缺陷。</p>
 <p>预训练任务为MLM和ITM，在预训练时，利用了whole word masking的方法，whole word masking是将连续的子词tokens进行mask的技巧，避免了只通过单词上下文进行预测。比如将“giraffe”词tokenized成3个部分[“gi”, “##raf”, “##fe”]，可以mask成[“gi”, “[MASK]”, “##fe”]，模型会通过mask的上下文信息[“gi”，“##fe”]来预测mask的“##raf”，就会导致不利用图像信息。这样可以最大化的利用视觉特征来补全语言特征。</p>
 <p>在预训练时没有对图像做augmentation，在finetune时运用了除颜色改变和剪裁之外的random aug。</p>
 <h3 id="ViViT"><a href="#ViViT" class="headerlink" title="ViViT"></a>ViViT</h3><p>关于video的pathch projection方法</p>
 <p>整体上还是采取了VIT的思路</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_8.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_8.png" alt></p>
 <p><strong>Embedding Video Clips</strong></p>
 <ul>
 <li>Uniform frame sampling</li>
 </ul>
 <p>这种方法均匀采样n帧图片，采用和VIT一样的处理方法，分别对单张图片进行分patch操作，类似于对一张巨大的图片进行操作</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_9.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_9.png" alt></p>
 <ul>
 <li>Tubelet embedding</li>
 </ul>
 <p>在时空两个维度进行采样，可以更好利用video的时序信息</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_10.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_10.png" alt></p>
 <p><strong>Encoder 变体</strong></p>
 <p>由于随着视频帧数的增加，token数量是线性增加的，会带来很高的复杂度，所以论文中提出了一些模型的变体。</p>
 <ul>
 <li>Factorised Encoder</li>
 </ul>
 <p>采用两阶段的transformer，第一阶段transformer对每帧的图片进行处理，然后把cls输出作为下一阶段transformer的输入，第二阶段的transformer融合时序信息。类似于late-fusion的思路。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_11.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_11.png" alt></p>
 <p>PS：从FLOPs角度来看计算量是小于直接用全部token过transformer的</p>
 <ul>
 <li>Factorised self-attention</li>
 </ul>
 <p>直接在一个transformer中对时间和空间分开计算self-attention</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_12.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_12.png" alt></p>
 <ul>
 <li>Factorised dot-product attention</li>
 </ul>
 <p>将一个self attentin分为spatial和temporal两部分，K，V分成两 ，然后将两组output concat得到最终的输出。</p>
-<p>  <img src="https://gitee.com/browallia/tuchuang/raw/master/img/MT_13.png" alt></p>
+<p>  <img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/MT_13.png" alt></p>
 ]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
       <tags>
         <tag>Multimodal</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OCR手写识别_NoTe1</title>
-    <url>/2019/11/07/OCR%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB-NoTe1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>OCR手写识别</tag>
       </tags>
   </entry>
   <entry>
@@ -1058,6 +1058,29 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
+    <title>Retinanet&amp;focal-loss</title>
+    <url>/2020/05/12/Retinanet-focal-loss/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
+<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
+<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
+<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
+<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
+<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
+<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
+<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
+<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vision Representation From Textual</title>
     <url>/2021/12/09/Vision-Representation-From-Textual/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -1091,26 +1114,45 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </tags>
   </entry>
   <entry>
-    <title>Retinanet&amp;focal-loss</title>
-    <url>/2020/05/12/Retinanet-focal-loss/</url>
+    <title>python爬虫框架Scrapy(二)</title>
+    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<p>RetinaNet只是原来FPN网络与FCN网络的组合应用，因此在目标网络检测框架上它并无特别亮眼创新。文章中最大的创新来自于Focal loss的提出及在单阶段目标检测网络RetinaNet（实质为Resnet + FPN + FCN）的成功应用。Focal loss是一种改进了的交叉熵(cross-entropy, CE)loss，它通过在原有的CE loss上乘了个使易检测目标对模型训练贡献削弱的指数式，从而使得Focal loss成功地解决了在目标检测时，正负样本区域极不平衡而目标检测loss易被大批量负样本所左右的问题。此问题是单阶段目标检测框架（如SSD/Yolo系列）与双阶段目标检测框架（如Faster-RCNN/R-FCN等）accuracy gap的最大原因。</p>
-<h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal Loss主要解决的是类别不平衡问题，常规的单阶段目标检测网络像SSD一般在模型训练时会先大密度地在模型终端的系列feature maps上生成出10,000甚至100,0000个目标候选区域。然后再分别对这些候选区域进行分类与位置回归识别。而在这些生成的数万个候选区域中，绝大多数都是不包含待检测目标的图片背景，这样就造成了机器学习中经典的训练样本正负不平衡的问题。它往往会造成最终算出的training loss为占绝对多数但包含信息量却很少的负样本所支配，少样正样本提供的关键信息却不能在一般所用的training loss中发挥正常作用，从而无法得出一个能对模型训练提供正确指导的loss。</p>
-<h2 id="Focal-Loss定义"><a href="#Focal-Loss定义" class="headerlink" title="Focal Loss定义"></a>Focal Loss定义</h2><p>$FL(p_t)=-\alpha_t(1-p_t)^rlog(p_t)$</p>
-<p>下图为focal loss与常规CE loss的对比。从中，我们易看出focal loss所加的指数式系数可对正负样本对loss的贡献自动调节。当某样本类别比较明确些，它对整体loss的贡献就比较少；而若某样本类别不易区分，则对整体loss的贡献就相对偏大。这样得到的loss最终将集中精力去诱导模型去努力分辨那些难分的目标类别，于是就有效提升了整体的目标检测准度。不过在此focus loss计算当中，我们引入了一个新的hyper parameter即γ。一般来说新参数的引入，往往会伴随着模型使用难度的增加。在本文中，作者有试者对其进行调节，线性搜索后得出将γ设为2时，模型检测效果最好。</p>
-<p><img src="/2020/05/12/Retinanet-focal-loss/1.png" style="zoom:80%;"></p>
-<p>在最终所用的focal loss上，作者还引入了α系数，它能够使得focal loss对不同类别更加平衡。实验表明它会比原始的focal loss效果更好。</p>
-<p>Focal loss还很大程度上避免了正负样本不平衡带来的模型初始化问题。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="Retinanet"><a href="#Retinanet" class="headerlink" title="Retinanet"></a>Retinanet</h1><p> RetinaNet本质上是Resnet + FPN + 两个FCN子网络。 </p>
-<h2 id="RetinaNet检测框架"><a href="#RetinaNet检测框架" class="headerlink" title="RetinaNet检测框架"></a>RetinaNet检测框架</h2><p><img src="/2020/05/12/Retinanet-focal-loss/2.png" style="zoom:80%;"></p>
-<p>一般主干网络可选用任一有效的特征提取网络如vgg16或resnet系列，此处作者分别尝试了resnet-50与resnet-101。而FPN则是对resnet-50里面自动形成的多尺度特征进行了强化利用，从而得到了表达力更强、包含多尺度目标区域信息的feature maps集合。最后在FPN所吐出的feature maps集合上，分别使用了两个FCN子网络（它们有着相同的网络结构却各自独立，并不share参数）用来完成目标框类别分类与位置回归任务。</p>
+<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
+<li><p>item读取数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造Request对象实现翻页</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
+</li>
+<li><p>构造Request对象实现详情页爬取</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>深度学习</category>
+        <category>python爬虫</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
+        <tag>scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用numpy实现简单的三层BP神经网络</title>
+    <url>/2018/10/13/%E7%94%A8numpy%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%89%E5%B1%82bp%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+<pre><code>最近在看吴恩达老师的机器学习视频，讲到神经网络时有些模糊，于是决定自己用代码实现一下最基本的神经网络。
+</code></pre><h2 id="关于BP算法"><a href="#关于BP算法" class="headerlink" title="关于BP算法"></a>关于BP算法</h2><p><a href="https://www.cnblogs.com/charlotte77/p/5629865.html">一文弄懂神经网络中的反向传播法</a></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1539375900277&amp;di=d82dc6982d05663fcb6076f511a8a510&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.alonely.com.cn%2Fd%2Ffile%2FXML%2F2016-08-28%2Fgvovpkjgawn.png" alt="三层神经网络"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NeuralNetwork</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,input_nodes,hidden_nodes,output_nodes,learning_rate</span>):</span></span><br><span class="line">        <span class="comment">#设定输入层，隐藏层，输出层的节点个数</span></span><br><span class="line">        self.input_nodes = input_nodes+<span class="number">1</span></span><br><span class="line">        <span class="comment"># +1 设置偏执神经元来进行修正</span></span><br><span class="line">        self.hidden_nodes = hidden_nodes</span><br><span class="line">        self.output_nodes = output_nodes</span><br><span class="line"></span><br><span class="line">        <span class="comment">#初始化权值和学习速率</span></span><br><span class="line">        self.weight_input_to_hidden = np.random.normal(<span class="number">0.0</span>,self.hidden_nodes**<span class="number">-0.5</span>,(self.hidden_nodes,self.input_nodes))</span><br><span class="line">        self.weight_hidden_to_output = np.random.normal(<span class="number">0.0</span>,self.output_nodes**<span class="number">-0.5</span>,(self.output_nodes,self.hidden_nodes))</span><br><span class="line"></span><br><span class="line">        self.lr = learning_rate</span><br><span class="line"></span><br><span class="line">    <span class="comment">#激励函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Sigmoid</span>(<span class="params">self,x</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1.0</span> / (<span class="number">1.0</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">self,input_list,target_list</span>):</span></span><br><span class="line">        inputs = np.array(input_list,ndmin=<span class="number">2</span>).T</span><br><span class="line">        targets = np.array(target_list,ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment">#前向传播</span></span><br><span class="line">        hidden_inputs = np.dot(self.weight_input_to_hidden,inputs)</span><br><span class="line">        hidden_outputs= self.Sigmoid(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        final_inputs = np.dot(self.weight_hidden_to_output,hidden_outputs)</span><br><span class="line">        final_outputs = self.Sigmoid(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#反向传播</span></span><br><span class="line">        outputs_errors = (final_outputs - targets) * final_outputs * (<span class="number">1</span> - final_outputs)</span><br><span class="line">        hidden_errors = np.dot(self.weight_hidden_to_output.T,outputs_errors)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#梯度下降</span></span><br><span class="line">        self.weight_input_to_hidden -= np.dot((hidden_errors * hidden_outputs * (<span class="number">1</span> - hidden_outputs)),inputs.T) * self.lr</span><br><span class="line">        self.weight_hidden_to_output -= np.dot(outputs_errors,hidden_outputs.T) *self.lr</span><br><span class="line"></span><br><span class="line">        print(<span class="string">&quot;误差:&quot;</span>)</span><br><span class="line">        print(<span class="number">1</span>/<span class="number">2</span> * np.square((final_outputs-targets)))</span><br><span class="line">    <span class="comment">#测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self,inputs_list</span>):</span></span><br><span class="line">        inputs = np.array(inputs_list,ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        hidden_inputs = np.dot(self.weight_input_to_hidden,inputs)</span><br><span class="line">        hidden_outputs = self.Sigmoid(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        final_inputs = np.dot(self.weight_hidden_to_output,hidden_outputs)</span><br><span class="line">        final_outputs = self.Sigmoid(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> final_outputs</span><br><span class="line"></span><br><span class="line">	<span class="comment">#测试用神经网络实现异或功能</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    cases = [[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.1</span>],</span><br><span class="line">             [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0.1</span>],</span><br><span class="line">             [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0.1</span>],</span><br><span class="line">             [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0.1</span>]]</span><br><span class="line"></span><br><span class="line">    labels = [[<span class="number">0</span>],[<span class="number">1</span>],[<span class="number">1</span>],[<span class="number">0</span>]]</span><br><span class="line">    <span class="comment">#迭代10000次</span></span><br><span class="line">    limit = <span class="number">10000</span>               </span><br><span class="line">    nn = NeuralNetwork(<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(limit):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">            nn.train(cases[i],labels[i])</span><br><span class="line"></span><br><span class="line">    a = nn.run([<span class="number">1</span>,<span class="number">1</span>,<span class="number">0.1</span>])</span><br><span class="line">    print(a)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<p>只在输入层加入了偏执神经元，在第二层并没有添加，在第二层添加对拟合效果的提升并不是很大(主要是实现会更复杂一些(逃</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>神经网络</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1156,48 +1198,6 @@ y_t = W_{hy}h_t</script><p>Loss是每一个时步下的loss之和</p>
       </categories>
       <tags>
         <tag>scrapy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫框架Scrapy(二)</title>
-    <url>/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<h1 id="爬虫编写"><a href="#爬虫编写" class="headerlink" title="爬虫编写"></a>爬虫编写</h1><ol>
-<li><p>item读取数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tr_list = response.xpath(<span class="string">&quot;//table[@class=&#x27;tablelist&#x27;]/tr&quot;</span>)[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line">       <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line">           item = &#123;&#125;</span><br><span class="line">           item[<span class="string">&#x27;title&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;position&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[2]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;number&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[3]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;place&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[4]/text()&quot;</span>).extract_first()</span><br><span class="line">           item[<span class="string">&#x27;publish_date&#x27;</span>] = tr.xpath(<span class="string">&quot;./td[5]/text()&quot;</span>).extract_first()</span><br><span class="line">           logging.warning(item)</span><br><span class="line">           <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构造Request对象实现翻页</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#下一页URL地址</span></span><br><span class="line">      next_url = response.xpath(<span class="string">&quot;//a[@id=&#x27;next&#x27;]/@href&quot;</span>).extract_first()</span><br><span class="line">      <span class="keyword">if</span> next_url != <span class="string">&quot;javascript:;&quot;</span>:</span><br><span class="line">          next_url = <span class="string">&quot;http://hr.tencent.com/&quot;</span> + next_url</span><br><span class="line">      <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">          next_url,</span><br><span class="line">          callback=self.parse</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">scrapy.Request(url[,callback,method=<span class="string">&#x27;GET&#x27;</span>,headers,body,cookies,meta,dont_filter=<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/08/python%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy-%E4%BA%8C/1.png" alt></p>
-</li>
-<li><p>构造Request对象实现详情页爬取</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def parse_detail(self,response):</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>python爬虫</category>
-      </categories>
-      <tags>
-        <tag>scrapy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用numpy实现简单的三层BP神经网络</title>
-    <url>/2018/10/13/%E7%94%A8numpy%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%89%E5%B1%82bp%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<pre><code>最近在看吴恩达老师的机器学习视频，讲到神经网络时有些模糊，于是决定自己用代码实现一下最基本的神经网络。
-</code></pre><h2 id="关于BP算法"><a href="#关于BP算法" class="headerlink" title="关于BP算法"></a>关于BP算法</h2><p><a href="https://www.cnblogs.com/charlotte77/p/5629865.html">一文弄懂神经网络中的反向传播法</a></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1539375900277&amp;di=d82dc6982d05663fcb6076f511a8a510&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.alonely.com.cn%2Fd%2Ffile%2FXML%2F2016-08-28%2Fgvovpkjgawn.png" alt="三层神经网络"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NeuralNetwork</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,input_nodes,hidden_nodes,output_nodes,learning_rate</span>):</span></span><br><span class="line">        <span class="comment">#设定输入层，隐藏层，输出层的节点个数</span></span><br><span class="line">        self.input_nodes = input_nodes+<span class="number">1</span></span><br><span class="line">        <span class="comment"># +1 设置偏执神经元来进行修正</span></span><br><span class="line">        self.hidden_nodes = hidden_nodes</span><br><span class="line">        self.output_nodes = output_nodes</span><br><span class="line"></span><br><span class="line">        <span class="comment">#初始化权值和学习速率</span></span><br><span class="line">        self.weight_input_to_hidden = np.random.normal(<span class="number">0.0</span>,self.hidden_nodes**<span class="number">-0.5</span>,(self.hidden_nodes,self.input_nodes))</span><br><span class="line">        self.weight_hidden_to_output = np.random.normal(<span class="number">0.0</span>,self.output_nodes**<span class="number">-0.5</span>,(self.output_nodes,self.hidden_nodes))</span><br><span class="line"></span><br><span class="line">        self.lr = learning_rate</span><br><span class="line"></span><br><span class="line">    <span class="comment">#激励函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Sigmoid</span>(<span class="params">self,x</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1.0</span> / (<span class="number">1.0</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">self,input_list,target_list</span>):</span></span><br><span class="line">        inputs = np.array(input_list,ndmin=<span class="number">2</span>).T</span><br><span class="line">        targets = np.array(target_list,ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment">#前向传播</span></span><br><span class="line">        hidden_inputs = np.dot(self.weight_input_to_hidden,inputs)</span><br><span class="line">        hidden_outputs= self.Sigmoid(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        final_inputs = np.dot(self.weight_hidden_to_output,hidden_outputs)</span><br><span class="line">        final_outputs = self.Sigmoid(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#反向传播</span></span><br><span class="line">        outputs_errors = (final_outputs - targets) * final_outputs * (<span class="number">1</span> - final_outputs)</span><br><span class="line">        hidden_errors = np.dot(self.weight_hidden_to_output.T,outputs_errors)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#梯度下降</span></span><br><span class="line">        self.weight_input_to_hidden -= np.dot((hidden_errors * hidden_outputs * (<span class="number">1</span> - hidden_outputs)),inputs.T) * self.lr</span><br><span class="line">        self.weight_hidden_to_output -= np.dot(outputs_errors,hidden_outputs.T) *self.lr</span><br><span class="line"></span><br><span class="line">        print(<span class="string">&quot;误差:&quot;</span>)</span><br><span class="line">        print(<span class="number">1</span>/<span class="number">2</span> * np.square((final_outputs-targets)))</span><br><span class="line">    <span class="comment">#测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self,inputs_list</span>):</span></span><br><span class="line">        inputs = np.array(inputs_list,ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        hidden_inputs = np.dot(self.weight_input_to_hidden,inputs)</span><br><span class="line">        hidden_outputs = self.Sigmoid(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        final_inputs = np.dot(self.weight_hidden_to_output,hidden_outputs)</span><br><span class="line">        final_outputs = self.Sigmoid(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> final_outputs</span><br><span class="line"></span><br><span class="line">	<span class="comment">#测试用神经网络实现异或功能</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    cases = [[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.1</span>],</span><br><span class="line">             [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0.1</span>],</span><br><span class="line">             [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0.1</span>],</span><br><span class="line">             [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0.1</span>]]</span><br><span class="line"></span><br><span class="line">    labels = [[<span class="number">0</span>],[<span class="number">1</span>],[<span class="number">1</span>],[<span class="number">0</span>]]</span><br><span class="line">    <span class="comment">#迭代10000次</span></span><br><span class="line">    limit = <span class="number">10000</span>               </span><br><span class="line">    nn = NeuralNetwork(<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(limit):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">            nn.train(cases[i],labels[i])</span><br><span class="line"></span><br><span class="line">    a = nn.run([<span class="number">1</span>,<span class="number">1</span>,<span class="number">0.1</span>])</span><br><span class="line">    print(a)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
-<p>只在输入层加入了偏执神经元，在第二层并没有添加，在第二层添加对拟合效果的提升并不是很大(主要是实现会更复杂一些(逃</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>神经网络</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1637,7 +1637,7 @@ q_i = \frac{exp(z_i/T)}{\sum_jexp(z_j/T)}</script><p>​    如果将T取1，这
 <p>​    <strong>实现</strong></p>
 <p>​    选取teacher网络中间的隐藏层作为hint layer，同样选取student网络中间的隐藏层作为guide layer向hintt layer学习。</p>
 <script type="math/tex; mode=display">
-L_{HT}(W_{Guided}, W_r) = 1/2||u_h(X;W_{Hint}-r(v_g(X;W_{Guided});Wr)||^2</script><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201030171516.png" alt></p>
+L_{HT}(W_{Guided}, W_r) = 1/2||u_h(X;W_{Hint}-r(v_g(X;W_{Guided});Wr)||^2</script><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201030171516.png" alt></p>
 <p>​    <strong>训练策略</strong></p>
 <p>​    teacher网络的前 $h$层作为$W_{Hint}$ ，student网络的前$g$层作为 $W_{Guided}$,$W_{Hint}$指导$W_{Guided}$训练，然后初始化$W_r$适配层的参数。</p>
 <p>​    第一阶段用teacher网络的hint层预训练student网络的guided层</p>
@@ -1646,7 +1646,7 @@ L_{HT}(W_{Guided}, W_r) = 1/2||u_h(X;W_{Hint}-r(v_g(X;W_{Guided});Wr)||^2</scrip
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HintLoss</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Fitnets: hints for thin deep nets, ICLR 2015&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        super(HintLoss, self).__init__()</span><br><span class="line">        self.crit = nn.MSELoss()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, f_s, f_t</span>):</span></span><br><span class="line">        loss = self.crit(f_s, f_t)</span><br><span class="line">        <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
 <h1 id="Paying-More-Attention-to-Attention-Improving-the-Performance-of-Convolutional-Neural-Networks-via-Attention-Transfer"><a href="#Paying-More-Attention-to-Attention-Improving-the-Performance-of-Convolutional-Neural-Networks-via-Attention-Transfer" class="headerlink" title="Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer"></a>Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer</h1><p>ICLR 2017[<a href="https://arxiv.org/abs/1612.03928">https://arxiv.org/abs/1612.03928</a>]</p>
 <p>Attention Transfer传递了teacher网络的attention信息给student网络，CNN的attention一般分为两种，spatial-attention,channel-attention。本文利用的是spatial-attention.所谓spatial-attention即一种热力图，用来解码出输入图像空间区域对输出贡献大小。文章提出了两种可利用的spatial-attention,基于响应图的和基于梯度图的。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102155032.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102155032.png" alt></p>
 <p><strong>activation-based AT</strong></p>
 <p>基于特征图取出某层输出特征图张量A，定义一个映射F:</p>
 <script type="math/tex; mode=display">
@@ -1658,10 +1658,10 @@ F:R^{CXHXW->R^{HXW}}</script><p>文中提出了三种映射方式：</p>
 </ol>
 <p>不同level的attention map的activation在不同的位置，由浅到深从眼睛到眼睛鼻子再到全脸。</p>
 <p>​    <strong>网络的架构</strong></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102165737.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102165737.png" alt></p>
 <script type="math/tex; mode=display">
 L_{AT} = L(W_S, x) + \frac{\beta}{2}\sum_{j\epsilon x}||\frac{Q_S^j}{||Q_S^j||_2}-\frac{Q_T^j}{||Q_T^j||_2}||_p</script><p><strong>gradient-based AT</strong></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102170624.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102170624.png" alt></p>
 <p><strong>代码实现</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Attention</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks</span></span><br><span class="line"><span class="string">    via Attention Transfer</span></span><br><span class="line"><span class="string">    code: https://github.com/szagoruyko/attention-transfer&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, p=<span class="number">2</span></span>):</span></span><br><span class="line">        super(Attention, self).__init__()</span><br><span class="line">        self.p = p</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, g_s, g_t</span>):</span></span><br><span class="line">        <span class="keyword">return</span> [self.at_loss(f_s, f_t) <span class="keyword">for</span> f_s, f_t <span class="keyword">in</span> zip(g_s, g_t)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">at_loss</span>(<span class="params">self, f_s, f_t</span>):</span></span><br><span class="line">        s_H, t_H = f_s.shape[<span class="number">2</span>], f_t.shape[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> s_H &gt; t_H:</span><br><span class="line">            f_s = F.adaptive_avg_pool2d(f_s, (t_H, t_H))</span><br><span class="line">        <span class="keyword">elif</span> s_H &lt; t_H:</span><br><span class="line">            f_t = F.adaptive_avg_pool2d(f_t, (s_H, s_H))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">return</span> (self.at(f_s) - self.at(f_t)).pow(<span class="number">2</span>).mean()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">at</span>(<span class="params">self, f</span>):</span></span><br><span class="line">        <span class="keyword">return</span> F.normalize(f.pow(self.p).mean(<span class="number">1</span>).view(f.size(<span class="number">0</span>), <span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
 <h1 id="A-Gift-from-Knowledge-Distillation-Fast-Optimization-Network-Minimization-and-Transfer-Learning"><a href="#A-Gift-from-Knowledge-Distillation-Fast-Optimization-Network-Minimization-and-Transfer-Learning" class="headerlink" title="A Gift from Knowledge Distillation: Fast Optimization, Network Minimization and Transfer Learning"></a>A Gift from Knowledge Distillation: Fast Optimization, Network Minimization and Transfer Learning</h1><p>CVPR 2017[<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Yim_A_Gift_From_CVPR_2017_paper.pdf">https://openaccess.thecvf.com/content_cvpr_2017/papers/Yim_A_Gift_From_CVPR_2017_paper.pdf</a>]</p>
@@ -1669,9 +1669,9 @@ L_{AT} = L(W_S, x) + \frac{\beta}{2}\sum_{j\epsilon x}||\frac{Q_S^j}{||Q_S^j||_2
 <p><strong>FSP Metrix</strong></p>
 <p>文章提出的描述层与层之间关系的方法FSP matrix，是某层特征图与另外一层特征图之间的偏心协方差矩阵（即没有减去均值的协方差矩阵）。如F1层特征图配置（H,W,M）M为通道数。F2层特征图配置（H,W,N）。得到一个M * N的矩阵G。G（i，j）为F1第i通道与F2第j通道的elemet-wise乘积之和：</p>
 <script type="math/tex; mode=display">
-G_{i,j}(x;W) = \sum^h_{s=1}\sum^w_{t=1}\frac{F^1_{s,t,i}(x;W)*F^2_{s,t,j}(x;W)}{h*w}</script><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102174536.png" alt></p>
+G_{i,j}(x;W) = \sum^h_{s=1}\sum^w_{t=1}\frac{F^1_{s,t,i}(x;W)*F^2_{s,t,j}(x;W)}{h*w}</script><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102174536.png" alt></p>
 <p>网络结构</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102193717.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102193717.png" alt></p>
 <p>最后的loss</p>
 <script type="math/tex; mode=display">
 L_{FSP}(W_t,W_s) = \frac{1}{N}\sum_x\sum^n_{i=1}\lambda_i*||G_i^T(x;W_t)-G_i^S(x;W_a)||_2^2</script><p><strong>代码实现</strong></p>
@@ -1679,13 +1679,13 @@ L_{FSP}(W_t,W_s) = \frac{1}{N}\sum_x\sum^n_{i=1}\lambda_i*||G_i^T(x;W_t)-G_i^S(x
 <h1 id="Paraphrasing-Complex-Network-Network-Compression-via-Factor-Transfer"><a href="#Paraphrasing-Complex-Network-Network-Compression-via-Factor-Transfer" class="headerlink" title="Paraphrasing Complex Network: Network Compression via Factor Transfer"></a>Paraphrasing Complex Network: Network Compression via Factor Transfer</h1><p>NIPS 2018[<a href="https://arxiv.org/abs/1802.04977">https://arxiv.org/abs/1802.04977</a>]</p>
 <p>这篇文章提出了两个卷积模块，释义器(paraphrarer)和翻译器(traslator)。释义器由无监督方法训练，用于提取Teacher网络中的因子作为Teacher网络中的信息，翻译器用于提取student网络中的因子并且对Teacher中的因子进行翻译学习。</p>
 <p><strong>网络架构</strong></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102212901.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102212901.png" alt></p>
 <p>文章提出，例如KD，AT等蒸馏方法虽然可以有很好的知识传递效果，但是忽略了Teacher网络和Student网络中的比如网络架构，通道数量，初始化条件等因素。在文章中，提出的架构拥有一个释义器将Teacher 的特征进行解释，可以让Student更好的学习知识。总结如下：</p>
 <ul>
 <li>用无监督的方式训练一个teacher网络的释义器。</li>
 <li>student通过卷积化的翻译器对teacher释义的因子进行学习</li>
 </ul>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201102215412.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201102215412.png" alt></p>
 <p><strong>Teacher无监督paraphraser</strong></p>
 <script type="math/tex; mode=display">
 Lrec=‖x−P(x)‖2</script><p>用输入的特征图与释义器输出的释义信息P(x)进行损失计算用于无监督的训练paraphraser。如果网络输出的为m通道特征，则将释义器释义的特征通道设置为mxk，k为释义系数。</p>
@@ -1705,7 +1705,7 @@ LF T=‖\frac{FT}{‖FT‖^2}−\frac{FS}{‖FS‖^2}‖_p</script><p><strong>�
 <h1 id="Knowledge-Transfer-via-Distillation-of-Activation-Boundaries-Formed-by-Hidden-Neurons"><a href="#Knowledge-Transfer-via-Distillation-of-Activation-Boundaries-Formed-by-Hidden-Neurons" class="headerlink" title="Knowledge Transfer via Distillation of Activation Boundaries Formed by Hidden Neurons"></a>Knowledge Transfer via Distillation of Activation Boundaries Formed by Hidden Neurons</h1><p>AAAI 2019[<a href="https://arxiv.org/abs/1811.03233">https://arxiv.org/abs/1811.03233</a>]</p>
 <p>文章提出了一种通过隐藏神经元形成的激活边界蒸馏的知识转移方法。student网络学习teacher网络神经元的激活区域和非激活区域的分离边界。运用激活转移损失来最小化Teacher和Student网络之间的神经元激活差异，这个损失考虑的不是神经元的反应强度以及数值特征，而是考虑神经元是否被激活。但是激活函数不可微所以文中提出了替代损失和激活转移损失近似来训练。</p>
 <p>一般的方法是对RELU之后的特征图进行迁移学习,只能反映激活的程度,而这篇文章提出的方法是考虑神经元是否激活,如下图所示.</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201104161619.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201104161619.png" alt></p>
 <p>MSE based</p>
 <script type="math/tex; mode=display">
 L(I) = ||\sigma(T(I))-\sigma(S(I))||^2_2</script><p>Proposed</p>
@@ -1723,13 +1723,13 @@ L(I) =\sum^H_i\sum^W_j‖ρ(T(I)ij)σ(μ1−r(S(I)ij))+ (1−ρ(T(I)ij))σ(μ1+r
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ABLoss</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Knowledge Transfer via Distillation of Activation Boundaries Formed by Hidden Neurons</span></span><br><span class="line"><span class="string">    code: https://github.com/bhheo/AB_distillation</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, feat_num, margin=<span class="number">1.0</span></span>):</span></span><br><span class="line">        super(ABLoss, self).__init__()</span><br><span class="line">        self.w = [<span class="number">2</span>**(i-feat_num+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(feat_num)]</span><br><span class="line">        self.margin = margin</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, g_s, g_t</span>):</span></span><br><span class="line">        bsz = g_s[<span class="number">0</span>].shape[<span class="number">0</span>]</span><br><span class="line">        losses = [self.criterion_alternative_l2(s, t) <span class="keyword">for</span> s, t <span class="keyword">in</span> zip(g_s, g_t)]</span><br><span class="line">        losses = [w * l <span class="keyword">for</span> w, l <span class="keyword">in</span> zip(self.w, losses)]</span><br><span class="line">        <span class="comment"># loss = sum(losses) / bsz</span></span><br><span class="line">        <span class="comment"># loss = loss / 1000 * 3</span></span><br><span class="line">        losses = [l / bsz <span class="keyword">for</span> l <span class="keyword">in</span> losses]</span><br><span class="line">        losses = [l / <span class="number">1000</span> * <span class="number">3</span> <span class="keyword">for</span> l <span class="keyword">in</span> losses]</span><br><span class="line">        <span class="keyword">return</span> losses</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">criterion_alternative_l2</span>(<span class="params">self, source, target</span>):</span></span><br><span class="line">        loss = ((source + self.margin) ** <span class="number">2</span> * ((source &gt; -self.margin) &amp; (target &lt;= <span class="number">0</span>)).float() +</span><br><span class="line">                (source - self.margin) ** <span class="number">2</span> * ((source &lt;= self.margin) &amp; (target &gt; <span class="number">0</span>)).float())</span><br><span class="line">        <span class="keyword">return</span> torch.abs(loss).sum()</span><br></pre></td></tr></table></figure>
 <h1 id="Correlation-Congruence-for-Knowledge-Distillation"><a href="#Correlation-Congruence-for-Knowledge-Distillation" class="headerlink" title="Correlation Congruence for Knowledge Distillation"></a>Correlation Congruence for Knowledge Distillation</h1><p>ICCV 2019[<a href="https://arxiv.org/abs/1904.01802">https://arxiv.org/abs/1904.01802</a>]</p>
 <p>文章提出了一种方法不仅可以在distillation中进行实例级信息传递，并且可以对实例之间的相关性进行传递。提出了一种基于内核的方法以及采样策略能够在一个mini-batch中找到实例的一致性。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105141616.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105141616.png" alt></p>
 <p><strong>具体结构</strong></p>
 <ol>
 <li>实例一致性(student和teacher预测的KL散度)</li>
 <li>相关一致性(student和teacher相关性的欧式距离)</li>
 </ol>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105153251.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105153251.png" alt></p>
 <script type="math/tex; mode=display">
 特征F_t \ F_s
 \\F_t = matrix(f_1^t,f_2^t,...,f_n^t)
@@ -1751,10 +1751,10 @@ L(I) =\sum^H_i\sum^W_j‖ρ(T(I)ij)σ(μ1−r(S(I)ij))+ (1−ρ(T(I)ij))σ(μ1+r
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CC</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">	<span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">	Correlation Congruence for Knowledge Distillation</span></span><br><span class="line"><span class="string">	http://openaccess.thecvf.com/content_ICCV_2019/papers/</span></span><br><span class="line"><span class="string">	Peng_Correlation_Congruence_for_Knowledge_Distillation_ICCV_2019_paper.pdf</span></span><br><span class="line"><span class="string">	&#x27;&#x27;&#x27;</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, gamma, P_order</span>):</span></span><br><span class="line">		super(CC, self).__init__()</span><br><span class="line">		self.gamma = gamma</span><br><span class="line">		self.P_order = P_order</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, feat_s, feat_t</span>):</span></span><br><span class="line">		corr_mat_s = self.get_correlation_matrix(feat_s)</span><br><span class="line">		corr_mat_t = self.get_correlation_matrix(feat_t)</span><br><span class="line"></span><br><span class="line">		loss = F.mse_loss(corr_mat_s, corr_mat_t)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get_correlation_matrix</span>(<span class="params">self, feat</span>):</span></span><br><span class="line">		feat = F.normalize(feat, p=<span class="number">2</span>, dim=<span class="number">-1</span>)</span><br><span class="line">		sim_mat  = torch.matmul(feat, feat.t())</span><br><span class="line">		corr_mat = torch.zeros_like(sim_mat)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> p <span class="keyword">in</span> range(self.P_order+<span class="number">1</span>):</span><br><span class="line">			corr_mat += math.exp(<span class="number">-2</span>*self.gamma) * (<span class="number">2</span>*self.gamma)**p / \</span><br><span class="line">						math.factorial(p) * torch.pow(sim_mat, p)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> corr_mat</span><br></pre></td></tr></table></figure>
 <h1 id="like-what-you-like-knowledge-distill-via-neuron-selectivity-transfer"><a href="#like-what-you-like-knowledge-distill-via-neuron-selectivity-transfer" class="headerlink" title="like what you like: knowledge distill via neuron selectivity transfer"></a>like what you like: knowledge distill via neuron selectivity transfer</h1><p>ICLR 2019[<a href="https://arxiv.org/abs/1707.01219">https://arxiv.org/abs/1707.01219</a>]</p>
 <p>这篇文章提出了一种新的KT方法,通过匹配Teacher和student网络中的神经元选择模式的分布来进行知识迁移.</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105160610.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105160610.png" alt></p>
 <p><strong>Maximum Mean Discrepancy</strong></p>
 <script type="math/tex; mode=display">
-L_{NST}(W_S) = H(y_{true}, P_S)+\frac{\lambda}{2}L_{MMD^2}(F_T,F_S)</script><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105193834.png" alt></p>
+L_{NST}(W_S) = H(y_{true}, P_S)+\frac{\lambda}{2}L_{MMD^2}(F_T,F_S)</script><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105193834.png" alt></p>
 <p><strong>Choice of Kernels</strong></p>
 <ul>
 <li>Linear Kernel: $k(x,y) = x^Ty$</li>
@@ -1765,8 +1765,8 @@ L_{NST}(W_S) = H(y_{true}, P_S)+\frac{\lambda}{2}L_{MMD^2}(F_T,F_S)</script><p><
 <p><strong>代码实现</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NSTLoss</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;like what you like: knowledge distill via neuron selectivity transfer&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        super(NSTLoss, self).__init__()</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, g_s, g_t</span>):</span></span><br><span class="line">        <span class="keyword">return</span> [self.nst_loss(f_s, f_t) <span class="keyword">for</span> f_s, f_t <span class="keyword">in</span> zip(g_s, g_t)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nst_loss</span>(<span class="params">self, f_s, f_t</span>):</span></span><br><span class="line">        s_H, t_H = f_s.shape[<span class="number">2</span>], f_t.shape[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> s_H &gt; t_H:</span><br><span class="line">            f_s = F.adaptive_avg_pool2d(f_s, (t_H, t_H))</span><br><span class="line">        <span class="keyword">elif</span> s_H &lt; t_H:</span><br><span class="line">            f_t = F.adaptive_avg_pool2d(f_t, (s_H, s_H))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        f_s = f_s.view(f_s.shape[<span class="number">0</span>], f_s.shape[<span class="number">1</span>], <span class="number">-1</span>)</span><br><span class="line">        f_s = F.normalize(f_s, dim=<span class="number">2</span>)</span><br><span class="line">        f_t = f_t.view(f_t.shape[<span class="number">0</span>], f_t.shape[<span class="number">1</span>], <span class="number">-1</span>)</span><br><span class="line">        f_t = F.normalize(f_t, dim=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># set full_loss as False to avoid unnecessary computation</span></span><br><span class="line">        full_loss = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> full_loss:</span><br><span class="line">            <span class="keyword">return</span> (self.poly_kernel(f_t, f_t).mean().detach() + self.poly_kernel(f_s, f_s).mean()</span><br><span class="line">                    - <span class="number">2</span> * self.poly_kernel(f_s, f_t).mean())<span class="comment">#detach在当前计算图中剥离variable并不求其梯度</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> self.poly_kernel(f_s, f_s).mean() - <span class="number">2</span> * self.poly_kernel(f_s, f_t).mean()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">poly_kernel</span>(<span class="params">self, a, b</span>):</span></span><br><span class="line">        a = a.unsqueeze(<span class="number">1</span>)</span><br><span class="line">        b = b.unsqueeze(<span class="number">2</span>)</span><br><span class="line">        res = (a * b).sum(<span class="number">-1</span>).pow(<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 <h1 id="Relational-Knowledge-Disitllation"><a href="#Relational-Knowledge-Disitllation" class="headerlink" title="Relational Knowledge Disitllation"></a>Relational Knowledge Disitllation</h1><p>CVPR 2019[<a href="https://arxiv.org/abs/1904.05068">https://arxiv.org/abs/1904.05068</a>]</p>
-<p>文章提出了一种基于关系的知识蒸馏方法.作者认为知识的表达用结构关系比单独的实例来表达更好.<br><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201106151948.png" style="zoom:80%;"></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105213654.png" alt></p>
+<p>文章提出了一种基于关系的知识蒸馏方法.作者认为知识的表达用结构关系比单独的实例来表达更好.<br><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201106151948.png" style="zoom:80%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105213654.png" alt></p>
 <p>文章提出了两种关系知识蒸馏方法,基于距离和基于角度的方法.</p>
 <script type="math/tex; mode=display">
 L_{RKD} = \sum_{(x_1,...,x_n)\in \chi^N}l(\psi(t_1,..,t_n),\psi(s_1,...,s_n))</script><p>即用特征的n元组的关系进行知识迁移.ψ是关系势函数.不管teacher网络的尺寸和student是否匹配,都可以通过关系势函数进行高阶的知识迁移.</p>
@@ -1778,12 +1778,12 @@ L_{RKD} = \sum_{(x_1,...,x_n)\in \chi^N}l(\psi(t_1,..,t_n),\psi(s_1,...,s_n))</s
 \\L_{RKD-D}=\sum_{(xi,xj)∈\chi^2}l_δ(ψ_D(t_i,t_j),ψ_D(s_i,s_j))
 \\l_δ=\begin{cases}\frac{1}{2}(x-y)^2, \ \ for|x-y|<=1\\|x-y|-\frac{1}{2}, \ otherwise\end{cases}</script><p>这种方法不会强制student网络去匹配teacher的logits,而是匹配teacher的距离结构.</p>
 <p><strong>Angle-wise</strong>(三元组)</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105220703.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105220703.png" alt></p>
 <p><strong>代码实现</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RKDLoss</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Relational Knowledge Disitllation, CVPR2019&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, w_d=<span class="number">25</span>, w_a=<span class="number">50</span></span>):</span></span><br><span class="line">        super(RKDLoss, self).__init__()</span><br><span class="line">        self.w_d = w_d</span><br><span class="line">        self.w_a = w_a</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, f_s, f_t</span>):</span></span><br><span class="line">        student = f_s.view(f_s.shape[<span class="number">0</span>], <span class="number">-1</span>)</span><br><span class="line">        teacher = f_t.view(f_t.shape[<span class="number">0</span>], <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># RKD distance loss</span></span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            t_d = self.pdist(teacher, squared=<span class="literal">False</span>)</span><br><span class="line">            mean_td = t_d[t_d &gt; <span class="number">0</span>].mean()</span><br><span class="line">            t_d = t_d / mean_td</span><br><span class="line"></span><br><span class="line">        d = self.pdist(student, squared=<span class="literal">False</span>)</span><br><span class="line">        mean_d = d[d &gt; <span class="number">0</span>].mean()</span><br><span class="line">        d = d / mean_d</span><br><span class="line"></span><br><span class="line">        loss_d = F.smooth_l1_loss(d, t_d)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># RKD Angle loss</span></span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            td = (teacher.unsqueeze(<span class="number">0</span>) - teacher.unsqueeze(<span class="number">1</span>))</span><br><span class="line">            norm_td = F.normalize(td, p=<span class="number">2</span>, dim=<span class="number">2</span>)</span><br><span class="line">            t_angle = torch.bmm(norm_td, norm_td.transpose(<span class="number">1</span>, <span class="number">2</span>)).view(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">        sd = (student.unsqueeze(<span class="number">0</span>) - student.unsqueeze(<span class="number">1</span>))</span><br><span class="line">        norm_sd = F.normalize(sd, p=<span class="number">2</span>, dim=<span class="number">2</span>)</span><br><span class="line">        s_angle = torch.bmm(norm_sd, norm_sd.transpose(<span class="number">1</span>, <span class="number">2</span>)).view(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">        loss_a = F.smooth_l1_loss(s_angle, t_angle)</span><br><span class="line"></span><br><span class="line">        loss = self.w_d * loss_d + self.w_a * loss_a</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pdist</span>(<span class="params">e, squared=False, eps=<span class="number">1e-12</span></span>):</span></span><br><span class="line">        e_square = e.pow(<span class="number">2</span>).sum(dim=<span class="number">1</span>)</span><br><span class="line">        prod = e @ e.t()</span><br><span class="line">        res = (e_square.unsqueeze(<span class="number">1</span>) + e_square.unsqueeze(<span class="number">0</span>) - <span class="number">2</span> * prod).clamp(min=eps)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> squared:</span><br><span class="line">            res = res.sqrt()</span><br><span class="line"></span><br><span class="line">        res = res.clone()</span><br><span class="line">        res[range(len(e)), range(len(e))] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 <h1 id="Similarity-Preserving-Knowledge-Distillation"><a href="#Similarity-Preserving-Knowledge-Distillation" class="headerlink" title="Similarity-Preserving Knowledge Distillation"></a>Similarity-Preserving Knowledge Distillation</h1><p>ICCV 2019[<a href="https://arxiv.org/abs/1907.09682">https://arxiv.org/abs/1907.09682</a>]</p>
 <p>文章提出了一种新的蒸馏损失,利用输入的相似性会有相似的激活模式,student网络不用模仿teacher的表征空间,在自己的特征空间中保持相对性.</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201105235509.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201105235509.png" alt></p>
 <p><img src="/2020/10/29/Knowledge-Distillation/Users\58341\AppData\Roaming\Typora\typora-user-images\image-20201106002236910.png" alt="image-20201106002236910"></p>
 <p>QT是特征的reshape,大小为(b,chw),所以G大小为(b,b)</p>
 <p>损失函数为</p>
@@ -1793,7 +1793,7 @@ L_{SP}(G_T,G_S) =\frac{1}{b^2}\sum_{(l,l′)∈I}||G(l)_T−G(l′)_S||^2_F</scr
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Similarity</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Similarity-Preserving Knowledge Distillation, ICCV2019, verified by original author&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        super(Similarity, self).__init__()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, g_s, g_t</span>):</span></span><br><span class="line">        <span class="keyword">return</span> [self.similarity_loss(f_s, f_t) <span class="keyword">for</span> f_s, f_t <span class="keyword">in</span> zip(g_s, g_t)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">similarity_loss</span>(<span class="params">self, f_s, f_t</span>):</span></span><br><span class="line">        bsz = f_s.shape[<span class="number">0</span>]</span><br><span class="line">        f_s = f_s.view(bsz, <span class="number">-1</span>)</span><br><span class="line">        f_t = f_t.view(bsz, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">        G_s = torch.mm(f_s, torch.t(f_s))</span><br><span class="line">        <span class="comment"># G_s = G_s / G_s.norm(2)</span></span><br><span class="line">        G_s = torch.nn.functional.normalize(G_s)</span><br><span class="line">        G_t = torch.mm(f_t, torch.t(f_t))</span><br><span class="line">        <span class="comment"># G_t = G_t / G_t.norm(2)</span></span><br><span class="line">        G_t = torch.nn.functional.normalize(G_t)</span><br><span class="line"></span><br><span class="line">        G_diff = G_t - G_s</span><br><span class="line">        loss = (G_diff * G_diff).view(<span class="number">-1</span>, <span class="number">1</span>).sum(<span class="number">0</span>) / (bsz * bsz)</span><br><span class="line">        <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
 <h1 id="Variational-Information-Distillation-for-Knowledge-Transfer"><a href="#Variational-Information-Distillation-for-Knowledge-Transfer" class="headerlink" title="Variational Information Distillation for Knowledge Transfer"></a>Variational Information Distillation for Knowledge Transfer</h1><p>CVPR 2019[<a href="https://arxiv.org/abs/1904.05835">https://arxiv.org/abs/1904.05835</a>]</p>
 <p>文章提出了一种基于信息理论的蒸馏方法，采用变分信息最大化方法将知识迁移公式化为最大化teacher和student网络之间的相互信息。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201106144135.png" style="zoom: 67%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201106144135.png" style="zoom: 67%;"></p>
 <script type="math/tex; mode=display">
 I(t;s) = H(t)-H(t|s)
 \\=-E_t[log \ p(t)]+E_t,s[log \ p(t|s)]</script><p><a href="https://zhuanlan.zhihu.com/p/120180529">互信息</a>为[教师模型的熵值] - [已知学生模型的条件下的教师模型熵值]当学生模型已知，能够使得教师模型的熵很小，这说明学生模型以及获得了能够恢复教师模型所需要的“压缩”知识，间接说明了此时学生模型已经学习的很好了。而这种情况下也就是说明上述公式中的H(t|s)很小，从而使得互信息I(t;s)会很大。作者从这个角度解释了为什么可以通过最大化互信息的方式来进行蒸馏学习。</p>
@@ -2789,8 +2789,8 @@ I(t;s) = H(t)-H(t|s)
 <li><a href="https://zhuanlan.zhihu.com/p/67414365">神经网络中的Epoch、Iteration、Batchsize</a></li>
 <li><a href="https://zhidao.baidu.com/question/716300338908227765.html">神经网络中epoch与iteration相等吗</a></li>
 </ul>
-<h2 id="反向传播（BP）"><a href="#反向传播（BP）" class="headerlink" title="反向传播（BP）"></a>反向传播（BP）</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201019155522.png" alt></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201019155550.png" alt></p>
+<h2 id="反向传播（BP）"><a href="#反向传播（BP）" class="headerlink" title="反向传播（BP）"></a>反向传播（BP）</h2><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201019155522.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201019155550.png" alt></p>
 <p><strong>参考资料</strong></p>
 <ul>
 <li><a href="https://www.jianshu.com/p/964345dddb70">一文搞懂反向传播算法</a></li>
@@ -2804,7 +2804,7 @@ I(t;s) = H(t)-H(t|s)
 <p><a href="https://blog.csdn.net/lanchunhui/article/details/52504859">极值点、驻点、鞍点、拐点</a></p>
 <h2 id="神经网络数据预处理方法有哪些？"><a href="#神经网络数据预处理方法有哪些？" class="headerlink" title="神经网络数据预处理方法有哪些？"></a>神经网络数据预处理方法有哪些？</h2><p><a href="https://www.browallia.top/2019/10/21/CS231n-note-3/">1.3数据预处理</a></p>
 <h2 id="神经网络怎样进行参数初始化？"><a href="#神经网络怎样进行参数初始化？" class="headerlink" title="神经网络怎样进行参数初始化？"></a>神经网络怎样进行参数初始化？</h2><p><a href="https://www.browallia.top/2019/10/21/CS231n-note-3/">1.3数据预处理</a></p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/Convolution_schematic.gif" alt></p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/Convolution_schematic.gif" alt></p>
 <p>卷积的可以看作是<strong>滤波器</strong></p>
 <p><strong>参考资料</strong></p>
 <ul>
@@ -2891,7 +2891,7 @@ f(x)=\left\{ \begin{aligned} 1 ,x>0\\0,x<=0   \end{aligned} \right.</script><p><
 <p>在权重初始化的时候<code>w = np.random.randn(fan_in, fan_out) / np.sqrt(fan_in / 2)</code></p>
 <h2 id="正则化方法"><a href="#正则化方法" class="headerlink" title="正则化方法"></a>正则化方法</h2><ol>
 <li><p><a href="https://baike.baidu.com/item/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95/19145625?fr=aladdin#1">参数范数惩罚</a></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126222217.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126222217.png" alt></p>
 <p>深度学习中只对网络权重θ添加约束，对偏置项不加约束。主要原因是偏置项一般需要较少的数据就能精确的拟合，不对其正则化也不会引起太大的方差。另外，正则化偏置参数反而可能会引起显著的欠拟合。</p>
 </li>
 <li><p><a href="https://baike.baidu.com/item/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95/19145625?fr=aladdin#2">L2参数正则化</a></p>
@@ -2911,7 +2911,7 @@ L1范数 \ ||w||_1 = \sum_{i=1}^n|w_i|\\L2范数||w||_2 = \sqrt{\sum_{i=1}^nw_i^
 </ul>
 <p>L1正则化更倾向于稀疏解，常用来做特征选择，一定程度上可以防止过拟合。</p>
 <p>L2正则化主要是用来防止模型过拟合，直观上理解是对较大的参数进行惩罚。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201123194902.png" style="zoom: 67%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201123194902.png" style="zoom: 67%;"></p>
 <p>L1正则化输出稀疏，鲁棒性更强，但可能解不唯一，L2正则化有唯一解，计算相对容易</p>
 </li>
 <li><p><a href="https://baike.baidu.com/item/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95/19145625?fr=aladdin#5">数据集增强</a></p>
@@ -2979,7 +2979,7 @@ h = f(g·\frac{x-\mu}{\sigma}+b)</script><p>首先对原始数据进行去均值
 <p>再用可学习的参数g，b将输入的数据变成均值为b，方差为g2的分布</p>
 <p>加入g,b参数的原因是<strong>保证模型的表达能力不因规范化而下降</strong>。可以让上层的网络利用下层学习的结果进行学习。</p>
 <p>在旧参数中，X的均值取决于下层神经网络的复杂关联；但在新参数中， Y 的均值仅由 b来确定，去除了与下层计算的密切耦合。新参数很容易通过梯度下降来学习，简化了神经网络的训练。</p>
-<h3 id="BN-的反向传播推导"><a href="#BN-的反向传播推导" class="headerlink" title="BN 的反向传播推导"></a>BN 的反向传播推导</h3><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201124155822.png" style="zoom:80%;"></p>
+<h3 id="BN-的反向传播推导"><a href="#BN-的反向传播推导" class="headerlink" title="BN 的反向传播推导"></a>BN 的反向传播推导</h3><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201124155822.png" style="zoom:80%;"></p>
 <p>我们可以看到，经过BN操作以后，权重的缩放值会被“抹去”，因此保证了输入数据分布稳定在一定范围内。另外，权重的缩放并不会影响到对$u$的梯度计算；并且当权重越大时，即$a$越大， $\frac{1}{a}$越小，意味着权重 $W$的梯度反而越小，这样BN就保证了梯度不会依赖于参数的scale，使得参数的更新处在更加稳定的状态。</p>
 <p>因此，在使用Batch Normalization之后，抑制了参数微小变化随着网络层数加深被放大的问题，使得网络对参数大小的适应能力更强，此时我们可以设置较大的学习率而不用过于担心模型divergence的风险。</p>
 <h3 id="BN-在训练和测试的区别？"><a href="#BN-在训练和测试的区别？" class="headerlink" title="BN 在训练和测试的区别？"></a>BN 在训练和测试的区别？</h3><p>训练时$\mu$和$\sigma$是从mini_batch的样本求得的均值和方差</p>
@@ -2993,7 +2993,7 @@ h = f(g·\frac{x-\mu}{\sigma}+b)</script><p>首先对原始数据进行去均值
 <p>LN主要用在RNN中</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ln</span>(<span class="params">x, b, s</span>):</span></span><br><span class="line">    _eps = <span class="number">1e-5</span></span><br><span class="line">    output = (x - x.mean(<span class="number">1</span>)[:,<span class="literal">None</span>]) / tensor.sqrt((x.var(<span class="number">1</span>)[:,<span class="literal">None</span>] + _eps))</span><br><span class="line">    output = s[<span class="literal">None</span>, :] * output + b[<span class="literal">None</span>,:]</span><br><span class="line">    <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
 <h2 id="Instance-Normalization（IN）"><a href="#Instance-Normalization（IN）" class="headerlink" title="Instance Normalization（IN）"></a>Instance Normalization（IN）</h2><p>IN对输入的每个图像实例进行归一化</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201124203005.png" style="zoom:80%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201124203005.png" style="zoom:80%;"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Instancenorm</span>(<span class="params">x, gamma, beta</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># x_shape:[B, C, H, W]</span></span><br><span class="line">    results = <span class="number">0.</span></span><br><span class="line">    eps = <span class="number">1e-5</span></span><br><span class="line"></span><br><span class="line">    x_mean = np.mean(x, axis=(<span class="number">2</span>, <span class="number">3</span>), keepdims=<span class="literal">True</span>)</span><br><span class="line">    x_var = np.var(x, axis=(<span class="number">2</span>, <span class="number">3</span>), keepdims=True0)</span><br><span class="line">    x_normalized = (x - x_mean) / np.sqrt(x_var + eps)</span><br><span class="line">    results = gamma * x_normalized + beta</span><br><span class="line">    <span class="keyword">return</span> results</span><br></pre></td></tr></table></figure>
 <h2 id="Group-Normalization（GN）"><a href="#Group-Normalization（GN）" class="headerlink" title="Group Normalization（GN）"></a>Group Normalization（GN）</h2><p>主要是针对Batch Normalization对小batchsize效果差，GN将channel方向分group，然后每个group内做归一化，算(C//G)<em>H</em>W的均值，这样与batchsize无关，不受其约束。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GroupNorm</span>(<span class="params">x, gamma, beta, G=<span class="number">16</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># x_shape:[B, C, H, W]</span></span><br><span class="line">    results = <span class="number">0.</span></span><br><span class="line">    eps = <span class="number">1e-5</span></span><br><span class="line">    x = np.reshape(x, (x.shape[<span class="number">0</span>], G, x.shape[<span class="number">1</span>]/<span class="number">16</span>, x.shape[<span class="number">2</span>], x.shape[<span class="number">3</span>]))</span><br><span class="line"></span><br><span class="line">    x_mean = np.mean(x, axis=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), keepdims=<span class="literal">True</span>)</span><br><span class="line">    x_var = np.var(x, axis=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), keepdims=True0)</span><br><span class="line">    x_normalized = (x - x_mean) / np.sqrt(x_var + eps)</span><br><span class="line">    results = gamma * x_normalized + beta</span><br><span class="line">    <span class="keyword">return</span> results</span><br></pre></td></tr></table></figure>
@@ -3085,7 +3085,7 @@ W:=W-\frac{av_{dW}^{corrected}}{\sqrt{S_{dW}^{corrected}}+\varepsilon }</script>
 <li><a href="https://yogayu.github.io/DeepLearningCourse/03/ActivateFunction.html">What is activate function?</a></li>
 <li><a href="https://mp.weixin.qq.com/s/7DgiXCNBS5vb07WIKTFYRQ">资源 | 从ReLU到Sinc，26种神经网络激活函数可视化</a></li>
 </ul>
-<h3 id="Sigmoid-amp-Tanh"><a href="#Sigmoid-amp-Tanh" class="headerlink" title="Sigmoid&amp;Tanh"></a>Sigmoid&amp;Tanh</h3><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201124212701.png" alt></p>
+<h3 id="Sigmoid-amp-Tanh"><a href="#Sigmoid-amp-Tanh" class="headerlink" title="Sigmoid&amp;Tanh"></a>Sigmoid&amp;Tanh</h3><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201124212701.png" alt></p>
 <script type="math/tex; mode=display">
 sigmoid(x) = \frac{1}{1+e^{-x}}\\
 tanh(x) = 2sigmoid(2x)-1</script><p>sigmod函数饱和使梯度消失，并且是非零中心的</p>
@@ -3093,7 +3093,7 @@ tanh(x) = 2sigmoid(2x)-1</script><p>sigmod函数饱和使梯度消失，并且�
 <h4 id="Sigmoid用作激活函数时，分类为什么要用交叉熵损失，而不用均方损失？"><a href="#Sigmoid用作激活函数时，分类为什么要用交叉熵损失，而不用均方损失？" class="headerlink" title="Sigmoid用作激活函数时，分类为什么要用交叉熵损失，而不用均方损失？"></a>Sigmoid用作激活函数时，分类为什么要用交叉熵损失，而不用均方损失？</h4><p><a href="https://blog.csdn.net/qq_29679623/article/details/99441913">https://blog.csdn.net/qq_29679623/article/details/99441913</a></p>
 <p>当使用sigmoid作为激活函数的时候，常用<strong>交叉熵损失函数</strong>而不用<strong>均方误差损失函数</strong>，因为它可以<strong>完美解决平方损失函数权重更新过慢</strong>的问题，具有“误差大的时候，权重更新快；误差小的时候，权重更新慢”的良好性质。</p>
 <h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><script type="math/tex; mode=display">
-ReLU(x) = max(0,x)</script><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201124213722.png" alt></p>
+ReLU(x) = max(0,x)</script><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201124213722.png" alt></p>
 <p>ReLU 相关变体</p>
 <h4 id="ReLU-激活函数为什么比sigmoid和tanh好？"><a href="#ReLU-激活函数为什么比sigmoid和tanh好？" class="headerlink" title="ReLU 激活函数为什么比sigmoid和tanh好？"></a>ReLU 激活函数为什么比sigmoid和tanh好？</h4><ol>
 <li>可以有效解决饱和问题带来的梯度消失问题</li>
@@ -3126,11 +3126,11 @@ loss = \frac{1}{N}\sum_{i=1}^N(y_i-y_{predict_i})^2</script><p>均方误差主�
 \\多分类
 \\loss = -\frac{1}{n}\sum_iy_ilna_i</script><p>log损失函数是凸函数能够求得全局最优</p>
 <p>如果用 MSE 计算 loss， 输出的曲线是波动的，有很多局部的极值点。 即，非凸优化问题 (non-convex)</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126163847.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126163847.png" alt></p>
 <script type="math/tex; mode=display">
-\frac{\partial L_i}{\partial w_i} = \frac{1}{N}\frac{\partial L_i}{\partial w_i}=\frac{1}{N}\frac{\partial L_i}{\partial p_i}\frac{\partial p_i}{\partial s_i}\frac{\partial s_i}{\partial w_i}</script><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126170739.png" style="zoom:80%;"></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126170817.png" style="zoom: 80%;"></p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126171024.png" style="zoom: 80%;"></p>
+\frac{\partial L_i}{\partial w_i} = \frac{1}{N}\frac{\partial L_i}{\partial w_i}=\frac{1}{N}\frac{\partial L_i}{\partial p_i}\frac{\partial p_i}{\partial s_i}\frac{\partial s_i}{\partial w_i}</script><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126170739.png" style="zoom:80%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126170817.png" style="zoom: 80%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126171024.png" style="zoom: 80%;"></p>
 <p>并且在反向传播时CE可以很容易的进行计算</p>
 <p><strong>优点</strong></p>
 <p>在用梯度下降法做参数更新的时候，模型学习的速度取决于两个值：一、<strong>学习率</strong>；二、<strong>偏导值</strong>。其中，学习率是我们需要设置的超参数，所以我们重点关注偏导值。从上面的式子中，我们发现，偏导值的大小取决于$x_i$ 和 $[\sigma(s)-y]$ ，我们重点关注后者，后者的大小值反映了我们模型的错误程度，该值越大，说明模型效果越差，但是该值越大同时也会使得偏导值越大，从而模型学习速度更快。所以，使用逻辑函数得到概率，并结合交叉熵当损失函数时，在模型效果差的时候学习速度比较快，在模型效果好的时候学习速度变慢。</p>
@@ -3147,16 +3147,16 @@ L(y) = max(0, 1-y\hat{y})</script><h3 id="Focal-Loss"><a href="#Focal-Loss" clas
 CE = \begin{cases}-\alpha logp, \ y=1\\ -(1-\alpha)log(1-p), \ y=0\end{cases}</script><p>即减小负样本的权重</p>
 <p>但是这样并不能解决难易样本不平衡的问题</p>
 <p>样本可以分为四类</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126195937.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126195937.png" alt></p>
 <p><strong>尽管</strong> $\alpha$<strong>平衡了正负样本，但对难易样本的不平衡没有任何帮助。</strong>而实际上，目标检测中大量的候选目标都是像下图一样的易分样本。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126200114.png" style="zoom:67%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126200114.png" style="zoom:67%;"></p>
 <p>这些样本的损失很低，但是由于数量极不平衡，易分样本的数量相对来讲太多，最终主导了总的损失。而本文的作者认为，<strong>易分样本（即，置信度高的样本）对模型的提升效果非常小，模型应该主要关注与那些难分样本</strong>（<strong>这个假设是有问题的，是GHM的主要改进对象</strong>）</p>
 <p>一个简单的思想：<strong>把高置信度(p)样本的损失降低</strong></p>
 <script type="math/tex; mode=display">
 CE = \begin{cases}-\alpha (1-p)^\gamma logp, \ y=1\\ -(1-\alpha)p^\gamma log(1-p), \ y=0\end{cases}</script><p>实验表明$\gamma$取2, $\alpha$取0.25的时候效果最佳。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126200453.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126200453.png" alt></p>
 <p>在pytorch中</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126200856.png" style="zoom:67%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126200856.png" style="zoom:67%;"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">py_sigmoid_focal_loss</span>(<span class="params">pred,</span></span></span><br><span class="line"><span class="function"><span class="params">                          target,</span></span></span><br><span class="line"><span class="function"><span class="params">                          weight=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                          gamma=<span class="number">2.0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                          alpha=<span class="number">0.25</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                          reduction=<span class="string">&#x27;mean&#x27;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                          avg_factor=None</span>):</span></span><br><span class="line">    pred_sigmoid = pred.sigmoid()</span><br><span class="line">    target = target.type_as(pred)</span><br><span class="line">    pt = (<span class="number">1</span> - pred_sigmoid) * target + pred_sigmoid * (<span class="number">1</span> - target)</span><br><span class="line">    focal_weight = (alpha * target + (<span class="number">1</span> - alpha) *</span><br><span class="line">                    (<span class="number">1</span> - target)) * pt.pow(gamma)</span><br><span class="line">    loss = F.binary_cross_entropy_with_logits(</span><br><span class="line">        pred, target, reduction=<span class="string">&#x27;none&#x27;</span>) * focal_weight</span><br><span class="line">    loss = weight_reduce_loss(loss, weight, reduction, avg_factor)</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
 <h2 id="1-1-卷积有什么作用？"><a href="#1-1-卷积有什么作用？" class="headerlink" title="1*1 卷积有什么作用？"></a>1*1 卷积有什么作用？</h2><ol>
 <li>调整特征图的深度进行降维或者升维</li>
@@ -3191,10 +3191,10 @@ CE = \begin{cases}-\alpha (1-p)^\gamma logp, \ y=1\\ -(1-\alpha)p^\gamma log(1-p
 <p>这里解释一下为什么使用2个3x3卷积核可以来代替5*5卷积核：</p>
 <p>5x5卷积看做一个小的全连接网络在5x5区域滑动，我们可以先用一个3x3的卷积滤波器卷积，然后再用一个全连接层连接这个3x3卷积输出，这个全连接层我们也可以看做一个3x3卷积层。这样我们就可以用两个3x3卷积级联（叠加）起来代替一个 5x5卷积。</p>
 <p>具体如下图所示：</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126203259.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126203259.png" alt></p>
 <p>至于为什么使用3个3x3卷积核可以来代替7*7卷积核，推导过程与上述类似，大家可以自行绘图理解。</p>
 <p>下面是VGG网络的结构（VGG16和VGG19都在）：</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126203428.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126203428.png" alt></p>
 <ul>
 <li>VGG16包含了16个隐藏层（13个卷积层和3个全连接层），如上图中的D列所示</li>
 <li>VGG19包含了19个隐藏层（16个卷积层和3个全连接层），如上图中的E列所示</li>
@@ -3243,7 +3243,7 @@ CE = \begin{cases}-\alpha (1-p)^\gamma logp, \ y=1\\ -(1-\alpha)p^\gamma log(1-p
 <p>可以解决网络退化问题，缓解梯度消失的问题。</p>
 <p><strong>2.ResNet结构</strong></p>
 <p>它使用了一种连接方式叫做“shortcut connection”，顾名思义，shortcut就是“抄近道”的意思，看下图我们就能大致理解：</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126204308.png" style="zoom:67%;"> </p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126204308.png" style="zoom:67%;"> </p>
 <p><strong>ResNet的F(x)究竟长什么样子？</strong></p>
 <p><strong>参考资料</strong></p>
 <ul>
@@ -3311,7 +3311,7 @@ CE = \begin{cases}-\alpha (1-p)^\gamma logp, \ y=1\\ -(1-\alpha)p^\gamma log(1-p
 <h3 id="ResNet网络越来越深，准确率会不会提升？"><a href="#ResNet网络越来越深，准确率会不会提升？" class="headerlink" title="ResNet网络越来越深，准确率会不会提升？"></a>ResNet网络越来越深，准确率会不会提升？</h3><ul>
 <li>[ ] TODO</li>
 </ul>
-<h2 id="ResNet-v2"><a href="#ResNet-v2" class="headerlink" title="ResNet v2"></a>ResNet v2</h2><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126220547.png" style="zoom:67%;"></p>
+<h2 id="ResNet-v2"><a href="#ResNet-v2" class="headerlink" title="ResNet v2"></a>ResNet v2</h2><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126220547.png" style="zoom:67%;"></p>
 <p><strong>参考资料</strong></p>
 <ul>
 <li><a href="https://arxiv.org/abs/1603.05027">《Identity Mappings in Deep Residual Networks》</a></li>
@@ -3430,10 +3430,10 @@ CE = \begin{cases}-\alpha (1-p)^\gamma logp, \ y=1\\ -(1-\alpha)p^\gamma log(1-p
 <li>[ ] TODO</li>
 </ul>
 <p>在说明分组卷积之前我们用一张图来体会一下一般的卷积操作。 </p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126220834.png" style="zoom:80%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126220834.png" style="zoom:80%;"></p>
 <p>从上图可以看出，一般的卷积会对输入数据的整体一起做卷积操作，即输入数据：H1×W1×C1；而卷积核大小为h1×w1，通道为C1，一共有C2个，然后卷积得到的输出数据就是H2×W2×C2。这里我们假设输出和输出的分辨率是不变的。主要看这个过程是一气呵成的，这对于存储器的容量提出了更高的要求。 </p>
 <p>但是分组卷积明显就没有那么多的参数。先用图片直观地感受一下分组卷积的过程。对于上面所说的同样的一个问题，分组卷积就如下图所示。 </p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201126220857.png" style="zoom:67%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201126220857.png" style="zoom:67%;"></p>
 <p>可以看到，图中将输入数据分成了2组（组数为g），需要注意的是，这种分组只是在深度上进行划分，即某几个通道编为一组，这个具体的数量由（C1/g）决定。因为输出数据的改变，相应的，卷积核也需要做出同样的改变。即每组中卷积核的深度也就变成了（C1/g），而卷积核的大小是不需要改变的，此时每组的卷积核的个数就变成了（C2/g）个，而不是原来的C2了。然后用每组的卷积核同它们对应组内的输入数据卷积，得到了输出数据以后，再用concatenate的方式组合起来，最终的输出数据的通道仍旧是C2。也就是说，分组数g决定以后，那么我们将并行的运算g个相同的卷积过程，每个过程里（每组），输入数据为H1×W1×C1/g，卷积核大小为h1×w1×C1/g，一共有C2/g个，输出数据为H2×W2×C2/g。</p>
 <p>举个例子：</p>
 <p>Group conv本身就极大地减少了参数。比如当输入通道为256，输出通道也为256，kernel size为3×3，不做Group conv参数为256×3×3×256。实施分组卷积时，若group为8，每个group的input channel和output channel均为32，参数为8×32×3×3×32，是原来的八分之一。而Group conv最后每一组输出的feature maps应该是以concatenate的方式组合。<br>Alex认为group conv的方式能够增加 filter之间的对角相关性，而且能够减少训练参数，不容易过拟合，这类似于正则的效果。</p>
@@ -3899,9 +3899,9 @@ MIoU=\frac{1}{k+1}\sum^{k}_{i=0}{\frac{p_{ii}}{\sum_{j=0}^{k}{p_{ij}+\sum_{j=0}^
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># IOU计算</span></span><br><span class="line">    <span class="comment"># 假设box1维度为[N,4]   box2维度为[M,4]</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">self, box1, box2</span>):</span></span><br><span class="line">        N = box1.size(<span class="number">0</span>)</span><br><span class="line">        M = box2.size(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        lt = torch.max(  <span class="comment"># 左上角的点</span></span><br><span class="line">            box1[:, :<span class="number">2</span>].unsqueeze(<span class="number">1</span>).expand(N, M, <span class="number">2</span>),   <span class="comment"># [N,2]-&gt;[N,1,2]-&gt;[N,M,2]</span></span><br><span class="line">            box2[:, :<span class="number">2</span>].unsqueeze(<span class="number">0</span>).expand(N, M, <span class="number">2</span>),   <span class="comment"># [M,2]-&gt;[1,M,2]-&gt;[N,M,2]</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        rb = torch.min(</span><br><span class="line">            box1[:, <span class="number">2</span>:].unsqueeze(<span class="number">1</span>).expand(N, M, <span class="number">2</span>),</span><br><span class="line">            box2[:, <span class="number">2</span>:].unsqueeze(<span class="number">0</span>).expand(N, M, <span class="number">2</span>),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        wh = rb - lt  <span class="comment"># [N,M,2]</span></span><br><span class="line">        wh[wh &lt; <span class="number">0</span>] = <span class="number">0</span>   <span class="comment"># 两个box没有重叠区域</span></span><br><span class="line">        inter = wh[:,:,<span class="number">0</span>] * wh[:,:,<span class="number">1</span>]   <span class="comment"># [N,M]</span></span><br><span class="line"></span><br><span class="line">        area1 = (box1[:,<span class="number">2</span>]-box1[:,<span class="number">0</span>]) * (box1[:,<span class="number">3</span>]-box1[:,<span class="number">1</span>])  <span class="comment"># (N,)</span></span><br><span class="line">        area2 = (box2[:,<span class="number">2</span>]-box2[:,<span class="number">0</span>]) * (box2[:,<span class="number">3</span>]-box2[:,<span class="number">1</span>])  <span class="comment"># (M,)</span></span><br><span class="line">        area1 = area1.unsqueeze(<span class="number">1</span>).expand(N,M)  <span class="comment"># (N,M)</span></span><br><span class="line">        area2 = area2.unsqueeze(<span class="number">0</span>).expand(N,M)  <span class="comment"># (N,M)</span></span><br><span class="line"></span><br><span class="line">        iou = inter / (area1+area2-inter)</span><br><span class="line">        <span class="keyword">return</span> iou</span><br></pre></td></tr></table></figure>
 <p>NMS</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># NMS算法</span></span><br><span class="line">    <span class="comment"># bboxes维度为[N,4]，scores维度为[N,], 均为tensor</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nms</span>(<span class="params">self, bboxes, scores, threshold=<span class="number">0.5</span></span>):</span></span><br><span class="line">        x1 = bboxes[:,<span class="number">0</span>]</span><br><span class="line">        y1 = bboxes[:,<span class="number">1</span>]</span><br><span class="line">        x2 = bboxes[:,<span class="number">2</span>]</span><br><span class="line">        y2 = bboxes[:,<span class="number">3</span>]</span><br><span class="line">        areas = (x2-x1)*(y2-y1)   <span class="comment"># [N,] 每个bbox的面积</span></span><br><span class="line">        _, order = scores.sort(<span class="number">0</span>, descending=<span class="literal">True</span>)    <span class="comment"># 降序排列 这里返回的是indices</span></span><br><span class="line"></span><br><span class="line">        keep = []</span><br><span class="line">        <span class="keyword">while</span> order.numel() &gt; <span class="number">0</span>:       <span class="comment"># torch.numel()返回张量元素个数</span></span><br><span class="line">            <span class="keyword">if</span> order.numel() == <span class="number">1</span>:     <span class="comment"># 保留框只剩一个</span></span><br><span class="line">                i = order.item()</span><br><span class="line">                keep.append(i)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                i = order[<span class="number">0</span>].item()    <span class="comment"># 保留scores最大的那个框box[i]</span></span><br><span class="line">                keep.append(i)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 计算box[i]与其余各框的IOU(思路很好)</span></span><br><span class="line">            xx1 = x1[order[<span class="number">1</span>:]].clamp(min=x1[i])   <span class="comment"># [N-1,]</span></span><br><span class="line">            yy1 = y1[order[<span class="number">1</span>:]].clamp(min=y1[i])</span><br><span class="line">            xx2 = x2[order[<span class="number">1</span>:]].clamp(max=x2[i])</span><br><span class="line">            yy2 = y2[order[<span class="number">1</span>:]].clamp(max=y2[i])</span><br><span class="line">            inter = (xx2-xx1).clamp(min=<span class="number">0</span>) * (yy2-yy1).clamp(min=<span class="number">0</span>)   <span class="comment"># [N-1,]</span></span><br><span class="line"></span><br><span class="line">            iou = inter / (areas[i]+areas[order[<span class="number">1</span>:]]-inter)  <span class="comment"># [N-1,]</span></span><br><span class="line">            idx = (iou &lt;= threshold).nonzero().squeeze() <span class="comment"># 注意此时idx为[N-1,] 而order为[N,]</span></span><br><span class="line">            <span class="keyword">if</span> idx.numel() == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            order = order[idx+<span class="number">1</span>]  <span class="comment"># 修补索引之间的差值</span></span><br><span class="line">        <span class="keyword">return</span> torch.LongTensor(keep)   <span class="comment"># Pytorch的索引值为LongTensor</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201129150151.png" style="zoom:50%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201129150151.png" style="zoom:50%;"></p>
 <h2 id="目标检测中的Anchor"><a href="#目标检测中的Anchor" class="headerlink" title="目标检测中的Anchor"></a>目标检测中的Anchor</h2><p>anchor技术将问题转换为<strong>“这个固定参考框中有没有认识的目标，目标框偏离参考框多远”</strong>，不再需要多尺度遍历滑窗</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201201171632.png" style="zoom: 80%;"></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201201171632.png" style="zoom: 80%;"></p>
 <p><strong>参考资料</strong></p>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/55824651">目标检测中的Anchor</a></li>
@@ -4222,13 +4222,13 @@ MIoU=\frac{1}{k+1}\sum^{k}_{i=0}{\frac{p_{ii}}{\sum_{j=0}^{k}{p_{ij}+\sum_{j=0}^
 <li><strong>Fine-tune on pre-trained models</strong></li>
 </ul>
 <p>一个很好的适应新的数据集的方法是利用新的数据集在预训练的模型上进行fine-tune，需要依据新数据集的大小和与预训练数据集的相似程度来进行微调。</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201221003245.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201221003245.png" alt></p>
 <h3 id="Activation-Functions"><a href="#Activation-Functions" class="headerlink" title="Activation Functions"></a>Activation Functions</h3><h3 id="Regularizations"><a href="#Regularizations" class="headerlink" title="Regularizations"></a>Regularizations</h3><h3 id="Insight-from-Figures"><a href="#Insight-from-Figures" class="headerlink" title="Insight from Figures"></a>Insight from Figures</h3><h3 id="Ensemble"><a href="#Ensemble" class="headerlink" title="Ensemble"></a>Ensemble</h3><p>可以将多个模型的训练结果进行融合，主要应用在比赛中</p>
-<p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201221004521.png" alt></p>
+<p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201221004521.png" alt></p>
 <h3 id="Mixup"><a href="#Mixup" class="headerlink" title="Mixup"></a>Mixup</h3><p>在mixup中，每次随机采样两个样本 $(x_i,y_i)$和 $(x_2,y_2)$，然后通过加权线性插值生成新的样本进行训练</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i,(images,target) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="comment"># 1.input output</span></span><br><span class="line">    images = images.cuda(non_blocking=<span class="literal">True</span>)</span><br><span class="line">    target = torch.from_numpy(np.array(target)).float().cuda(non_blocking=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2.mixup</span></span><br><span class="line">    alpha=config.alpha</span><br><span class="line">    lam = np.random.beta(alpha,alpha)</span><br><span class="line">    index = torch.randperm(images.size(<span class="number">0</span>)).cuda()</span><br><span class="line">    inputs = lam*images + (<span class="number">1</span>-lam)*images[index,:]</span><br><span class="line">    targets_a, targets_b = target, target[index]</span><br><span class="line">    outputs = model(inputs)</span><br><span class="line">    loss = lam * criterion(outputs, targets_a) + (<span class="number">1</span> - lam) * criterion(outputs, targets_b)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3.backward</span></span><br><span class="line">    optimizer.zero_grad()   <span class="comment"># reset gradient</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()        <span class="comment"># update parameters of net</span></span><br></pre></td></tr></table></figure>
 <p>关于<a href="https://zhuanlan.zhihu.com/p/149964631">beta分布</a></p>
-<h3 id="label-smoothing"><a href="#label-smoothing" class="headerlink" title="label smoothing"></a>label smoothing</h3><p><img src="https://gitee.com/browallia/tuchuang/raw/master/img/20201221152951.png" alt></p>
+<h3 id="label-smoothing"><a href="#label-smoothing" class="headerlink" title="label smoothing"></a>label smoothing</h3><p><img src="https://sha-1258896358.cos.ap-nanjing.myqcloud.com/img/20201221152951.png" alt></p>
 <ol>
 <li>有正则化的效果</li>
 <li>Label Smoothing起到的作用实际上是抑制了feature norm，此时softmax prob不能到达$(1-\alpha)$，loss曲面上不再存在平缓区域，处处都有较大的梯度指向各个类中心，所以特征会更加聚拢。</li>
